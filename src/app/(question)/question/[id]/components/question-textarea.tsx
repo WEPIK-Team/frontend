@@ -1,12 +1,13 @@
 "use client";
 
-import { Textarea } from "@/components/ui/textarea";
 import * as React from "react";
+
+import { Textarea } from "@/components/ui/textarea";
 
 interface IQuestionTextAreaProps {}
 
 const QuestionTextArea: React.FunctionComponent<IQuestionTextAreaProps> = (
-  props,
+  props
 ) => {
   return (
     <div>

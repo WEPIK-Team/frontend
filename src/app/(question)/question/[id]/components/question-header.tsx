@@ -1,11 +1,12 @@
-import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import * as React from "react";
+
+import { Button } from "@/components/ui/button";
 
 interface IQuestionHeaderProps {}
 
 const QuestionHeader: React.FunctionComponent<IQuestionHeaderProps> = (
-  props,
+  props
 ) => {
   return (
     <header className="flex items-center justify-between">
