@@ -1,4 +1,4 @@
-import ProblemList from "./components/question-list";
+import Question from "./components/question";
 import QuestionHeader from "./components/question-header";
 import QuestionProgressbar from "./components/question-progressbar";
 
@@ -10,8 +10,8 @@ export default function QuestionPage() {
       <QuestionHeader />
       {/* Progressbar */}
       <QuestionProgressbar />
-      {/* Questions */}
-      <ProblemList />
+      {/* Question */}
+      <Question />
     </div>
   );
 }
