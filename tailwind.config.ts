@@ -10,9 +10,6 @@ const config = {
   ],
   prefix: "",
   theme: {
-    borderRadius: {
-      "input-default": "18px",
-    },
     container: {
       center: true,
       padding: "2rem",
@@ -60,6 +57,7 @@ const config = {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+        "input-default": "18px",
       },
       keyframes: {
         "accordion-down": {

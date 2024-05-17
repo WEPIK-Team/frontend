@@ -19,7 +19,7 @@ const QuestionProgressbar: React.FunctionComponent<
 
   return (
     <div className="">
-      <Progress value={progress} className="w-full" />
+      <Progress value={progress} className="w-full " />
     </div>
   );
 };

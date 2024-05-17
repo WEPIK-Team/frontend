@@ -3,11 +3,11 @@
 import * as React from "react";
 
 interface IQuestionTitleProps {
-  title: string;
+  children: string;
 }
 
 const QuestionTitle: React.FunctionComponent<IQuestionTitleProps> = ({
-  title,
+  children,
 }) => {
   // zustand로 현재 문제 현황 확인
   return (
@@ -19,7 +19,7 @@ const QuestionTitle: React.FunctionComponent<IQuestionTitleProps> = ({
           <span>{`${6}`}</span>
         </span>
       </h1>
-      <h2 className="text-[20px]  font-semibold ">{title}</h2>
+      <h2 className="text-[20px]  font-semibold ">{children}</h2>
     </div>
   );
 };

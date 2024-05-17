@@ -1,7 +1,8 @@
 import Image from "next/image";
-import * as React from "react";
 
 import { Button } from "@/components/ui/button";
+
+import LeftBtnSVG from "../../.././../../../public/svgs/chevron-left.svg";
 
 interface IQuestionHeaderProps {}
 
@@ -12,7 +13,7 @@ const QuestionHeader: React.FunctionComponent<IQuestionHeaderProps> = (
     <header className="flex items-center justify-between">
       {/* back button */}
       <Button size="icon" variant="link">
-        <Image src="/svgs/chevron-left.svg" width={11} height={20} alt="back" />
+        <Image src={LeftBtnSVG} width={11} height={20} alt="back" />
       </Button>
 
       {/* logo */}
