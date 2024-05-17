@@ -11,7 +11,7 @@ export default function QuestionPage() {
       {/* Progressbar */}
       <QuestionProgressbar />
       {/* Question */}
-      <Question title="" />
+      <Question title="" type="" />
     </div>
   );
 }
