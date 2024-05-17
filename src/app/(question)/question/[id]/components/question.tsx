@@ -8,6 +8,7 @@ import QuestionInput from "./question-input";
 import QuestionTextArea from "./question-textarea";
 import QuestionTitle from "./question-title";
 import { Button } from "@/components/ui/button";
+import { QuestionDatePicker } from "./question-datepicker";
 
 interface IQuestionProps {
   title: string;
@@ -26,10 +27,10 @@ const Question: React.FunctionComponent<IQuestionProps> = () => {
       <QuestionTitle>당신이 가장 좋아하는 아이스크림은?</QuestionTitle>
       <QuestionTextArea />
       <Slider defaultValue={[33]} max={100} step={1} />
-      <div className="flex w-full gap-x-[10px] bg-red-200">
+      <div className="flex w-full gap-x-[10px] ">
         {/* 제일 처음이면 취소 버튼 */}
         <Button
-          className="bg-white text-primary"
+          className="bg-slate-300 text-primary"
           size="question"
           variant="question"
         >
@@ -43,6 +44,9 @@ const Question: React.FunctionComponent<IQuestionProps> = () => {
         >
           {"다음"}
         </Button>
+      </div>
+      <div className="my-10">
+        <QuestionDatePicker />
       </div>
     </div>
   );

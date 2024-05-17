@@ -27,6 +27,7 @@ const buttonVariants = cva(
         lg: "h-10 rounded-md px-8",
         icon: "h-9 w-9",
         question: "rounded-full w-full h-[60px] text-[20px] ",
+        "calendar-footer": "rounded-full h-[43px] px-3 text-[17px]",
       },
     },
     defaultVariants: {
