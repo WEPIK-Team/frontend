@@ -1,11 +1,48 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import localFont from "next/font/local";
 
 import "@/styles/globals.css";
 
 import ReactQueryProvider from "@/provider/query-provider";
 
-const inter = Inter({ subsets: ["latin"] });
+const pretendard = localFont({
+  src: "./fonts/PretendardVariable.woff2",
+  display: "swap",
+  weight: "45 920",
+  variable: "--font-pretendard",
+});
+
+const allRoundGothic = localFont({
+  src: [
+    {
+      path: "./fonts/allroundgothic-bold.otf",
+      weight: "700",
+      style: "bold",
+    },
+    {
+      path: "./fonts/allroundgothic-semi.otf",
+      weight: "600",
+      style: "normal",
+    },
+    {
+      path: "./fonts/allroundgothic-medium.otf",
+      weight: "500",
+      style: "medium",
+    },
+    {
+      path: "./fonts/allroundgothic-text.otf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "./fonts/allroundgothic-thick.otf",
+      weight: "100",
+      style: "thin",
+    },
+  ],
+  display: "swap",
+  variable: "--font-allroundgothic",
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -18,8 +55,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko">
-      <body className={inter.className}>
+    <html
+      lang="ko"
+      className={`${pretendard.variable} ${allRoundGothic.variable}`}
+    >
+      <body className={pretendard.className}>
         <ReactQueryProvider>{children}</ReactQueryProvider>
       </body>
     </html>

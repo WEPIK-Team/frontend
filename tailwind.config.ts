@@ -18,6 +18,10 @@ const config = {
       },
     },
     extend: {
+      fontFamily: {
+        pretendard: ["var(--font-pretendard)"],
+        allroundgothic: ["var(--font-allroundgothic)"],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
