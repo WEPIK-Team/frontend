@@ -1,15 +1,17 @@
-import * as React from "react";
-
 import { Input } from "@/components/ui/input";
+import QuestionTextCounter from "./question-text-counter";
 
 interface IQuestionInputProps {}
 
-const QuestionInput: React.FunctionComponent<IQuestionInputProps> = (props) => {
+const QuestionInput: React.FunctionComponent<IQuestionInputProps> = () => {
   return (
-    <Input
-      className="rounded-input-default border-[#676767] p-[20px]"
-      placeholder="답변을 입력하세요"
-    />
+    <div>
+      <Input
+        className="rounded-input-default border-[#676767] p-[20px]"
+        placeholder="답변을 입력하세요"
+      />
+      <QuestionTextCounter max={120} current={1} />
+    </div>
   );
 };
 

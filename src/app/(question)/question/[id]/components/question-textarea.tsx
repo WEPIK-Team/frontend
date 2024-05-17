@@ -1,14 +1,13 @@
 "use client";
 
-import * as React from "react";
-
 import { Textarea } from "@/components/ui/textarea";
+import QuestionTextCounter from "./question-text-counter";
 
 interface IQuestionTextAreaProps {}
 
-const QuestionTextArea: React.FunctionComponent<IQuestionTextAreaProps> = (
-  props
-) => {
+const QuestionTextArea: React.FunctionComponent<
+  IQuestionTextAreaProps
+> = () => {
   return (
     <div>
       <Textarea
@@ -16,7 +15,7 @@ const QuestionTextArea: React.FunctionComponent<IQuestionTextAreaProps> = (
         minLength={500}
         placeholder="답변을 입력하세요"
       />
-      <p className="text-right text-[13px] text-[#676767]">100/500</p>
+      <QuestionTextCounter max={120} current={1} />
     </div>
   );
 };

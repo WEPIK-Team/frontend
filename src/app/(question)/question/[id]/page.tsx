@@ -1,3 +1,5 @@
+import { faker } from "@faker-js/faker";
+
 import Question from "./components/question";
 import QuestionHeader from "./components/question-header";
 import QuestionProgressbar from "./components/question-progressbar";
@@ -11,7 +13,7 @@ export default function QuestionPage() {
       {/* Progressbar */}
       <QuestionProgressbar />
       {/* Question */}
-      <Question title="" type="" />
+      <Question title="" type="" imageURL={faker.image.url + ""} />
     </div>
   );
 }
