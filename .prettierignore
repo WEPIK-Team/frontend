@@ -50,5 +50,9 @@ package.json
 tsconfig.json
 README.md
 
+# font
+/src/app/fonts/*
+
+
 #public
 /public
