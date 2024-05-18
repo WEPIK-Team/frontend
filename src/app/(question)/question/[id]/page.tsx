@@ -6,14 +6,11 @@ import QuestionHeader from "./components/question-header";
 import QuestionProgressbar from "./components/question-progressbar";
 
 export default function QuestionPage() {
-  // data fetching....
-
+  // 질문 데이터 가져오기
   return (
     <>
-      {/* Header */}
       <QuestionHeader />
       <div className="relative py-[44px]">
-        {/* Progressbar */}
         <QuestionProgressbar />
         {/* Question */}
         <div className="mt-[38px]">

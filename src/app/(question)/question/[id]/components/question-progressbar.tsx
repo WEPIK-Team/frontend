@@ -17,7 +17,9 @@ const QuestionProgressbar: React.FunctionComponent<
     return () => clearTimeout(timer);
   }, []);
 
-  return <Progress value={200} className="fixed mx-auto w-full max-w-3xl" />;
+  return (
+    <Progress value={progress} className="fixed mx-auto w-full max-w-3xl" />
+  );
 };
 
 export default QuestionProgressbar;
