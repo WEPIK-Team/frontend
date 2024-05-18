@@ -1,10 +1,22 @@
+import { TemplateSelectCard } from "@/components/card/template-select-card";
+
+import { Templates } from "@/constants/dump";
+
 export default function Home() {
   return (
     <>
-      <div className="font-pretendard font-semibold">
-        위픽 서비스 프리텐다드
+      <div className="grid h-full grid-cols-12 gap-[14px] pt-3 font-pretendard font-semibold">
+        {Templates.map((template) => (
+          <div key={template.title} className="col-span-6 md:col-span-4">
+            <TemplateSelectCard
+              image={template.image}
+              title={template.title}
+              tag={template.tag}
+              views={template.views}
+            />
+          </div>
+        ))}
       </div>
-      <div className="font-allroundgothic ">Wepik Service All Round Gothic</div>
     </>
   );
 }
