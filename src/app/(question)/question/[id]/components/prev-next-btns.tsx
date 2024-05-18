@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 
 interface IPrevNextBtnsProps {}
 
-const PrevNextBtns: React.FunctionComponent<IPrevNextBtnsProps> = (props) => {
+const PrevNextBtns: React.FunctionComponent<IPrevNextBtnsProps> = () => {
   return (
     <div className="mt-[50px] flex gap-x-2">
       <Button className="bg-slate-100" variant="question" size="question">

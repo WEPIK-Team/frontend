@@ -29,7 +29,7 @@ function TempStarRate({ id, rating, size, color, emptyColor }: Props) {
       idx++;
     }
     return tempStarRatesArr;
-  }, [rating]);
+  }, [rating, STAR_IDX_ARR.length]);
 
   useEffect(() => {
     setRatesResArr(calcStarRates);

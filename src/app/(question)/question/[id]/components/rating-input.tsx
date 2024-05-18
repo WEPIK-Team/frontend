@@ -19,7 +19,7 @@ function RatingInput({ id, size = 25 }: IRateProps) {
   };
 
   return (
-    <div className="relative mx-auto flex w-fit flex-col items-center justify-center">
+    <div className="relative mx-auto w-fit ">
       <Rate
         size={size}
         color="#7B78EC"
@@ -27,7 +27,7 @@ function RatingInput({ id, size = 25 }: IRateProps) {
         rating={rating ?? 0}
         id={id}
       />
-      <div className={`absolute bottom-0 left-0 top-0 m-0 w-full opacity-0 `}>
+      <div className="absolute  bottom-0 left-0 top-0 w-full opacity-0">
         <input
           type="range"
           onChange={onChange}
@@ -36,10 +36,12 @@ function RatingInput({ id, size = 25 }: IRateProps) {
           min="0"
           max="5"
           step="0.5"
-          className={cn("w-full", `h-[${size}px]`)}
+          className={cn(`h-full w-full`)}
         />
       </div>
-      <p className="text-[17px] font-semibold text-primary">{rating}</p>
+      <p className="text-center text-[17px] font-semibold text-primary">
+        {rating}
+      </p>
     </div>
   );
 }
