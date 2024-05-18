@@ -12,11 +12,11 @@ const QuestionTextArea: React.FunctionComponent<
   return (
     <div>
       <Textarea
-        className="rounded-input-default border border-[#676767] px-[18px] py-[20px] "
-        minLength={500}
+        disabled={true}
+        maxLength={300}
         placeholder="답변을 입력하세요"
       />
-      <QuestionTextCounter max={120} current={1} />
+      <QuestionTextCounter max={300} current={1} />
     </div>
   );
 };

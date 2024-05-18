@@ -1,8 +1,11 @@
 "use client";
 import Image from "next/image";
 
-import QuestionTitle from "./question-title";
 import RatingInput from "./rating-input";
+
+import QuestionTitle from "./question-title";
+import QuestionTextArea from "./question-textarea";
+import QuestionInput from "./question-input";
 
 interface IQuestionProps {
   title: string;
@@ -37,6 +40,9 @@ const Question: React.FunctionComponent<IQuestionProps> = ({
       <div className="mx-auto w-full">
         <RatingInput id={10} size={50} />
       </div>
+
+      <QuestionInput />
+      <QuestionTextArea />
     </div>
   );
 };
