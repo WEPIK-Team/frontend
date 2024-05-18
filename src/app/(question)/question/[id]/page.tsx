@@ -1,10 +1,9 @@
 import { faker } from "@faker-js/faker";
 
+import PrevNextBtns from "./components/prev-next-btns";
 import Question from "./components/question";
 import QuestionHeader from "./components/question-header";
 import QuestionProgressbar from "./components/question-progressbar";
-
-import PrevNextBtns from "./components/prev-next-btns";
 
 export default function QuestionPage() {
   // data fetching....
