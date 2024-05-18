@@ -8,7 +8,7 @@ interface IQuestionProgressbarProps {}
 
 const QuestionProgressbar: React.FunctionComponent<
   IQuestionProgressbarProps
-> = (props) => {
+> = () => {
   // zustand or props로 지금 현재 문제, 전체 문제 받기
   const [progress, setProgress] = React.useState(13);
 

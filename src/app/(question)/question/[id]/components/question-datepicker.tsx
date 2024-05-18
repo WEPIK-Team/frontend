@@ -1,11 +1,12 @@
 "use client";
-
-import * as React from "react";
 import { CalendarIcon, ChevronDownIcon } from "@radix-ui/react-icons";
 import { addDays, format } from "date-fns";
+import { ko } from "date-fns/locale";
+import * as React from "react";
 import { DateRange } from "react-day-picker";
 
 import { cn } from "@/lib/utils";
+
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import {
@@ -13,7 +14,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { ko } from "date-fns/locale";
 
 export function QuestionDatePicker({
   className,
@@ -29,7 +29,7 @@ export function QuestionDatePicker({
         <PopoverTrigger asChild>
           <Button
             id="date"
-            variant={"outline"}
+            variant="outline"
             className={cn(
               "flex w-full justify-between rounded-input-default border-[#676767] text-left font-normal shadow-sm",
               !date && "text-muted-foreground"

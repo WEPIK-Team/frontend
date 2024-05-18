@@ -6,9 +6,7 @@ import LeftBtnSVG from "../../.././../../../public/svgs/chevron-left.svg";
 
 interface IQuestionHeaderProps {}
 
-const QuestionHeader: React.FunctionComponent<IQuestionHeaderProps> = (
-  props
-) => {
+const QuestionHeader: React.FunctionComponent<IQuestionHeaderProps> = () => {
   return (
     <header className="flex items-center justify-between">
       {/* back button */}

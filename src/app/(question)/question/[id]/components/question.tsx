@@ -22,6 +22,7 @@ const Question: React.FunctionComponent<IQuestionProps> = ({
 
   return (
     <div className="space-y-2">
+      {type}
       <QuestionTitle>{title}</QuestionTitle>
       <Image
         alt="question-image"
