@@ -18,11 +18,83 @@ const config = {
       },
     },
     extend: {
+      fontSize: {
+        "wpt-2xl": [
+          "26px",
+          {
+            lineHeight: "25px",
+            letterSpacing: "0",
+            fontWeight: "400",
+          },
+        ],
+        "wpt-xl": [
+          "26px",
+          {
+            lineHeight: "27px",
+            letterSpacing: "0",
+            fontWeight: "400",
+          },
+        ],
+        "wpt-lg": [
+          "20px",
+          {
+            lineHeight: "26px",
+            letterSpacing: "0",
+            fontWeight: "400",
+          },
+        ],
+        "wpt-md": [
+          "17px",
+          {
+            lineHeight: "21px",
+            letterSpacing: "0",
+            fontWeight: "400",
+          },
+        ],
+        "wpt-base-1": [
+          "15px",
+          {
+            lineHeight: "22px",
+            letterSpacing: "0",
+            fontWeight: "400",
+          },
+        ],
+        "wpt-base-2": [
+          "15px",
+          {
+            lineHeight: "20px",
+            letterSpacing: "0",
+            fontWeight: "400",
+          },
+        ],
+        "wpt-sm": [
+          "13px",
+          {
+            lineHeight: "16px",
+            letterSpacing: "0",
+            fontWeight: "400",
+          },
+        ],
+      },
+      backgroundImage: {
+        "wpc-primary-grad": "linear-gradient(-90deg, #6377DD 0%, #D19BEB 100%)",
+        "wpc-second-grad": "linear-gradient(45deg, #7B78EC 0%, #6377DD 100%)",
+      },
       fontFamily: {
         pretendard: ["var(--font-pretendard)"],
         allroundgothic: ["var(--font-allroundgothic)"],
       },
       colors: {
+        wpc: {
+          primary: "#6377dd",
+          second: "#d19beb",
+          third: "#7b78ec",
+          gray: "#8f8f95",
+          gray2: "#dbdade",
+          gray3: "#cccad1",
+          "light-gray": "#eeedf1",
+          Error: "#ef4d74",
+        },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
