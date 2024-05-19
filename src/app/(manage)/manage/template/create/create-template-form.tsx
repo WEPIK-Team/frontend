@@ -20,6 +20,7 @@ import {
   createTemplateSchema,
   CreateTemplateValues,
 } from "@/lib/schema/template-schema";
+import Heading from "@/components/common/heading";
 
 const CreateTemplateForm = () => {
   const form = useForm<CreateTemplateValues>({
@@ -49,9 +50,9 @@ const CreateTemplateForm = () => {
   return (
     <main className="m-auto my-10 max-w-3xl space-y-10">
       <div className="space-y-5 text-center">
-        <h1 className="text-3xl font-extrabold tracking-tight lg:text-4xl">
+        <Heading as="h1" className="text-left text-wpt-2xl">
           템플릿 생성
-        </h1>
+        </Heading>
       </div>
       <div className="rounded-lg border p-4">
         <Form {...form}>
@@ -67,7 +68,7 @@ const CreateTemplateForm = () => {
                 <FormItem>
                   <FormLabel>제목</FormLabel>
                   <FormControl>
-                    <Input placeholder="" {...field} />
+                    <Input placeholder="" {...field} disabled={false} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -84,6 +85,7 @@ const CreateTemplateForm = () => {
                       {...fieldValues}
                       type="file"
                       accept="image/*"
+                      disabled={false}
                       onChange={(e) => {
                         const file = e.target.files?.[0];
                         fieldValues.onChange(file);
@@ -114,13 +116,17 @@ const CreateTemplateForm = () => {
                 <FormItem>
                   <FormLabel>태그 선택</FormLabel>
                   <FormControl>
-                    <TagList />
+                    <TagList onTagSelected={setValue} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <Button type="submit">Submit</Button>
+            <div className="flex items-center justify-end pt-10">
+              <Button type="submit" variant="secondary">
+                생성
+              </Button>
+            </div>
           </form>
         </Form>
       </div>

@@ -5,7 +5,7 @@ import { Dispatch, DragEvent, SetStateAction, useState } from "react";
 import { BaseQuestion, ColumnType } from "@/lib/data/question";
 
 import DropIndicator from "./drop-indicator";
-import Card from "./question-board-card";
+import QuestionBoardCard from "./question-board-card";
 
 interface ColumnProps {
   title: string;
@@ -147,8 +147,8 @@ const Column = ({ title, questions, column, setQuestions }: ColumnProps) => {
   return (
     <div className="flex flex-col">
       <div className="mb-3 flex items-center justify-between">
-        <h3 className="font-medium">{title}</h3>
-        <span className="rounded text-sm text-neutral-400">
+        <h3 className="text-wpt-base-2 font-medium">{title}</h3>
+        <span className="rounded text-wpt-sm text-neutral-400">
           {filteredCards.length}
         </span>
       </div>
@@ -164,7 +164,7 @@ const Column = ({ title, questions, column, setQuestions }: ColumnProps) => {
         >
           {filteredCards.map((c) => {
             return (
-              <Card
+              <QuestionBoardCard
                 key={c.id}
                 {...c}
                 handleDragStart={handleDragStart}

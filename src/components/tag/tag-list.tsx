@@ -1,13 +1,19 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { UseFormSetValue } from "react-hook-form";
 
 import { generateTags, UnionTag } from "@/lib/data/tag";
+import { CreateTemplateValues } from "@/lib/schema/template-schema";
 
 import TagItem from "./tag-item";
 import { Input } from "../ui/input";
 
-const TagList = () => {
+interface TagListProps {
+  onTagSelected: UseFormSetValue<CreateTemplateValues>;
+}
+
+const TagList = ({ onTagSelected }: TagListProps) => {
   const [tags, setTags] = useState<UnionTag[]>([]);
   const [selectedTags, setSelectedTags] = useState<UnionTag[]>([]);
   const [text, setText] = useState("");
@@ -21,6 +27,10 @@ const TagList = () => {
     const initialTags = generateTags();
     setTags(initialTags);
   }, []);
+
+  useEffect(() => {
+    onTagSelected("tags", selectedTags);
+  }, [selectedTags, onTagSelected]);
 
   const addTag = (name: string) => {
     const existingNames = tags.map((tag) => tag.name);
@@ -38,32 +48,55 @@ const TagList = () => {
     if (e.key === "Enter") {
       e.preventDefault();
       addTag(text);
-      setText(""); // 태그가 추가되면 입력란 비우기
+      setText("");
     }
   };
 
   const handleSelectTag = (tagName: string) => {
-    setSelectedTags((prevTags) => {
-      if (prevTags.some((tag) => tag.name === tagName)) {
-        return prevTags;
+    setSelectedTags((prevSelectedTags) => {
+      const tagIndex = prevSelectedTags.findIndex(
+        (tag) => tag.name === tagName
+      );
+
+      // 선택된 태그가 이미 있다면
+      if (tagIndex !== -1) {
+        const updatedSelectedTags = [...prevSelectedTags];
+
+        updatedSelectedTags.splice(tagIndex, 1);
+
+        setTags((prevTags) => {
+          const selectedTags = prevTags.filter((tag) =>
+            prevSelectedTags.some(
+              (selectedTag) => selectedTag.name === tag.name
+            )
+          );
+          const remainingTags = prevTags.filter(
+            (tag) => !selectedTags.includes(tag)
+          );
+          return [...selectedTags, ...remainingTags];
+        });
+
+        return updatedSelectedTags;
+      } else {
+        const updatedSelectedTags = [...prevSelectedTags, { name: tagName }];
+
+        setTags((prevTags) => {
+          const remainingTags = prevTags.filter(
+            (tag) =>
+              !updatedSelectedTags.some(
+                (selectedTag) => selectedTag.name === tag.name
+              )
+          );
+
+          return [...updatedSelectedTags, ...remainingTags];
+        });
+        return updatedSelectedTags;
       }
-      return [...prevTags, { name: tagName }];
     });
-
-    // setTags((prevTags) => {
-    //   const tagIndex = prevTags.findIndex((tag) => tag.name === tagName);
-    //   if (tagIndex === -1) {
-    //     return prevTags;
-    //   }
-    //   let copy = [...prevTags];
-
-    //   const selectedTag = prevTags.splice(tagIndex, 1);
-    //   return [selectedTag, ...prevTags];
-    // });
   };
 
   return (
-    <div className="text-f flex flex-wrap gap-1">
+    <div className="flex flex-wrap items-center gap-1">
       {tags.map((tag, idx) => (
         <TagItem
           key={idx}

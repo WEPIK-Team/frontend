@@ -12,8 +12,7 @@ import { CreateTemplateValues } from "@/lib/schema/template-schema";
 
 import Column from "./question-board-column";
 
-interface QuestionBoardProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {
+interface QuestionBoardProps {
   onQuestionSelected: UseFormSetValue<CreateTemplateValues>;
 }
 
@@ -43,7 +42,7 @@ export default function QuestionBoard({
   }, [questions, onQuestionSelected]);
 
   return (
-    <div className="flex h-full w-full gap-3 py-12">
+    <div className="flex h-full w-full gap-3 py-2">
       {questions !== null && (
         <>
           <Column

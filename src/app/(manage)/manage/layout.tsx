@@ -3,5 +3,5 @@ export default function ManageLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <div className="m-auto max-w-5xl bg-background">{children}</div>;
+  return <div className="m-auto max-w-5xl pt-[44px]">{children}</div>;
 }
