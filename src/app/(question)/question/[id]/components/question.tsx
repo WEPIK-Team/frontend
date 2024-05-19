@@ -6,6 +6,9 @@ import RatingInput from "./rating-input";
 import QuestionTitle from "./question-title";
 
 import QuestionDatePicker from "./question-datepicker";
+import PrevNextBtns from "./prev-next-btns";
+import { Slider } from "@/components/ui/slider";
+import QuestionSlider from "./question-slider";
 
 interface IQuestionProps {
   title: string;
@@ -25,7 +28,7 @@ const Question: React.FunctionComponent<IQuestionProps> = ({
    */
 
   return (
-    <div className="min-h-[400px] space-y-2 ">
+    <div className="min-h-[400px] space-y-2 px-10 ">
       {type}
       <QuestionTitle>{title}</QuestionTitle>
       {imageURL ? (
@@ -40,7 +43,7 @@ const Question: React.FunctionComponent<IQuestionProps> = ({
       <div className="mx-auto w-full">
         <RatingInput id={10} size={50} />
       </div>
-      <QuestionDatePicker disabled={false} />
+      <QuestionSlider />
     </div>
   );
 };

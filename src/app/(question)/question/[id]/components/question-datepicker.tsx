@@ -82,16 +82,10 @@ function QuestionDatePicker({ className, disabled }: IQuestionDatePickerProps) {
             showOutsideDays={false}
             footer={
               <div className="mt-[25px] flex w-full justify-between">
-                <Button
-                  className="border border-wpc-gray3 bg-transparent p-[20px] text-wpt-md font-normal text-wpc-primary hover:bg-transparent"
-                  size="calendar-footer"
-                >
+                <Button className="rounded-full border border-wpc-gray3 bg-transparent p-[20px] text-wpt-md font-normal text-wpc-primary hover:bg-transparent">
                   초기화
                 </Button>
-                <Button
-                  className="border border-wpc-gray3 bg-wpc-second-grad p-[20px] text-wpt-md font-normal text-white "
-                  size="calendar-footer"
-                >
+                <Button className="rounded-full bg-wpc-second-grad p-[20px] text-wpt-md font-normal text-white ">
                   완료
                 </Button>
               </div>
