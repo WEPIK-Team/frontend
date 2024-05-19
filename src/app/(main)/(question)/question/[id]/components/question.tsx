@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 
-import QuestionSlider from "./question-slider";
+import QuestionSelect from "./question-select";
 import QuestionTitle from "./question-title";
 import RatingInput from "./rating-input";
 
@@ -38,7 +38,23 @@ const Question: React.FunctionComponent<IQuestionProps> = ({
       <div className="mx-auto w-full">
         <RatingInput id={10} size={50} />
       </div>
-      <QuestionSlider />
+      <QuestionSelect
+        type="single"
+        options={[
+          {
+            label: "불시에 기습 과제 날리는 교수님",
+            value: "test",
+          },
+          {
+            label: "한 주도 빠짐 없이 과제 내주는 교수님",
+            value: "test2",
+          },
+          {
+            label: "수업 때 잡담만 하는데 시험 어렵게 내는 교수님",
+            value: "test2",
+          },
+        ]}
+      />
     </div>
   );
 };

@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
 import QuestionBoard from "@/components/board/question-board";
+import Heading from "@/components/common/heading";
 import TagList from "@/components/tag/tag-list";
 import { Button } from "@/components/ui/button";
 import {
@@ -20,7 +21,6 @@ import {
   createTemplateSchema,
   CreateTemplateValues,
 } from "@/lib/schema/template-schema";
-import Heading from "@/components/common/heading";
 
 const CreateTemplateForm = () => {
   const form = useForm<CreateTemplateValues>({

@@ -6,7 +6,7 @@ interface IQuestionHeaderProps {}
 
 const QuestionHeader: React.FunctionComponent<IQuestionHeaderProps> = () => {
   return (
-    <div className="fixed inset-x-0 z-[60] mx-auto flex h-[44px] max-w-3xl items-center justify-between">
+    <div className="fixed inset-x-0 z-[60] mx-auto flex h-[44px] max-w-3xl items-center justify-between bg-white">
       {/* back button */}
       <Button size="icon" variant="link">
         <Image src="/svgs/chevron-left.svg" width={11} height={20} alt="back" />
