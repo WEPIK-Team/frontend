@@ -62,8 +62,6 @@ const TagList = () => {
     // });
   };
 
-  console.log(selectedTags);
-
   return (
     <div className="text-f flex flex-wrap gap-1">
       {tags.map((tag, idx) => (
@@ -80,6 +78,7 @@ const TagList = () => {
         onKeyDown={handleKeyDown}
         onChange={handleChange}
         placeholder="태그 추가"
+        disabled={false}
       />
     </div>
   );
