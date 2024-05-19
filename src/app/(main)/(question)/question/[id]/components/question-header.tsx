@@ -2,6 +2,8 @@ import Image from "next/image";
 
 import { Button } from "@/components/ui/button";
 
+import QuestionIndex from "../../../../../../components/index/question-index";
+
 interface IQuestionHeaderProps {}
 
 const QuestionHeader: React.FunctionComponent<IQuestionHeaderProps> = () => {
@@ -16,9 +18,7 @@ const QuestionHeader: React.FunctionComponent<IQuestionHeaderProps> = () => {
       <Image src="/images/logo.svg" width={86} height={26} alt="logo" />
 
       {/* menu list */}
-      <Button size="icon" variant="link">
-        <Image src="/svgs/menu.svg" width={22} height={14} alt="qustion-list" />
-      </Button>
+      <QuestionIndex />
     </div>
   );
 };

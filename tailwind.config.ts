@@ -84,6 +84,9 @@ const config = {
         pretendard: ["var(--font-pretendard)"],
         allroundgothic: ["var(--font-allroundgothic)"],
       },
+      boxShadow: {
+        "wps-primary": "0 2px 10px rgba(99, 119, 221, 0.5)",
+      },
       colors: {
         wpc: {
           primary: "#6377dd",
