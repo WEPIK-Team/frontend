@@ -1,5 +1,6 @@
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
+
+import { Button } from "@/components/ui/button";
 
 export default function TemplatePage() {
   return (
@@ -7,7 +8,7 @@ export default function TemplatePage() {
       <div className="space-y-4">
         <div className="flex w-full items-end justify-end rounded-lg">
           <Button variant="secondary" asChild>
-            <Link href={"/manage/template/create"}>Create</Link>
+            <Link href="/manage/template/create">Create</Link>
           </Button>
         </div>
         <div className="flex h-96 w-full items-center justify-center rounded-lg bg-gray-400">

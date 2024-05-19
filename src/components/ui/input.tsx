@@ -3,20 +3,33 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 export interface InputProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {}
+  extends React.InputHTMLAttributes<HTMLInputElement> {
+  disabled: boolean;
+}
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, ...props }, ref) => {
+  ({ className, disabled, type, ...props }, ref) => {
     return (
-      <input
-        type={type}
+      <div
         className={cn(
-          "flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50",
-          className
+          "overflow-hidden rounded-[18px] p-[1px] transition",
+          disabled
+            ? ""
+            : "focus-within:bg-wpc-primary-grad hover:bg-wpc-primary-grad"
         )}
-        ref={ref}
-        {...props}
-      />
+      >
+        <input
+          type={type}
+          disabled={disabled}
+          className={cn(
+            "w-full rounded-[18px] border border-wpc-gray2 px-[18px] py-[17px] text-wpt-base-1 transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-wpc-gray focus:border-transparent focus:outline-none disabled:cursor-not-allowed disabled:opacity-50",
+            className,
+            disabled ? "" : "hover:border-transparent"
+          )}
+          ref={ref}
+          {...props}
+        />
+      </div>
     );
   }
 );

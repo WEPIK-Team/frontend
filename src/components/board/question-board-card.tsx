@@ -1,12 +1,14 @@
 import { motion } from "framer-motion";
 import { DragEvent } from "react";
-import DropIndicator from "./drop-indicator";
+
 import { BaseQuestion } from "@/lib/data/question";
+
+import DropIndicator from "./drop-indicator";
 
 export interface CardProps extends BaseQuestion {
   handleDragStart: (
     e: DragEvent<HTMLDivElement>,
-    question: BaseQuestion,
+    question: BaseQuestion
   ) => void;
   handleClick: (questionId: string) => void;
 }

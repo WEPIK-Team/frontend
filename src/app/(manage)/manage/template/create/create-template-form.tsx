@@ -1,5 +1,11 @@
 "use client";
 
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+
+import QuestionBoard from "@/components/board/question-board";
+import TagList from "@/components/tag/tag-list";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -8,16 +14,12 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  CreateTemplateValues,
-  createTemplateSchema,
-} from "@/lib/schema/template-schema";
 import { Input } from "@/components/ui/input";
-import QuestionBoard from "@/components/board/question-board";
-import { Button } from "@/components/ui/button";
-import TagList from "@/components/tag/tag-list";
+
+import {
+  createTemplateSchema,
+  CreateTemplateValues,
+} from "@/lib/schema/template-schema";
 
 const CreateTemplateForm = () => {
   const form = useForm<CreateTemplateValues>({
