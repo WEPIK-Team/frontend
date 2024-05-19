@@ -8,8 +8,8 @@ export default function Layout(props: { children: React.ReactNode }) {
         <Header />
         <main className="m-auto my-11 w-full max-w-3xl flex-grow px-4">
           {props.children}
+          <Footer />
         </main>
-        <Footer />
       </div>
     </>
   );
