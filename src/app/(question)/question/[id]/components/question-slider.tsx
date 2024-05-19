@@ -1,7 +1,8 @@
 "use client";
 
-import { Slider } from "@/components/ui/slider";
 import * as React from "react";
+
+import { Slider } from "@/components/ui/slider";
 
 interface IQuestionSliderProps {}
 

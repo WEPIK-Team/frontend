@@ -4,6 +4,7 @@ import * as SliderPrimitive from "@radix-ui/react-slider";
 import * as React from "react";
 
 import { cn } from "@/lib/utils";
+
 import SpeechBubble from "../../app/(question)/question/[id]/components/speech-bubble";
 
 const Slider = React.forwardRef<

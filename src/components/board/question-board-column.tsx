@@ -1,7 +1,9 @@
 "use client";
 
-import { BaseQuestion, ColumnType } from "@/lib/data/question";
 import { Dispatch, DragEvent, SetStateAction, useState } from "react";
+
+import { BaseQuestion, ColumnType } from "@/lib/data/question";
+
 import DropIndicator from "./drop-indicator";
 import Card from "./question-board-card";
 
@@ -107,7 +109,7 @@ const Column = ({ title, questions, column, setQuestions }: ColumnProps) => {
 
   const getNearestIndicator = (
     e: DragEvent<HTMLDivElement>,
-    indicators: HTMLElement[],
+    indicators: HTMLElement[]
   ) => {
     const DISTANCE_OFFSET = 50;
 
@@ -126,7 +128,7 @@ const Column = ({ title, questions, column, setQuestions }: ColumnProps) => {
       {
         offset: Number.NEGATIVE_INFINITY,
         element: indicators[indicators.length - 1],
-      },
+      }
     );
 
     return el;
@@ -135,8 +137,8 @@ const Column = ({ title, questions, column, setQuestions }: ColumnProps) => {
   const getIndicators = () => {
     return Array.from(
       document.querySelectorAll(
-        `[data-column="${column}"]`,
-      ) as unknown as HTMLElement[],
+        `[data-column="${column}"]`
+      ) as unknown as HTMLElement[]
     );
   };
 

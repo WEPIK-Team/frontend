@@ -1,14 +1,9 @@
 "use client";
 import Image from "next/image";
 
-import RatingInput from "./rating-input";
-
-import QuestionTitle from "./question-title";
-
-import QuestionDatePicker from "./question-datepicker";
-import PrevNextBtns from "./prev-next-btns";
-import { Slider } from "@/components/ui/slider";
 import QuestionSlider from "./question-slider";
+import QuestionTitle from "./question-title";
+import RatingInput from "./rating-input";
 
 interface IQuestionProps {
   title: string;

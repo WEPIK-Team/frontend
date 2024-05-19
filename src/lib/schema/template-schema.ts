@@ -14,7 +14,7 @@ const templateThumbnailSchema = z
   .custom<File | undefined>()
   .refine(
     (file) => !file || (file instanceof File && file.type.startsWith("image/")),
-    "이미지 파일이어야 합니다.",
+    "이미지 파일이어야 합니다."
   )
   .refine((file) => {
     return !file || file.size < 1024 * 1024 * 2;
