@@ -15,9 +15,13 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
-export function QuestionDatePicker({
-  className,
-}: React.HTMLAttributes<HTMLDivElement>) {
+interface IQuestionDatePickerProps
+  extends React.HTMLAttributes<HTMLDivElement> {
+  disabled: boolean;
+}
+
+function QuestionDatePicker({ className, disabled }: IQuestionDatePickerProps) {
+  const [isOpen, setIsOpen] = React.useState(false);
   const [date, setDate] = React.useState<DateRange | undefined>({
     from: new Date(),
     to: addDays(new Date(), 1),
@@ -25,33 +29,46 @@ export function QuestionDatePicker({
 
   return (
     <div className={cn("grid gap-2", className)}>
-      <Popover>
+      <Popover
+        onOpenChange={(isOpen) => {
+          setIsOpen(isOpen);
+        }}
+      >
         <PopoverTrigger asChild>
-          <Button
-            id="date"
-            variant="outline"
+          <div
             className={cn(
-              "flex w-full justify-between rounded-input-default border-[#676767] text-left font-normal shadow-sm",
-              !date && "text-muted-foreground"
+              "overflow-hidden rounded-[18px] p-[2px] transition ",
+              disabled ? "" : "hover:bg-wpc-primary-grad",
+              isOpen && "bg-wpc-primary-grad"
             )}
           >
-            <div className="flex items-center">
-              <CalendarIcon className="mr-2 h-4 w-4" />
-              {date?.from ? (
-                date.to ? (
-                  <>
-                    {format(date.from, "yyyy/MM/dd", { locale: ko })} -{" "}
-                    {format(date.to, "yyyy/MM/dd", { locale: ko })}
-                  </>
-                ) : (
-                  format(date.from, "yyyy/MM/dd")
-                )
-              ) : (
-                <span>날짜를 선택하세요</span>
+            <Button
+              id="date"
+              variant="outline"
+              className={cn(
+                "flex h-[56px] w-full justify-between rounded-[14px] border-wpc-gray px-[15px] pb-[16px] pt-[15px] text-left text-wpt-base-1 font-semibold shadow-sm hover:border-transparent hover:bg-white focus:outline-none ",
+                !date && "text-muted-foreground",
+                isOpen && "border-transparent"
               )}
-            </div>
-            <ChevronDownIcon className="h-4 w-4 " />
-          </Button>
+            >
+              <div className="flex items-center gap-x-[13px]">
+                <CalendarIcon className="mr-2 h-[26px] w-[26px] text-wpc-primary" />
+                {date?.from ? (
+                  date.to ? (
+                    <>
+                      {format(date.from, "yyyy/MM/dd", { locale: ko })} -{" "}
+                      {format(date.to, "yyyy/MM/dd", { locale: ko })}
+                    </>
+                  ) : (
+                    format(date.from, "yyyy/MM/dd")
+                  )
+                ) : (
+                  <span>날짜를 선택하세요</span>
+                )}
+              </div>
+              <ChevronDownIcon className="h-[26px] w-[26px] font-bold text-wpc-primary" />
+            </Button>
+          </div>
         </PopoverTrigger>
         <PopoverContent className="w-[358px] rounded-[18px] p-0" align="center">
           <Calendar
@@ -64,18 +81,16 @@ export function QuestionDatePicker({
             numberOfMonths={1}
             showOutsideDays={false}
             footer={
-              <div className="mt-2 flex w-full justify-between">
+              <div className="mt-[25px] flex w-full justify-between">
                 <Button
-                  className="border border-primary text-primary"
+                  className="border border-wpc-gray3 bg-transparent p-[20px] text-wpt-md font-normal text-wpc-primary hover:bg-transparent"
                   size="calendar-footer"
-                  variant="question"
                 >
                   초기화
                 </Button>
                 <Button
-                  className="bg-primary text-white"
+                  className="border border-wpc-gray3 bg-wpc-second-grad p-[20px] text-wpt-md font-normal text-white "
                   size="calendar-footer"
-                  variant="question"
                 >
                   완료
                 </Button>
@@ -87,3 +102,5 @@ export function QuestionDatePicker({
     </div>
   );
 }
+
+export default QuestionDatePicker;
