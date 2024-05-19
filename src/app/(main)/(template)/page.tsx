@@ -5,7 +5,7 @@ import { TemplateTag } from "@/components/tag/template-tag";
 
 import { Tags, Templates } from "@/constants/dump";
 
-export default function Home() {
+export default function Template() {
   return (
     <>
       <div className="my-3 flex flex-wrap gap-2">

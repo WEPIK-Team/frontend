@@ -1,7 +1,9 @@
 "use client";
 
-import { BaseTag, TagNameOnly, UnionTag, generateTags } from "@/lib/data/tag";
 import { useEffect, useState } from "react";
+
+import { generateTags, UnionTag } from "@/lib/data/tag";
+
 import TagItem from "./tag-item";
 import { Input } from "../ui/input";
 
