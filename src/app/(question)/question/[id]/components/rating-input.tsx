@@ -39,7 +39,7 @@ function RatingInput({ id, size = 25 }: IRateProps) {
           className={cn(`h-full w-full`)}
         />
       </div>
-      <p className="text-center text-[17px] font-semibold text-primary">
+      <p className="text-center text-[17px] font-semibold text-wpc-primary">
         {rating}
       </p>
     </div>
