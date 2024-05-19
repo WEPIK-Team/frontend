@@ -1,6 +1,8 @@
-import { UnionTag } from "@/lib/data/tag";
-import { cn } from "@/lib/utils";
 import { cva } from "class-variance-authority";
+
+import { cn } from "@/lib/utils";
+
+import { UnionTag } from "@/lib/data/tag";
 
 interface TagItemProps {
   tag: UnionTag;
@@ -8,18 +10,18 @@ interface TagItemProps {
   handleSelectTag: (tagName: string) => void;
 }
 
-const tagStyles = cva("bg-wpc-primary-grad px-1", {
+const tagStyles = cva("px-1 cursor-pointer", {
   variants: {
     isSelected: {
-      true: "text-blue-500",
-      false: "text-black",
+      true: "text-black",
+      false: "text-muted-foreground/70",
     },
   },
 });
 
 const TagItem = ({ tag, selectedTags, handleSelectTag }: TagItemProps) => {
   const isSelected = selectedTags.some(
-    (selectedTag) => selectedTag.name === tag.name,
+    (selectedTag) => selectedTag.name === tag.name
   );
 
   return (
@@ -27,7 +29,7 @@ const TagItem = ({ tag, selectedTags, handleSelectTag }: TagItemProps) => {
       className={cn(tagStyles({ isSelected }))}
       onClick={() => handleSelectTag(tag.name)}
     >
-      {tag.name}
+      #{tag.name}
     </div>
   );
 };

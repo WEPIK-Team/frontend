@@ -1,12 +1,16 @@
 import { motion } from "framer-motion";
 import { DragEvent } from "react";
+
+import { cn } from "@/lib/utils";
+
+import { BaseQuestion, ColumnType } from "@/lib/data/question";
+
 import DropIndicator from "./drop-indicator";
-import { BaseQuestion } from "@/lib/data/question";
 
 export interface CardProps extends BaseQuestion {
   handleDragStart: (
     e: DragEvent<HTMLDivElement>,
-    question: BaseQuestion,
+    question: BaseQuestion
   ) => void;
   handleClick: (questionId: string) => void;
 }
@@ -23,6 +27,8 @@ const QuestionBoardCard = ({
     handleClick(id);
   };
 
+  const columnClass = column === ColumnType.Use ? "bg-white" : "bg-neutral-50";
+
   return (
     <>
       <DropIndicator beforeId={id} column={column} />
@@ -32,7 +38,10 @@ const QuestionBoardCard = ({
           draggable="true"
           onDragStart={(e) => handleDragStart(e, { id, title, column, type })}
           onClick={handleCardClick}
-          className="cursor-grab rounded border border-neutral-300/70 bg-neutral-200 p-3 active:cursor-grabbing"
+          className={cn(
+            "border-wpc-primary cursor-grab rounded border  p-3 active:cursor-grabbing",
+            columnClass
+          )}
         >
           <p className="text-sm">{title}</p>
         </div>

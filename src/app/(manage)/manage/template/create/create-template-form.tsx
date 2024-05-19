@@ -1,5 +1,11 @@
 "use client";
 
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+
+import QuestionBoard from "@/components/board/question-board";
+import TagList from "@/components/tag/tag-list";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -8,16 +14,13 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  CreateTemplateValues,
-  createTemplateSchema,
-} from "@/lib/schema/template-schema";
 import { Input } from "@/components/ui/input";
-import QuestionBoard from "@/components/board/question-board";
-import { Button } from "@/components/ui/button";
-import TagList from "@/components/tag/tag-list";
+
+import {
+  createTemplateSchema,
+  CreateTemplateValues,
+} from "@/lib/schema/template-schema";
+import Heading from "@/components/common/heading";
 
 const CreateTemplateForm = () => {
   const form = useForm<CreateTemplateValues>({
@@ -47,9 +50,9 @@ const CreateTemplateForm = () => {
   return (
     <main className="m-auto my-10 max-w-3xl space-y-10">
       <div className="space-y-5 text-center">
-        <h1 className="text-3xl font-extrabold tracking-tight lg:text-4xl">
+        <Heading as="h1" className="text-left text-wpt-2xl">
           템플릿 생성
-        </h1>
+        </Heading>
       </div>
       <div className="rounded-lg border p-4">
         <Form {...form}>
@@ -112,13 +115,17 @@ const CreateTemplateForm = () => {
                 <FormItem>
                   <FormLabel>태그 선택</FormLabel>
                   <FormControl>
-                    <TagList />
+                    <TagList onTagSelected={setValue} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <Button type="submit">Submit</Button>
+            <div className="flex items-center justify-end pt-10">
+              <Button type="submit" variant="secondary">
+                생성
+              </Button>
+            </div>
           </form>
         </Form>
       </div>

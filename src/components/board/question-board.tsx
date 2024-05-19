@@ -1,17 +1,18 @@
 "use client";
 
+import { useEffect, useState } from "react";
+import { UseFormSetValue } from "react-hook-form";
+
 import {
   BaseQuestion,
   ColumnType,
   generateQuestions,
 } from "@/lib/data/question";
-import { useEffect, useState } from "react";
-import Column from "./question-board-column";
-import { UseFormSetValue } from "react-hook-form";
 import { CreateTemplateValues } from "@/lib/schema/template-schema";
 
-interface QuestionBoardProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {
+import Column from "./question-board-column";
+
+interface QuestionBoardProps {
   onQuestionSelected: UseFormSetValue<CreateTemplateValues>;
 }
 
@@ -34,24 +35,24 @@ export default function QuestionBoard({
         }
         return acc;
       },
-      [],
+      []
     );
 
     onQuestionSelected("questions", selectedQuestionIds);
   }, [questions, onQuestionSelected]);
 
   return (
-    <div className="flex h-full w-full gap-3 py-12">
+    <div className="flex h-full w-full gap-3 py-2">
       {questions !== null && (
         <>
           <Column
-            title={"사용"}
+            title="사용"
             column={ColumnType.Use}
             questions={questions}
             setQuestions={setQuestions}
           />
           <Column
-            title={"미사용"}
+            title="미사용"
             column={ColumnType.Unused}
             questions={questions}
             setQuestions={setQuestions}
