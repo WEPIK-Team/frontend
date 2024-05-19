@@ -2,6 +2,8 @@ import Link from "next/link";
 
 import Heading from "@/components/common/heading";
 import { Button } from "@/components/ui/button";
+import { TemplateSelectCard } from "@/components/card/template-select-card";
+import { Templates } from "@/constants/dump";
 
 export default function TemplatePage() {
   return (
@@ -11,12 +13,31 @@ export default function TemplatePage() {
       </Heading>
       <div className="space-y-4">
         <div className="flex w-full items-end justify-end rounded-lg">
-          <Button variant="secondary" asChild>
-            <Link href="/manage/template/create">Create</Link>
+          <Button variant="default" asChild>
+            <Link href="/manage/template/create">템플릿 생성</Link>
           </Button>
         </div>
-        <div className="flex h-96 w-full items-center justify-center rounded-lg bg-gray-400">
-          Template List
+        <div className="grid grid-cols-12 gap-[14px] pt-3 font-pretendard">
+          {Templates.map((template) => (
+            <>
+              <div key={template.title} className="col-span-3">
+                <div className="flex gap-1 pb-2">
+                  <Button size={"sm"} variant={"secondary"}>
+                    수정
+                  </Button>
+                  <Button size={"sm"} variant={"secondary"}>
+                    삭제
+                  </Button>
+                </div>
+                <TemplateSelectCard
+                  image={template.image}
+                  title={template.title}
+                  tag={template.tag}
+                  views={template.views}
+                />
+              </div>
+            </>
+          ))}
         </div>
       </div>
     </main>

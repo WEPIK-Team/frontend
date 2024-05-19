@@ -6,6 +6,7 @@ import { BaseQuestion, ColumnType } from "@/lib/data/question";
 
 import DropIndicator from "./drop-indicator";
 import QuestionBoardCard from "./question-board-card";
+import Heading from "../common/heading";
 
 interface ColumnProps {
   title: string;
@@ -147,7 +148,9 @@ const Column = ({ title, questions, column, setQuestions }: ColumnProps) => {
   return (
     <div className="flex flex-col">
       <div className="mb-3 flex items-center justify-between">
-        <h3 className="text-wpt-base-2 font-medium">{title}</h3>
+        <Heading as="h2" className="text-wpt-base-2 font-medium">
+          {title}
+        </Heading>
         <span className="rounded text-wpt-sm text-neutral-400">
           {filteredCards.length}
         </span>
