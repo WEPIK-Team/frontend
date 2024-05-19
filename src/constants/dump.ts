@@ -62,3 +62,16 @@ export const Templates = [
     views: faker.number.int(1000),
   },
 ];
+
+export const Tags = [
+  "전체",
+  "연애",
+  "데이트",
+  "사랑",
+  "우정",
+  "음식",
+  "MBTI",
+  "이상형",
+  "성격",
+  "직장인",
+];
