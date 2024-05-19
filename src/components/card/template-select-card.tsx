@@ -3,8 +3,9 @@ import Image from "next/image";
 
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 
-import { TemplateSelectCardProps } from "@/types/template-select";
 import Heading from "../common/heading";
+
+import { TemplateSelectCardProps } from "@/types/template-select";
 
 export function TemplateSelectCard({
   image,
@@ -25,7 +26,7 @@ export function TemplateSelectCard({
                 layout="fill"
               />
             </div>
-            <div className="text-sm absolute bottom-3 left-3 flex items-center space-x-2 text-white">
+            <div className="absolute bottom-3 left-3 flex items-center space-x-2 text-sm text-white">
               <PlayIcon />
               <span>{views}</span>
             </div>
@@ -34,7 +35,7 @@ export function TemplateSelectCard({
         <CardFooter>
           <div className="flex flex-col">
             <div className="relative">
-              <Heading as={"h3"} className="m-0 p-0 text-[17px]">
+              <Heading as="h3" className="m-0 p-0 text-[17px]">
                 {title}
               </Heading>
             </div>

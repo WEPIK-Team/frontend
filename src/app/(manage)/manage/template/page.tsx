@@ -1,8 +1,9 @@
 import Link from "next/link";
 
+import { TemplateSelectCard } from "@/components/card/template-select-card";
 import Heading from "@/components/common/heading";
 import { Button } from "@/components/ui/button";
-import { TemplateSelectCard } from "@/components/card/template-select-card";
+
 import { Templates } from "@/constants/dump";
 
 export default function TemplatePage() {
@@ -22,10 +23,10 @@ export default function TemplatePage() {
             <>
               <div key={template.title} className="col-span-3">
                 <div className="flex gap-1 pb-2">
-                  <Button size={"sm"} variant={"secondary"}>
+                  <Button size="sm" variant="secondary">
                     수정
                   </Button>
-                  <Button size={"sm"} variant={"secondary"}>
+                  <Button size="sm" variant="secondary">
                     삭제
                   </Button>
                 </div>
