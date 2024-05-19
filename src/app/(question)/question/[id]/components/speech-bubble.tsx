@@ -8,7 +8,6 @@ interface ISpeechBubbleProps {
 const SpeechBubble: React.FunctionComponent<ISpeechBubbleProps> = ({
   children,
   className,
-  ...props
 }) => {
   return (
     <div
