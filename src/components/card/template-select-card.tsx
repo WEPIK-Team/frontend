@@ -1,9 +1,8 @@
 import { PlayIcon } from "@radix-ui/react-icons";
 import Image from "next/image";
 
+import Heading from "@/components/common/heading";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
-
-import Heading from "../common/heading";
 
 import { TemplateSelectCardProps } from "@/types/template-select";
 

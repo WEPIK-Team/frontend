@@ -44,7 +44,6 @@ function QuestionDatePicker({ className, disabled }: IQuestionDatePickerProps) {
           >
             <Button
               id="date"
-              variant="outline"
               className={cn(
                 "flex h-[56px] w-full justify-between rounded-[14px] border-wpc-gray px-[15px] pb-[16px] pt-[15px] text-left text-wpt-base-1 font-semibold shadow-sm hover:border-transparent hover:bg-white focus:outline-none ",
                 !date && "text-muted-foreground",

@@ -123,9 +123,7 @@ const CreateTemplateForm = () => {
               )}
             />
             <div className="flex items-center justify-end pt-10">
-              <Button type="submit" variant="secondary">
-                생성
-              </Button>
+              <Button type="submit">생성</Button>
             </div>
           </form>
         </Form>

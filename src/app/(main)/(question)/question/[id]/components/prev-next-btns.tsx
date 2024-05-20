@@ -8,18 +8,10 @@ const PrevNextBtns: React.FunctionComponent<IPrevNextBtnsProps> = () => {
   // zustand 이동
   return (
     <div className="mx-auto mt-10 flex max-w-md gap-x-4">
-      <Button
-        size="question"
-        variant="question"
-        className="bg-wpc-light-gray text-wpc-gray"
-      >
+      <Button className="w-full bg-wpc-light-gray text-wpc-gray" variant="gray">
         이전
       </Button>
-      <Button
-        size="question"
-        variant="question"
-        className="bg-wpc-primary text-white "
-      >
+      <Button className="w-full bg-wpc-primary text-white" variant="default">
         다음
       </Button>
     </div>

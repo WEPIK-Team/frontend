@@ -77,3 +77,19 @@
     @apply h-full;
   }
 }
+
+/* GradInput css */
+.input-border-gradient {
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+}
+
+.input-border-gradient:focus {
+  border: 1px solid transparent;
+  background-image: linear-gradient(white, white),
+    linear-gradient(to right, #d19beb, #6377dd);
+}
+
+/* .input-border-gradient:disabled {
+
+} */

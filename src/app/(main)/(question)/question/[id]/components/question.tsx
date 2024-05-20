@@ -5,9 +5,17 @@ import QuestionSelect from "./question-select";
 import QuestionTitle from "./question-title";
 import RatingInput from "./rating-input";
 import { cn } from "@/lib/utils";
+import { Input } from "@/components/ui/input";
+import QuestionInput from "./question-input";
+import QuestionTextArea from "./question-textarea";
+import { Slider } from "@/components/ui/slider";
+import QuestionSlider from "./question-slider";
+import QuestionDatePicker from "./question-datepicker";
 
 interface IQuestionProps {
   title: string;
+
+  //  질문 type에 따라 다른 컴포넌트를 보여주기 지금은 임의로 string
   type: string;
   imageURL?: string;
 }
@@ -29,7 +37,7 @@ const Question: React.FunctionComponent<IQuestionProps> = ({
         "min-h-[400px] ",
         imageURL
           ? "mt-[40px] space-y-[13px]"
-          : "flex flex-col items-center justify-center gap-y-[13px]"
+          : "flex flex-col items-center  justify-center gap-y-[13px]"
       )}
     >
       <QuestionTitle>{title}</QuestionTitle>
@@ -42,26 +50,35 @@ const Question: React.FunctionComponent<IQuestionProps> = ({
           height={240}
         />
       ) : null}
-      <div className="mx-auto w-full">
-        <RatingInput id={10} size={50} />
-      </div>
-      {/* <QuestionSelect
-        type="single"
-        options={[
-          {
-            label: "불시에 기습 과제 날리는 교수님",
-            value: "test",
-          },
-          {
-            label: "한 주도 빠짐 없이 과제 내주는 교수님",
-            value: "test2",
-          },
-          {
-            label: "수업 때 잡담만 하는데 시험 어렵게 내는 교수님",
-            value: "test2",
-          },
-        ]}
-      /> */}
+
+      {type === "input" && <QuestionInput />}
+      {type === "select" && (
+        <QuestionSelect
+          type="single"
+          options={[
+            {
+              label: "불시에 기습 과제 날리는 교수님",
+              value: "test",
+            },
+            {
+              label: "한 주도 빠짐 없이 과제 내주는 교수님",
+              value: "test2",
+            },
+            {
+              label: "수업 때 잡담만 하는데 시험 어렵게 내는 교수님",
+              value: "test2",
+            },
+          ]}
+        />
+      )}
+      {type === "rating" && (
+        <div className="mx-auto w-full">
+          <RatingInput id={10} size={50} />
+        </div>
+      )}
+      {type === "textArea" && <QuestionTextArea />}
+      {type === "progress" && <QuestionSlider />}
+      {type === "datepicker" && <QuestionDatePicker disabled={false} />}
     </div>
   );
 };

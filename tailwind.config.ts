@@ -84,6 +84,9 @@ const config = {
         pretendard: ["var(--font-pretendard)"],
         allroundgothic: ["var(--font-allroundgothic)"],
       },
+      boxShadow: {
+        "wps-primary": "0 2px 10px rgba(99, 119, 221, 0.5)",
+      },
       colors: {
         wpc: {
           primary: "#6377dd",
@@ -93,7 +96,8 @@ const config = {
           gray2: "#dbdade",
           gray3: "#cccad1",
           "light-gray": "#eeedf1",
-          Error: "#ef4d74",
+          error: "#ef4d74",
+          "light-error": "rgb(244, 110, 142, 0.03)",
         },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
