@@ -13,7 +13,7 @@ export default function QuestionPage() {
         {/* Question */}
         <Question
           title="셋중 더 드랍하고 싶은 강의는?"
-          type="datepicker"
+          type="textArea"
           imageURL={faker.image.url()}
         />
         {/* Buttons */}

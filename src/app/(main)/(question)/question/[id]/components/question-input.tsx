@@ -7,7 +7,7 @@ interface IQuestionInputProps {}
 const QuestionInput: React.FunctionComponent<IQuestionInputProps> = () => {
   return (
     <div>
-      <Input disabled={false} placeholder="답변을 입력하세요" />
+      <Input disabled={false} placeholder="답변을 입력하세요" isGrad />
       <QuestionTextCounter max={50} current={1} />
     </div>
   );

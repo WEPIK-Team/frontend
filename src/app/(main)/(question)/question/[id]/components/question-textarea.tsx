@@ -12,9 +12,10 @@ const QuestionTextArea: React.FunctionComponent<
   return (
     <div>
       <Textarea
-        disabled={true}
         maxLength={300}
         placeholder="답변을 입력하세요"
+        isGrad
+        isError
       />
       <QuestionTextCounter max={300} current={1} />
     </div>
