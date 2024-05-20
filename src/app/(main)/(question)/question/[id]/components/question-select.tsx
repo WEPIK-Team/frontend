@@ -46,24 +46,17 @@ const QuestionSelect: React.FunctionComponent<IQuestionSelectProps> = ({
   return (
     <ul className="space-y-2">
       {options.map((el) => (
-        <div
+        <li
           key={el.value}
-          className={cn("overflow-hidden rounded-full p-[1px] transition-all", {
-            "bg-wpc-primary-grad": selectedValues.includes(el),
-            "hover:bg-wpc-primary-grad": !selectedValues.includes(el),
-          })}
+          className={cn(
+            "w-full cursor-pointer  rounded-full bg-white font-medium",
+            selectedValues.includes(el)
+              ? "div-border-gradient"
+              : "border border-wpc-gray"
+          )}
+          onClick={() => handleSelect(el)}
         >
-          <li
-            className={cn(
-              "flex h-[56px] w-full cursor-pointer items-center justify-between space-x-2 rounded-full bg-white px-[22px] text-[15px] font-medium transition-all",
-              {
-                "": selectedValues.includes(el),
-                "border border-wpc-gray hover:border-none":
-                  !selectedValues.includes(el),
-              }
-            )}
-            onClick={() => handleSelect(el)}
-          >
+          <div className="flex h-[56px] items-center justify-between space-x-2 px-[22px] text-[15px]">
             {el.label}
             {selectedValues.includes(el) && (
               <Image
@@ -73,8 +66,8 @@ const QuestionSelect: React.FunctionComponent<IQuestionSelectProps> = ({
                 alt="checkIcon"
               />
             )}
-          </li>
-        </div>
+          </div>
+        </li>
       ))}
     </ul>
   );
