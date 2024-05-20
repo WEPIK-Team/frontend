@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 
 import { Button } from "@/components/ui/button";
@@ -11,7 +13,7 @@ const QuestionHeader: React.FunctionComponent<IQuestionHeaderProps> = () => {
     <div className="fixed inset-x-0 z-[60] mx-auto max-w-3xl bg-white">
       <div className="flex h-[44px] w-full items-center justify-between">
         {/* back button */}
-        <Button className="bg-transparent">
+        <Button className="bg-transparent" onClick={() => alert("test!")}>
           <Image
             src="/svgs/chevron-left.svg"
             width={11}
