@@ -21,7 +21,7 @@ const QuestionIndex = () => {
   return (
     <Drawer>
       <DrawerTrigger asChild>
-        <Button size="icon" variant="link">
+        <Button>
           <Image
             src="/svgs/menu.svg"
             width={22}
@@ -57,9 +57,7 @@ const QuestionIndex = () => {
             />
           ))}
         </ul>
-        <Button className="my-[17px] py-4 text-white" size="question">
-          이동
-        </Button>
+        <Button className="my-[17px] py-4 text-white">이동</Button>
       </DrawerContent>
     </Drawer>
   );

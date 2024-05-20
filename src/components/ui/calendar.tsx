@@ -27,7 +27,7 @@ function Calendar({
         caption_label: "text-wpt-md font-medium",
         nav: "space-x-1 flex items-center ",
         nav_button: cn(
-          buttonVariants({ variant: "outline" }),
+          buttonVariants(),
           "h-7 w-7 bg-transparent rounded-[100%] p-0 opacity-50 hover:opacity-100 border-none"
         ),
         nav_button_previous: "absolute left-1",
@@ -35,7 +35,7 @@ function Calendar({
         table: "w-full border-collapse space-y-1",
         head_row: "flex w-full justify-around",
         head_cell: "rounded-[100%] w-8 font-normal text-wpt-md text-wpc-gray",
-        row: "flex w-full mt-2 w-full justify-around",
+        row: "flex w-full mt-2 justify-around",
         cell: cn(
           "relative text-center flex-1 text-wpt-md focus-within:relative focus-within:z-20 [&:has([aria-selected])]:bg-wpc-primary/20 [&:has([aria-selected].day-outside)]:bg-wpc-primary/50 [&:has([aria-selected].day-range-end)]:rounded-r-full",
           props.mode === "range"
@@ -43,7 +43,7 @@ function Calendar({
             : "[&:has([aria-selected])]:rounded-full "
         ),
         day: cn(
-          buttonVariants({ variant: "ghost" }),
+          buttonVariants(),
           "h-8 w-8 p-0 font-normal  aria-selected:opacity-100 text-wpt-md"
         ),
         day_range_start: "day-range-start ",

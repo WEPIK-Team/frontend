@@ -23,12 +23,8 @@ export default function TemplatePage() {
             <>
               <div key={template.title} className="col-span-3">
                 <div className="flex gap-1 pb-2">
-                  <Button size="sm" variant="secondary">
-                    수정
-                  </Button>
-                  <Button size="sm" variant="secondary">
-                    삭제
-                  </Button>
+                  <Button>수정</Button>
+                  <Button>삭제</Button>
                 </div>
                 <TemplateSelectCard
                   image={template.image}
