@@ -13,8 +13,8 @@ export default function QuestionPage() {
         {/* Question */}
         <Question
           title="셋중 더 드랍하고 싶은 강의는?"
-          type="select"
-          imageURL={faker.image.url()}
+          type="progress"
+          // imageURL={faker.image.url()}
         />
         {/* Buttons */}
         <PrevNextBtns />

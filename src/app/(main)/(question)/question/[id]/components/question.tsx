@@ -50,22 +50,22 @@ const Question: React.FunctionComponent<IQuestionProps> = ({
           options={[
             {
               label: "불시에 기습 과제 날리는 교수님",
-              value: "test",
+              value: "test123124",
             },
             {
               label: "한 주도 빠짐 없이 과제 내주는 교수님",
-              value: "test2",
+              value: "test12412412",
             },
             {
               label: "수업 때 잡담만 하는데 시험 어렵게 내는 교수님",
-              value: "test2",
+              value: "test231",
             },
           ]}
         />
       )}
       {type === "rating" && (
         <div className="mx-auto w-full">
-          <RatingInput id={10} size={50} />
+          <RatingInput id={10} size={56} />
         </div>
       )}
       {type === "textArea" && <QuestionTextArea />}
