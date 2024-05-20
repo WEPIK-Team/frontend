@@ -4,6 +4,7 @@ import Image from "next/image";
 import QuestionSelect from "./question-select";
 import QuestionTitle from "./question-title";
 import RatingInput from "./rating-input";
+import { cn } from "@/lib/utils";
 
 interface IQuestionProps {
   title: string;
@@ -23,8 +24,14 @@ const Question: React.FunctionComponent<IQuestionProps> = ({
    */
 
   return (
-    <div className="min-h-[400px] space-y-2 px-10 ">
-      {type}
+    <div
+      className={cn(
+        "min-h-[400px] ",
+        imageURL
+          ? "mt-[40px] space-y-[13px]"
+          : "flex flex-col items-center justify-center gap-y-[13px]"
+      )}
+    >
       <QuestionTitle>{title}</QuestionTitle>
       {imageURL ? (
         <Image
@@ -38,7 +45,7 @@ const Question: React.FunctionComponent<IQuestionProps> = ({
       <div className="mx-auto w-full">
         <RatingInput id={10} size={50} />
       </div>
-      <QuestionSelect
+      {/* <QuestionSelect
         type="single"
         options={[
           {
@@ -54,7 +61,7 @@ const Question: React.FunctionComponent<IQuestionProps> = ({
             value: "test2",
           },
         ]}
-      />
+      /> */}
     </div>
   );
 };
