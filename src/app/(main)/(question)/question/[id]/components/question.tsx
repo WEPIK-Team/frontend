@@ -1,16 +1,15 @@
 "use client";
 import Image from "next/image";
 
+import { cn } from "@/lib/utils";
+
+import QuestionDatePicker from "./question-datepicker";
+import QuestionInput from "./question-input";
 import QuestionSelect from "./question-select";
+import QuestionSlider from "./question-slider";
+import QuestionTextArea from "./question-textarea";
 import QuestionTitle from "./question-title";
 import RatingInput from "./rating-input";
-import { cn } from "@/lib/utils";
-import { Input } from "@/components/ui/input";
-import QuestionInput from "./question-input";
-import QuestionTextArea from "./question-textarea";
-import { Slider } from "@/components/ui/slider";
-import QuestionSlider from "./question-slider";
-import QuestionDatePicker from "./question-datepicker";
 
 interface IQuestionProps {
   title: string;

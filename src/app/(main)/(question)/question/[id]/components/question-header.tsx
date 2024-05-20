@@ -2,9 +2,10 @@
 
 import Image from "next/image";
 
-import { Button } from "@/components/ui/button";
-import QuestionProgressbar from "./question-progressbar";
 import QuestionIndex from "@/components/index/question-index";
+import { Button } from "@/components/ui/button";
+
+import QuestionProgressbar from "./question-progressbar";
 
 interface IQuestionHeaderProps {}
 
