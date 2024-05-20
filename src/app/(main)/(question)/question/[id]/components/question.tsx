@@ -14,9 +14,7 @@ import QuestionDatePicker from "./question-datepicker";
 
 interface IQuestionProps {
   title: string;
-
-  //  질문 type에 따라 다른 컴포넌트를 보여주기 지금은 임의로 string
-  type: string;
+  type: "input" | "select" | "progress" | "rating" | "textArea" | "datepicker";
   imageURL?: string;
 }
 
@@ -25,12 +23,6 @@ const Question: React.FunctionComponent<IQuestionProps> = ({
   type,
   imageURL,
 }) => {
-  /**
-   * title?
-   * total problem?
-   * input type?
-   */
-
   return (
     <div
       className={cn(
@@ -78,7 +70,7 @@ const Question: React.FunctionComponent<IQuestionProps> = ({
       )}
       {type === "textArea" && <QuestionTextArea />}
       {type === "progress" && <QuestionSlider />}
-      {type === "datepicker" && <QuestionDatePicker disabled={false} />}
+      {type === "datepicker" && <QuestionDatePicker />}
     </div>
   );
 };

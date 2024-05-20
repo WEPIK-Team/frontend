@@ -27,30 +27,28 @@ function Calendar({
         caption_label: "text-wpt-md font-medium",
         nav: "space-x-1 flex items-center ",
         nav_button: cn(
-          buttonVariants(),
           "h-7 w-7 bg-transparent rounded-[100%] p-0 opacity-50 hover:opacity-100 border-none"
         ),
         nav_button_previous: "absolute left-1",
         nav_button_next: "absolute right-1",
-        table: "w-full border-collapse space-y-1",
+        table: "w-full border-collapse",
         head_row: "flex w-full justify-around",
-        head_cell: "rounded-[100%] w-8 font-normal text-wpt-md text-wpc-gray",
-        row: "flex w-full mt-2 justify-around",
+        head_cell: "w-4 font-normal text-wpt-md text-wpc-gray",
+        row: "flex justify-around mt-1",
         cell: cn(
-          "relative text-center flex-1 text-wpt-md focus-within:relative focus-within:z-20 [&:has([aria-selected])]:bg-wpc-primary/20 [&:has([aria-selected].day-outside)]:bg-wpc-primary/50 [&:has([aria-selected].day-range-end)]:rounded-r-full",
+          "relative flex items-center justify-center text-center w-full overflow-hidden focus-within:relative focus-within:z-20 [&:has([aria-selected])]:bg-wpc-primary/20  [&:has([aria-selected].day-range-end)]:rounded-r-full",
           props.mode === "range"
             ? "[&:has(>.day-range-end)]:rounded-r-full [&:has(>.day-range-start)]:rounded-l-full first:[&:has([aria-selected])]:rounded-l-full last:[&:has([aria-selected])]:rounded-r-full"
-            : "[&:has([aria-selected])]:rounded-full "
+            : "[&:has([aria-selected])]:rounded-full"
         ),
         day: cn(
-          buttonVariants(),
-          "h-8 w-8 p-0 font-normal  aria-selected:opacity-100 text-wpt-md"
+          "p-0 font-normal w-[40px] h-[40px] aspect-square transition-colors rounded-full aria-selected:opacity-100 text-wpt-md hover:bg-wpc-light-gray"
         ),
-        day_range_start: "day-range-start ",
+        day_range_start: "day-range-start",
         day_range_end: "day-range-end",
         day_selected:
-          "bg-wpc-primary rounded-[100%] text-primary-foreground hover:bg-wpc-primary hover:text-primary-foreground focus:bg-wpc-primary focus:text-primary-foreground",
-        day_today: "rounded-[100%] border border-wpc-primary",
+          "bg-wpc-primary  text-primary-foreground hover:bg-wpc-primary hover:text-primary-foreground focus:bg-wpc-primary focus:text-primary-foreground",
+        day_today: "border border-wpc-primary",
         day_outside:
           "day-outside text-muted-foreground opacity-50 aria-selected:bg-wpc-primary/50 aria-selected:text-muted-foreground aria-selected:opacity-30",
         day_disabled: "text-muted-foreground opacity-50",

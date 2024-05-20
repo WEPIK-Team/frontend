@@ -16,11 +16,9 @@ import {
 } from "@/components/ui/popover";
 
 interface IQuestionDatePickerProps
-  extends React.HTMLAttributes<HTMLDivElement> {
-  disabled: boolean;
-}
+  extends React.HTMLAttributes<HTMLDivElement> {}
 
-function QuestionDatePicker({ className, disabled }: IQuestionDatePickerProps) {
+function QuestionDatePicker({ className }: IQuestionDatePickerProps) {
   const [isOpen, setIsOpen] = React.useState(false);
   const [date, setDate] = React.useState<DateRange | undefined>({
     from: new Date(),
@@ -35,41 +33,37 @@ function QuestionDatePicker({ className, disabled }: IQuestionDatePickerProps) {
         }}
       >
         <PopoverTrigger asChild>
-          <div
+          <Button
+            id="date"
             className={cn(
-              "overflow-hidden rounded-[18px] p-[2px] transition ",
-              disabled ? "" : "hover:bg-wpc-primary-grad",
-              isOpen && "bg-wpc-primary-grad"
+              "flex h-[56px] w-full justify-between rounded-[14px] border-wpc-gray px-[15px] pb-[16px] pt-[15px] text-left text-wpt-base-1 font-semibold shadow-sm hover:border-transparent hover:bg-white focus:outline-none ",
+              !date && "text-muted-foreground",
+              isOpen && "border-transparent"
             )}
+            variant="gray"
           >
-            <Button
-              id="date"
-              className={cn(
-                "flex h-[56px] w-full justify-between rounded-[14px] border-wpc-gray px-[15px] pb-[16px] pt-[15px] text-left text-wpt-base-1 font-semibold shadow-sm hover:border-transparent hover:bg-white focus:outline-none ",
-                !date && "text-muted-foreground",
-                isOpen && "border-transparent"
-              )}
-            >
-              <div className="flex items-center gap-x-[13px]">
-                <CalendarIcon className="mr-2 h-[26px] w-[26px] text-wpc-primary" />
-                {date?.from ? (
-                  date.to ? (
-                    <>
-                      {format(date.from, "yyyy/MM/dd", { locale: ko })} -{" "}
-                      {format(date.to, "yyyy/MM/dd", { locale: ko })}
-                    </>
-                  ) : (
-                    format(date.from, "yyyy/MM/dd")
-                  )
+            <div className="flex items-center gap-x-[13px]">
+              <CalendarIcon className="mr-2 h-[26px] w-[26px] text-wpc-primary" />
+              {date?.from ? (
+                date.to ? (
+                  <>
+                    {format(date.from, "yyyy/MM/dd", { locale: ko })} -{" "}
+                    {format(date.to, "yyyy/MM/dd", { locale: ko })}
+                  </>
                 ) : (
-                  <span>날짜를 선택하세요</span>
-                )}
-              </div>
-              <ChevronDownIcon className="h-[26px] w-[26px] font-bold text-wpc-primary" />
-            </Button>
-          </div>
+                  format(date.from, "yyyy/MM/dd")
+                )
+              ) : (
+                <span>날짜를 선택하세요</span>
+              )}
+            </div>
+            <ChevronDownIcon className="h-[26px] w-[26px] font-bold text-wpc-primary" />
+          </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-[358px] rounded-[18px] p-0" align="center">
+        <PopoverContent
+          className="z-[70] w-[358px] rounded-[18px] p-0"
+          align="center"
+        >
           <Calendar
             locale={ko}
             initialFocus
@@ -80,11 +74,11 @@ function QuestionDatePicker({ className, disabled }: IQuestionDatePickerProps) {
             numberOfMonths={1}
             showOutsideDays={false}
             footer={
-              <div className="mt-[25px] flex w-full justify-between">
-                <Button className="rounded-full border border-wpc-gray3 bg-transparent p-[20px] text-wpt-md font-normal text-wpc-primary hover:bg-transparent">
+              <div className="mt-2 flex w-full justify-between">
+                <Button className="h-[44px] rounded-full border border-wpc-gray3 bg-transparent px-[20px] py-[10px] text-wpt-md font-normal text-wpc-primary hover:bg-transparent">
                   초기화
                 </Button>
-                <Button className="rounded-full bg-wpc-second-grad p-[20px] text-wpt-md font-normal text-white ">
+                <Button className="font-normaltext-white h-[44px] rounded-full bg-wpc-second-grad px-[20px] py-[10px] text-wpt-md text-white ">
                   완료
                 </Button>
               </div>
