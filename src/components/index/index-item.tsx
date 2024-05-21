@@ -42,7 +42,7 @@ const IndexItem = ({ title, isAnswer, idx, isSelected }: IndexItemProps) => {
             src="/svgs/check-active.svg"
             width={24}
             height={24}
-            alt="qustion-list"
+            alt="index-isAnswer"
           />
         </div>
       ) : (

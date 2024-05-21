@@ -20,3 +20,18 @@ export const Icons = [
     alt: "facebookIcon",
   },
 ];
+
+export const IconsInAuth = [
+  {
+    src: "/images/icons/google.png",
+    alt: "googleIcon",
+  },
+  {
+    src: "/images/icons/naver.png",
+    alt: "naverIcon",
+  },
+  {
+    src: "/images/icons/kakao.png",
+    alt: "kakaoIcon",
+  },
+];

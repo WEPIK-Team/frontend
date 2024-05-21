@@ -1,5 +1,6 @@
 import * as LabelPrimitive from "@radix-ui/react-label";
 import { Slot } from "@radix-ui/react-slot";
+import { cva } from "class-variance-authority";
 import * as React from "react";
 import {
   Controller,
@@ -135,28 +136,39 @@ const FormDescription = React.forwardRef<
 });
 FormDescription.displayName = "FormDescription";
 
-const FormMessage = React.forwardRef<
-  HTMLParagraphElement,
-  React.HTMLAttributes<HTMLParagraphElement>
->(({ className, children, ...props }, ref) => {
-  const { error, formMessageId } = useFormField();
-  const body = error ? String(error?.message) : children;
-
-  if (!body) {
-    return null;
-  }
-
-  return (
-    <p
-      ref={ref}
-      id={formMessageId}
-      className={cn("text-[0.8rem] font-medium text-destructive", className)}
-      {...props}
-    >
-      {body}
-    </p>
-  );
+const messageVariants = cva("text-wpc-error text-wpt-sm  mt-[3px] pl-[10px]", {
+  variants: {
+    isAbsolute: {
+      true: "absolute",
+    },
+  },
 });
+
+interface FormMessageProps extends React.HTMLAttributes<HTMLParagraphElement> {
+  isAbsolute?: boolean;
+}
+
+const FormMessage = React.forwardRef<HTMLParagraphElement, FormMessageProps>(
+  ({ className, children, isAbsolute, ...props }, ref) => {
+    const { error, formMessageId } = useFormField();
+    const body = children ? children : error ? String(error.message) : children;
+
+    if (!body) {
+      return null;
+    }
+
+    return (
+      <p
+        ref={ref}
+        id={formMessageId}
+        className={cn(messageVariants({ isAbsolute, className }))}
+        {...props}
+      >
+        {body}
+      </p>
+    );
+  }
+);
 FormMessage.displayName = "FormMessage";
 
 export {

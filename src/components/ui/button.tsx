@@ -18,6 +18,9 @@ const buttonVariants = cva(
       disabled: {
         true: "",
       },
+      block: {
+        true: "w-full",
+      },
     },
 
     defaultVariants: {
@@ -52,17 +55,23 @@ export interface ButtonProps
     ButtonVariantProps {
   asChild?: boolean;
   disabled?: boolean;
+  block?: boolean;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, disabled, ...props }, ref) => {
+  (
+    { className, variant, size, asChild = false, disabled, block, ...props },
+    ref
+  ) => {
     const Comp = asChild ? Slot : "button";
     return (
       <Comp
+        className={cn(
+          buttonVariants({ variant, size, disabled, block, className })
+        )}
         ref={ref}
         {...props}
         disabled={disabled}
-        className={cn(buttonVariants({ variant, size, disabled, className }))}
       />
     );
   }
