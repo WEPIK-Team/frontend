@@ -11,15 +11,25 @@ export interface SelectOption {
 interface IQuestionSelectProps {
   type: "single" | "double" | "triple";
   options: SelectOption[];
+  readonly?: boolean;
+  color: "sender" | "receiver";
 }
 
+const colorVal = {
+  sender: "div-sender-gradient",
+  receiver: "div-receiver-gradient",
+};
+
 const QuestionSelect: React.FunctionComponent<IQuestionSelectProps> = ({
-  options,
   type,
+  color,
+  options,
+  readonly,
 }) => {
   const [selectedValues, setSelectedValues] = useState<SelectOption[]>([]);
 
   const handleSelect = (option: SelectOption) => {
+    if (readonly) return;
     switch (type) {
       case "single":
         setSelectedValues([option]);
@@ -49,9 +59,9 @@ const QuestionSelect: React.FunctionComponent<IQuestionSelectProps> = ({
         <li
           key={el.value}
           className={cn(
-            "w-full cursor-pointer  rounded-full bg-white font-medium",
+            "w-full cursor-pointer rounded-full bg-white font-medium",
             selectedValues.includes(el)
-              ? "div-border-gradient"
+              ? colorVal[color]
               : "border border-wpc-gray"
           )}
           onClick={() => handleSelect(el)}
@@ -60,7 +70,7 @@ const QuestionSelect: React.FunctionComponent<IQuestionSelectProps> = ({
             {el.label}
             {selectedValues.includes(el) && (
               <Image
-                src="/svgs/check-active.svg"
+                src="/svgs/sender-check.svg"
                 width={24}
                 height={24}
                 alt="checkIcon"

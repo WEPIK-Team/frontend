@@ -4,9 +4,19 @@ import * as React from "react";
 
 import { Slider } from "@/components/ui/slider";
 
-interface IQuestionSliderProps {}
+interface IQuestionSliderProps {
+  color: "sender" | "receiver" | "default";
+}
 
-const QuestionSlider: React.FunctionComponent<IQuestionSliderProps> = () => {
+const sliderObj = {
+  sender: "bg-wpc-primary-grad",
+  receiver: "bg-wpc-second-grad",
+  default: "bg-wpc-gray",
+};
+
+const QuestionSlider: React.FunctionComponent<IQuestionSliderProps> = ({
+  color,
+}) => {
   const [value, setValue] = React.useState([50]);
 
   return (
@@ -16,6 +26,7 @@ const QuestionSlider: React.FunctionComponent<IQuestionSliderProps> = () => {
       min={0}
       max={100}
       step={1}
+      rangeColor={sliderObj[color]}
     />
   );
 };

@@ -15,10 +15,25 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
-interface IQuestionDatePickerProps
-  extends React.HTMLAttributes<HTMLDivElement> {}
+interface IQuestionDatePickerProps {
+  className?: string;
+  readonly?: boolean;
+  color?: "sender" | "receiver" | "default";
+}
 
-function QuestionDatePicker({ className }: IQuestionDatePickerProps) {
+const colorObj = {
+  iconColor: {
+    sender: "text-wpc-primary",
+    receiver: "text-wpc-second",
+    default: "text-wpc-primary",
+  },
+};
+
+function QuestionDatePicker({
+  readonly,
+  className,
+  color = "default",
+}: IQuestionDatePickerProps) {
   const [isOpen, setIsOpen] = React.useState(false);
 
   const [date, setDate] = React.useState<DateRange | undefined>({
@@ -34,9 +49,9 @@ function QuestionDatePicker({ className }: IQuestionDatePickerProps) {
           setIsOpen(isOpen);
         }}
       >
-        <PopoverTrigger asChild>
+        <PopoverTrigger disabled={readonly} asChild>
           <Button
-            disabled
+            disabled={readonly}
             id="date"
             className={cn(
               " h-[56px] w-full rounded-[14px] bg-transparent p-0 text-left text-wpt-base-1 font-semibold",
@@ -46,7 +61,12 @@ function QuestionDatePicker({ className }: IQuestionDatePickerProps) {
           >
             <div className="flex w-full justify-between px-[15px] pb-[16px] pt-[15px]">
               <div className="flex items-center gap-x-[13px] ">
-                <CalendarIcon className="mr-2 h-[26px] w-[26px] text-wpc-primary" />
+                <CalendarIcon
+                  className={cn(
+                    "mr-2 h-[26px] w-[26px]",
+                    colorObj.iconColor[color]
+                  )}
+                />
                 {date?.from ? (
                   date.to ? (
                     <>
@@ -60,12 +80,16 @@ function QuestionDatePicker({ className }: IQuestionDatePickerProps) {
                   <span>날짜를 선택하세요</span>
                 )}
               </div>
-              <ChevronDownIcon
-                className={cn(
-                  "h-[26px] w-[26px] font-bold text-wpc-primary transition-transform",
-                  isOpen && "rotate-180"
-                )}
-              />
+              {!readonly ? (
+                <>
+                  <ChevronDownIcon
+                    className={cn(
+                      "h-[26px] w-[26px] font-bold text-wpc-primary transition-transform",
+                      isOpen && "rotate-180"
+                    )}
+                  />
+                </>
+              ) : null}
             </div>
           </Button>
         </PopoverTrigger>

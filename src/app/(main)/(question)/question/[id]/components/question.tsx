@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import React from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -22,6 +23,12 @@ const Question: React.FunctionComponent<IQuestionProps> = ({
   type,
   imageURL,
 }) => {
+  const [rating, setRating] = React.useState<number>(0);
+
+  const handleRatingChange = (value: number) => {
+    setRating(value);
+  };
+
   return (
     <div
       className={cn(
@@ -45,6 +52,7 @@ const Question: React.FunctionComponent<IQuestionProps> = ({
       {type === "input" && <QuestionInput />}
       {type === "select" && (
         <QuestionSelect
+          color="sender"
           type="single"
           options={[
             {
@@ -64,11 +72,17 @@ const Question: React.FunctionComponent<IQuestionProps> = ({
       )}
       {type === "rating" && (
         <div className="mx-auto w-full">
-          <RatingInput id={10} size={56} />
+          <RatingInput
+            id={10}
+            size={56}
+            color="receiver"
+            value={rating}
+            onRateChange={handleRatingChange}
+          />
         </div>
       )}
       {type === "textArea" && <QuestionTextArea />}
-      {type === "progress" && <QuestionSlider />}
+      {type === "progress" && <QuestionSlider color="default" />}
       {type === "datepicker" && <QuestionDatePicker />}
     </div>
   );

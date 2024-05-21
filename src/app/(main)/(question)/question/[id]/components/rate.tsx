@@ -6,7 +6,12 @@ interface Props {
   rating: number;
   id: number;
   size: number;
-  color: string;
+  color:
+    | string
+    | {
+        from: string;
+        to: string;
+      };
   emptyColor: string;
 }
 
@@ -62,7 +67,7 @@ function TempStarRate({ id, rating, size, color, emptyColor }: Props) {
                 <path
                   id={`${itemKey}Star`}
                   d="M28.1468 10.7811C29.0449 8.01722 32.9551 8.01722 33.8532 10.7812L36.6129 19.2746C37.0145 20.5106 38.1663 21.3475 39.466 21.3475H48.3965C51.3027 21.3475 52.511 25.0664 50.1599 26.7746L42.935 32.0238C41.8835 32.7877 41.4435 34.1418 41.8451 35.3779L44.6048 43.8713C45.5029 46.6353 42.3394 48.9336 39.9883 47.2254L32.7634 41.9762C31.7119 41.2123 30.2881 41.2123 29.2366 41.9762L22.0117 47.2254C19.6606 48.9336 16.4971 46.6353 17.3952 43.8713L20.1549 35.3779C20.5565 34.1418 20.1165 32.7877 19.065 32.0238L11.8401 26.7746C9.48897 25.0664 10.6973 21.3475 13.6035 21.3475H22.534C23.8337 21.3475 24.9855 20.5106 25.3871 19.2746L28.1468 10.7811Z"
-                  fill={color}
+                  fill="url(#linear-gradient)"
                   clipPath={`url(#${itemKey}StarClip)`}
                 />
               </g>
@@ -102,6 +107,22 @@ function TempStarRate({ id, rating, size, color, emptyColor }: Props) {
                     result="shape"
                   />
                 </filter>
+                <linearGradient
+                  id="linear-gradient"
+                  x1="0%"
+                  y1="0%"
+                  x2="100%"
+                  y2="100%"
+                >
+                  {typeof color === "string" ? (
+                    <stop offset="0%" stopColor={color} />
+                  ) : (
+                    <>
+                      <stop offset="0%" stopColor={color.from} />
+                      <stop offset="100%" stopColor={color.to} />
+                    </>
+                  )}
+                </linearGradient>
               </defs>
             </svg>
           </span>

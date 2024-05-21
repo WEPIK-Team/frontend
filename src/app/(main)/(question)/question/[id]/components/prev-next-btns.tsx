@@ -1,3 +1,5 @@
+"use client";
+
 import * as React from "react";
 
 import { Button } from "@/components/ui/button";
@@ -11,7 +13,14 @@ const PrevNextBtns: React.FunctionComponent<IPrevNextBtnsProps> = () => {
       <Button className="w-full bg-wpc-light-gray text-wpc-gray" variant="gray">
         이전
       </Button>
-      <Button className="w-full bg-wpc-primary text-white" variant="default">
+      <Button
+        variant="default"
+        className="w-full"
+        disabled
+        onClick={() => {
+          alert("클릭");
+        }}
+      >
         다음
       </Button>
     </div>

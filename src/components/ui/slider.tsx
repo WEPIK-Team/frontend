@@ -7,10 +7,15 @@ import { cn } from "@/lib/utils";
 
 import SpeechBubble from "@/app/(main)/(question)/question/[id]/components/speech-bubble";
 
+interface SliderProps
+  extends React.ComponentPropsWithoutRef<typeof SliderPrimitive.Root> {
+  rangeColor?: string;
+}
+
 const Slider = React.forwardRef<
   React.ElementRef<typeof SliderPrimitive.Root>,
-  React.ComponentPropsWithoutRef<typeof SliderPrimitive.Root>
->(({ className, ...props }, ref) => (
+  SliderProps
+>(({ className, rangeColor, ...props }, ref) => (
   <SliderPrimitive.Root
     ref={ref}
     className={cn(
@@ -19,8 +24,10 @@ const Slider = React.forwardRef<
     )}
     {...props}
   >
-    <SliderPrimitive.Track className="relative h-[12px] w-full grow overflow-hidden rounded-full bg-[#D9D9D9]">
-      <SliderPrimitive.Range className="absolute h-full bg-wpc-primary-grad" />
+    <SliderPrimitive.Track className="relative h-[12px] w-full grow overflow-hidden rounded-full bg-wpc-gray2">
+      <SliderPrimitive.Range
+        className={cn("absolute h-full", rangeColor || "bg-wpc-gray")}
+      />
     </SliderPrimitive.Track>
     <SliderPrimitive.Thumb className="relative block h-[28px] w-[28px] rounded-full bg-background shadow-md transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-wpc-primary disabled:pointer-events-none disabled:opacity-50">
       <SpeechBubble className="absolute -left-[20px] -top-[50px]">
