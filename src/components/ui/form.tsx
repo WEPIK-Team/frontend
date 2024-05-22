@@ -136,7 +136,7 @@ const FormDescription = React.forwardRef<
 });
 FormDescription.displayName = "FormDescription";
 
-const messageVariants = cva("text-wpc-error text-wpt-sm  mt-[3px] pl-[10px]", {
+const messageVariants = cva("error-class mt-[3px] pl-[10px]", {
   variants: {
     isAbsolute: {
       true: "absolute",
@@ -161,7 +161,7 @@ const FormMessage = React.forwardRef<HTMLParagraphElement, FormMessageProps>(
       <p
         ref={ref}
         id={formMessageId}
-        className={cn(messageVariants({ isAbsolute, className }))}
+        className={cn(messageVariants({ isAbsolute }), className)}
         {...props}
       >
         {body}

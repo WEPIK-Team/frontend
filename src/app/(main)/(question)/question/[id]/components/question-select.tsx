@@ -12,12 +12,13 @@ interface IQuestionSelectProps {
   type: "single" | "double" | "triple";
   options: SelectOption[];
   readonly?: boolean;
-  color: "sender" | "receiver";
+  color: "sender" | "receiver" | "both";
 }
 
 const colorVal = {
   sender: "div-sender-gradient",
   receiver: "div-receiver-gradient",
+  both: "bg-red-500",
 };
 
 const QuestionSelect: React.FunctionComponent<IQuestionSelectProps> = ({

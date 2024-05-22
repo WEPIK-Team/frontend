@@ -89,15 +89,15 @@ const config = {
       },
       colors: {
         wpc: {
-          primary: "#6377dd",
-          second: "#d19beb",
-          third: "#7b78ec",
-          gray: "#8f8f95",
-          gray2: "#dbdade",
-          gray3: "#cccad1",
-          "light-gray": "#eeedf1",
-          error: "#ef4d74",
-          "light-error": "rgb(244, 110, 142, 0.03)",
+          primary: "hsl(var(--primary))",
+          second: "hsl(var(--second))",
+          third: "hsl(var(--third))",
+          gray: "hsl(var(--gray))",
+          gray2: "hsl(var(--gray2))",
+          gray3: "hsl(var(--gray3))",
+          "light-gray": "hsl(var(--light-gray))",
+          error: "hsl(var(--error))",
+          "light-error": "hsla(var(--light-error))",
         },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -155,6 +155,12 @@ const config = {
       },
     },
   },
+  safelist: [
+    {
+      pattern:
+        /(bg|text|border)-wpc-(primary|second|third|gray|gray2|gray3|light-gray|error|light-error)/,
+    },
+  ],
   plugins: [require("tailwindcss-animate")],
 } satisfies Config;
 

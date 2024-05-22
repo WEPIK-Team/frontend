@@ -12,7 +12,7 @@ const titleVariants = cva("ml-1 break-words text-wpt-md z-10", {
   variants: {
     isAnswer: {
       true: "text-wpc-gray",
-      false: "text-black", // 기본 색상 설정, 필요에 따라 변경
+      false: "text-black",
     },
     isSelected: {
       true: "font-semibold",
@@ -46,7 +46,7 @@ const IndexItem = ({ title, isAnswer, idx, isSelected }: IndexItemProps) => {
           />
         </div>
       ) : (
-        <span className="z-10 w-[32px] flex-shrink-0 text-left font-allroundgothic text-[20px] font-semibold leading-[22px] text-wpc-primary">{`Q${idx + 1}.`}</span>
+        <span className="z-10 w-[32px] flex-shrink-0 text-left text-[20px] font-semibold leading-[22px] text-wpc-primary">{`Q${idx + 1}.`}</span>
       )}
 
       <span className={titleVariants({ isAnswer, isSelected })}>{title}</span>

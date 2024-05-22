@@ -33,7 +33,7 @@ const LoginForm = () => {
   } = form;
 
   async function onSubmit(values: loginValues) {
-    // console.log(values);
+    console.log(values);
   }
 
   const getCombinedErrorMessage = () => {
@@ -88,7 +88,7 @@ const LoginForm = () => {
         <div className="flex w-full items-center justify-between pb-[32px] pt-[28px]">
           <div className="flex items-center">
             <Image
-              src="/svgs/check-active.svg"
+              src="/svgs/sender-check.svg"
               width={24}
               height={24}
               alt="index-isAnswer"
