@@ -1,13 +1,13 @@
-import type { Config } from "tailwindcss"
+import type { Config } from "tailwindcss";
 
 const config = {
   darkMode: ["class"],
   content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
-	],
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
+  ],
   prefix: "",
   theme: {
     container: {
@@ -18,7 +18,87 @@ const config = {
       },
     },
     extend: {
+      fontSize: {
+        "wpt-2xl": [
+          "26px",
+          {
+            lineHeight: "25px",
+            letterSpacing: "0",
+            fontWeight: "400",
+          },
+        ],
+        "wpt-xl": [
+          "26px",
+          {
+            lineHeight: "27px",
+            letterSpacing: "0",
+            fontWeight: "400",
+          },
+        ],
+        "wpt-lg": [
+          "20px",
+          {
+            lineHeight: "26px",
+            letterSpacing: "0",
+            fontWeight: "400",
+          },
+        ],
+        "wpt-md": [
+          "17px",
+          {
+            lineHeight: "21px",
+            letterSpacing: "0",
+            fontWeight: "400",
+          },
+        ],
+        "wpt-base-1": [
+          "15px",
+          {
+            lineHeight: "22px",
+            letterSpacing: "0",
+            fontWeight: "400",
+          },
+        ],
+        "wpt-base-2": [
+          "15px",
+          {
+            lineHeight: "20px",
+            letterSpacing: "0",
+            fontWeight: "400",
+          },
+        ],
+        "wpt-sm": [
+          "13px",
+          {
+            lineHeight: "16px",
+            letterSpacing: "0",
+            fontWeight: "400",
+          },
+        ],
+      },
+      backgroundImage: {
+        "wpc-primary-grad": "linear-gradient(-90deg, #6377DD 0%, #D19BEB 100%)",
+        "wpc-second-grad": "linear-gradient(45deg, #7B78EC 0%, #6377DD 100%)",
+      },
+      fontFamily: {
+        pretendard: ["var(--font-pretendard)"],
+        allroundgothic: ["var(--font-allroundgothic)"],
+      },
+      boxShadow: {
+        "wps-primary": "0 2px 10px rgba(99, 119, 221, 0.5)",
+      },
       colors: {
+        wpc: {
+          primary: "hsl(var(--primary))",
+          second: "hsl(var(--second))",
+          third: "hsl(var(--third))",
+          gray: "hsl(var(--gray))",
+          gray2: "hsl(var(--gray2))",
+          gray3: "hsl(var(--gray3))",
+          "light-gray": "hsl(var(--light-gray))",
+          error: "hsl(var(--error))",
+          "light-error": "hsla(var(--light-error))",
+        },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -57,6 +137,7 @@ const config = {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+        "input-default": "18px",
       },
       keyframes: {
         "accordion-down": {
@@ -74,7 +155,13 @@ const config = {
       },
     },
   },
+  safelist: [
+    {
+      pattern:
+        /(bg|text|border)-wpc-(primary|second|third|gray|gray2|gray3|light-gray|error|light-error)/,
+    },
+  ],
   plugins: [require("tailwindcss-animate")],
-} satisfies Config
+} satisfies Config;
 
-export default config
+export default config;
