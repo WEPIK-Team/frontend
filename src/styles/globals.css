@@ -4,15 +4,15 @@
 
 @layer base {
   :root {
-    --primary: 230 64% 63%;
-    --second: 281 67% 76%;
-    --third: 242 75% 70%;
-    --gray: 238 3% 57%;
-    --gray2: 255 6% 86%;
-    --gray3: 257 7% 81%;
-    --light-gray: 255 12% 94%;
-    --error: 346 84% 62%;
-    --light-error: 346 86% 69% / 3%;
+    --wpc-primary: 230 64% 63%;
+    --wpc-second: 281 67% 76%;
+    --wpc-third: 242 75% 70%;
+    --wpc-gray: 238 3% 57%;
+    --wpc-gray2: 255 6% 86%;
+    --wpc-gray3: 257 7% 81%;
+    --wpc-light-gray: 255 12% 94%;
+    --wpc-error: 346 84% 62%;
+    --wpc-light-error: 346 86% 69% / 3%;
   }
   :root {
     --background: 0 0% 100%;
@@ -79,7 +79,7 @@
 
 @layer utilities {
   .error-class {
-    @apply text-wpc-error text-wpt-sm;
+    @apply text-wpt-sm text-wpc-error;
   }
 }
 
@@ -92,6 +92,10 @@
   }
   html {
     @apply h-full;
+  }
+  li {
+    padding: 0;
+    list-style: none;
   }
 }
 

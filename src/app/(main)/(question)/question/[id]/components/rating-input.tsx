@@ -8,14 +8,14 @@ import Rate from "./rate";
 interface IRateProps {
   id: number;
   size?: number;
-  readonly?: boolean;
+  readOnly?: boolean;
   emptyColor?: string;
-  color?: "sender" | "receiver" | "default";
+  theme?: "sender" | "receiver" | "default";
   value?: number;
   onRateChange?: (value: number) => void;
 }
 
-const colorObj = {
+const themeObj = {
   color: {
     sender: {
       from: "#7B78EC",
@@ -25,7 +25,10 @@ const colorObj = {
       from: "#D19BEB",
       to: "#A188EC",
     },
-    default: "#7B78EC",
+    default: {
+      from: "#7B78EC",
+      to: "#7B78EC",
+    },
   },
   emptyColor: "#DBDADE",
 };
@@ -34,15 +37,17 @@ function RatingInput({
   id,
   value = 0,
   size = 25,
-  color = "default",
-  readonly,
+  theme = "default",
+  readOnly,
   emptyColor = "#DBDADE",
   onRateChange,
 }: IRateProps) {
-  const selectedColor = colorObj.color[color] || colorObj.color.default;
-
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.stopPropagation();
+
+    if (onRateChange) {
+      onRateChange(parseFloat(e.target.value));
+    }
 
     if (onRateChange) {
       onRateChange(parseFloat(e.target.value));
@@ -53,7 +58,7 @@ function RatingInput({
     <div className="relative mx-auto w-fit ">
       <Rate
         size={size}
-        color={selectedColor}
+        color={themeObj.color[theme]}
         emptyColor={emptyColor}
         rating={value}
         id={id}
@@ -68,12 +73,9 @@ function RatingInput({
           max="5"
           step="0.5"
           className={cn(`h-full w-full`)}
-          disabled={readonly}
+          disabled={readOnly}
         />
       </div>
-      <p className="text-center text-[17px] font-semibold text-wpc-primary">
-        {value}
-      </p>
     </div>
   );
 }

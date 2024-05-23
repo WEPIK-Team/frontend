@@ -1,30 +1,68 @@
+import { cva, VariantProps } from "class-variance-authority";
 import Image from "next/image";
 import * as React from "react";
 
 import { cn } from "@/lib/utils";
 
+const inputVariants = cva(
+  "w-full rounded-[18px] border border-wpc-gray2 px-[18px] py-[17px] text-wpt-base-1 transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-wpc-gray focus-visible:outline-none focus-visible:ring-0 disabled:cursor-not-allowed disabled:opacity-50",
+  {
+    variants: {
+      variant: {
+        default: "focus:border-wpc-gray",
+        grad: "input-border-gradient ",
+      },
+      readOnly: {
+        true: "",
+      },
+      isError: {
+        true: "border border-wpc-error bg-wpc-light-error focus:border-wpc-error",
+      },
+    },
+
+    defaultVariants: {
+      variant: "default",
+    },
+    compoundVariants: [
+      {
+        variant: "default",
+        readOnly: true,
+        className: "focus:border-wpc-gray2",
+      },
+      {
+        readOnly: true,
+        isError: true,
+        className: "focus:border-wpc-error",
+      },
+      {
+        variant: "grad",
+        readOnly: true,
+        className: "focus:border-wpc-gray2",
+      },
+    ],
+  }
+);
+
+type InputVariantProps = VariantProps<typeof inputVariants>;
+
 export interface InputProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {
+  extends React.InputHTMLAttributes<HTMLInputElement>,
+    InputVariantProps {
+  readOnly?: boolean;
   isError?: boolean;
-  isGrad?: boolean;
 }
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, isError, isGrad, ...props }, ref) => {
+  ({ className, type, isError, variant, readOnly, ...props }, ref) => {
     return (
-      <div className="relative">
+      <div className="relative w-full">
         <input
           type={type}
           className={cn(
-            "w-full rounded-[18px] border px-[18px] py-[17px] text-wpt-base-1 transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-wpc-gray focus-visible:outline-none focus-visible:ring-0 disabled:cursor-not-allowed disabled:opacity-50",
-            isError
-              ? "border border-wpc-error bg-wpc-light-error"
-              : "border-wpc-gray2",
-            isGrad && !isError && "input-border-gradient",
-            !isGrad && !isError && "focus:border-wpc-gray",
-            className
+            inputVariants({ variant, className, isError, readOnly })
           )}
           ref={ref}
+          readOnly={readOnly}
           {...props}
         />
         {isError ? (

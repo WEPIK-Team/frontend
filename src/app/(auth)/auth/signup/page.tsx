@@ -1,5 +1,5 @@
 const SignUpPage = () => {
-  return <div>Signup</div>;
+  return <div className="text-wpc-primary">Signup</div>;
 };
 
 export default SignUpPage;

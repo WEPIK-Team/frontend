@@ -18,7 +18,7 @@ export default function RootLayout({
       lang="ko"
       className={`${pretendard.variable} ${allRoundGothic.variable}`}
     >
-      <body className={`${pretendard.className}`}>
+      <body className={`${pretendard.className} `}>
         <ReactQueryProvider>{children}</ReactQueryProvider>
       </body>
     </html>
