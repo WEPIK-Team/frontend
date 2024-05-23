@@ -18,7 +18,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           className={cn(
             "w-full rounded-[18px] border px-[18px] py-[17px] text-wpt-base-1 transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-wpc-gray focus-visible:outline-none focus-visible:ring-0 disabled:cursor-not-allowed disabled:opacity-50",
             isError
-              ? "border border-wpc-error bg-wpc-light-error"
+              ? "border-wpc-error bg-wpc-light-error border"
               : "border-wpc-gray2",
             isGrad && !isError && "input-border-gradient",
             !isGrad && !isError && "focus:border-wpc-gray",

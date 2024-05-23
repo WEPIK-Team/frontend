@@ -63,7 +63,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
       />
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button className="h-8 w-8 p-0" variant="ghost">
+          <Button className="h-8 w-8 p-0">
             <span className="sr-only">메뉴 열기</span>
             <DotsHorizontalIcon className="h-4 w-4" />
           </Button>
