@@ -34,7 +34,7 @@ const SelectItem: React.FunctionComponent<ISelectItemProps> = ({
   return (
     <li
       className={cn(
-        "relative rounded-full text-wpt-base-2 font-semibold transition-all ",
+        "relative w-full rounded-full text-wpt-base-2 font-semibold transition-all ",
         isSelect ? ItemTheme.theme[theme] : "border border-wpc-gray"
       )}
       onClick={onClick}

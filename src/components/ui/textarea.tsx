@@ -49,16 +49,14 @@ export interface TextareaProps
 const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
   ({ className, isError, variant, readOnly, ...props }, ref) => {
     return (
-      <div className="relative">
-        <textarea
-          className={cn(
-            textAreaVariants({ variant, className, isError, readOnly })
-          )}
-          readOnly={readOnly}
-          ref={ref}
-          {...props}
-        />
-      </div>
+      <textarea
+        className={cn(
+          textAreaVariants({ variant, className, isError, readOnly })
+        )}
+        readOnly={readOnly}
+        ref={ref}
+        {...props}
+      />
     );
   }
 );

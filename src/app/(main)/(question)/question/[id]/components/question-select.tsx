@@ -14,18 +14,9 @@ interface IQuestionSelectProps {
   color: "sender" | "receiver";
 }
 
-const colorVal = {
-  sender: "div-sender-gradient",
-  receiver: "div-receiver-gradient",
-};
-
 const QuestionSelect: React.FunctionComponent<IQuestionSelectProps> = ({
   type,
-  color,
-  type,
-  color,
   options,
-  readonly,
   readonly,
 }) => {
   const [selectedValues, setSelectedValues] = useState<SelectOption[]>([]);

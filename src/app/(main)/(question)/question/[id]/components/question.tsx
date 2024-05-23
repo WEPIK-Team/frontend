@@ -28,12 +28,6 @@ const Question: React.FunctionComponent<IQuestionProps> = ({
     setRating(value);
   };
 
-  const [rating, setRating] = React.useState<number>(0);
-
-  const handleRatingChange = (value: number) => {
-    setRating(value);
-  };
-
   return (
     <div
       className={cn(
@@ -79,21 +73,15 @@ const Question: React.FunctionComponent<IQuestionProps> = ({
           <RatingInput
             id={10}
             size={56}
-            color="receiver"
-            value={rating}
-            onRateChange={handleRatingChange}
-          />
-          <RatingInput
-            id={10}
-            size={56}
-            color="receiver"
+            emptyColor="#333"
+            theme="receiver"
             value={rating}
             onRateChange={handleRatingChange}
           />
         </div>
       )}
       {type === "textArea" && <QuestionTextArea />}
-      {type === "progress" && <QuestionSlider color="default" />}
+      {type === "progress" && <QuestionSlider />}
       {type === "datepicker" && <QuestionDatePicker />}
     </div>
   );

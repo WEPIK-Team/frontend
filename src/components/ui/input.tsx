@@ -55,7 +55,7 @@ export interface InputProps
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ({ className, type, isError, variant, readOnly, ...props }, ref) => {
     return (
-      <div className="relative">
+      <div className="relative w-full">
         <input
           type={type}
           className={cn(
