@@ -11,7 +11,7 @@ interface IQuestionHeaderProps {}
 
 const QuestionHeader: React.FunctionComponent<IQuestionHeaderProps> = () => {
   return (
-    <div className="fixed inset-x-0 z-[60] mx-auto max-w-3xl bg-white">
+    <div className="fixed inset-x-0 top-0 z-[60] mx-auto max-w-3xl bg-white">
       <div className="flex h-[44px] w-full items-center justify-between">
         {/* back button */}
         <Button className="bg-transparent" onClick={() => alert("test!")}>

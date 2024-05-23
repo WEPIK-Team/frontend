@@ -26,7 +26,7 @@ const QuestionSlider: React.FunctionComponent<IQuestionSliderProps> = ({
       min={0}
       max={100}
       step={1}
-      rangeColor={sliderObj[color]}
+      theme="receiver"
     />
   );
 };

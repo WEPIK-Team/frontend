@@ -93,6 +93,10 @@
   html {
     @apply h-full;
   }
+  li {
+    padding: 0;
+    list-style: none;
+  }
 }
 
 /* Grad Input css */
