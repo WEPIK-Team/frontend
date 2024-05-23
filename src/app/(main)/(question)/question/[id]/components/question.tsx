@@ -1,5 +1,4 @@
 "use client";
-import Image from "next/image";
 import React from "react";
 
 import { cn } from "@/lib/utils";
@@ -32,20 +31,19 @@ const Question: React.FunctionComponent<IQuestionProps> = ({
   return (
     <div
       className={cn(
-        "min-h-[400px] ",
+        "min-h-[400px] w-full ",
         imageURL
-          ? "mt-[40px] space-y-[13px]"
-          : "flex flex-col items-center  justify-center gap-y-[13px]"
+          ? "mt-[40px] space-y-[24px]"
+          : "flex flex-col items-center justify-center gap-y-[13px]"
       )}
     >
       <QuestionTitle>{title}</QuestionTitle>
       {imageURL ? (
-        <Image
-          alt="question-image"
-          className="mx-auto rounded-[18px]"
-          src={imageURL}
-          width={358}
-          height={240}
+        <div
+          style={{
+            backgroundImage: `url(${imageURL})`,
+          }}
+          className={cn(`mx-auto h-[240px] w-full rounded-[18px]`)}
         />
       ) : null}
 
@@ -75,14 +73,15 @@ const Question: React.FunctionComponent<IQuestionProps> = ({
           <RatingInput
             id={10}
             size={56}
-            color="receiver"
+            emptyColor="#333"
+            theme="receiver"
             value={rating}
             onRateChange={handleRatingChange}
           />
         </div>
       )}
       {type === "textArea" && <QuestionTextArea />}
-      {type === "progress" && <QuestionSlider color="default" />}
+      {type === "progress" && <QuestionSlider />}
       {type === "datepicker" && <QuestionDatePicker />}
     </div>
   );

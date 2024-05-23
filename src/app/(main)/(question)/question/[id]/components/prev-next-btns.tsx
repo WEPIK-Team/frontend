@@ -9,7 +9,7 @@ interface IPrevNextBtnsProps {}
 const PrevNextBtns: React.FunctionComponent<IPrevNextBtnsProps> = () => {
   // zustand 이동
   return (
-    <div className="mx-auto mt-10 flex max-w-md gap-x-4">
+    <div className="mx-auto mt-10 flex w-full max-w-md gap-x-4">
       <Button className="w-full bg-wpc-light-gray text-wpc-gray" variant="gray">
         이전
       </Button>

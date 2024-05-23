@@ -79,7 +79,7 @@
 
 @layer utilities {
   .error-class {
-    @apply text-wpc-error text-wpt-sm;
+    @apply text-wpt-sm text-wpc-error;
   }
 }
 
@@ -92,6 +92,10 @@
   }
   html {
     @apply h-full;
+  }
+  li {
+    padding: 0;
+    list-style: none;
   }
 }
 

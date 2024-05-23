@@ -9,13 +9,19 @@ import SpeechBubble from "@/app/(main)/(question)/question/[id]/components/speec
 
 interface SliderProps
   extends React.ComponentPropsWithoutRef<typeof SliderPrimitive.Root> {
-  rangeColor?: string;
+  theme: "sender" | "receiver" | "default";
 }
+
+const ThemeObj = {
+  sender: "bg-wpc-second-grad",
+  receiver: "bg-wpc-primary-grad",
+  default: "bg-wpc-gray",
+};
 
 const Slider = React.forwardRef<
   React.ElementRef<typeof SliderPrimitive.Root>,
   SliderProps
->(({ className, rangeColor, ...props }, ref) => (
+>(({ className, theme = "default", ...props }, ref) => (
   <SliderPrimitive.Root
     ref={ref}
     className={cn(
@@ -26,7 +32,7 @@ const Slider = React.forwardRef<
   >
     <SliderPrimitive.Track className="relative h-[12px] w-full grow overflow-hidden rounded-full bg-wpc-gray2">
       <SliderPrimitive.Range
-        className={cn("absolute h-full", rangeColor || "bg-wpc-gray")}
+        className={cn("absolute h-full", ThemeObj[theme] || "bg-wpc-gray")}
       />
     </SliderPrimitive.Track>
     <SliderPrimitive.Thumb className="relative block h-[28px] w-[28px] rounded-full bg-background shadow-md transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-wpc-primary disabled:pointer-events-none disabled:opacity-50">

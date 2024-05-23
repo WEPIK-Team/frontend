@@ -7,18 +7,16 @@ import QuestionHeader from "./components/question-header";
 export default function QuestionPage() {
   // 질문 데이터 가져오기
   return (
-    <>
+    <main className="py-[44px]">
       <QuestionHeader />
-      <div className="relative mx-auto  w-full max-w-3xl px-[16px] py-[44px]">
+      <div className="mx-auto flex w-full max-w-xl flex-col items-center justify-center px-[16px]">
         {/* Question */}
         <Question
           title="셋중 더 드랍하고 싶은 강의는?"
           type="progress"
           imageURL={faker.image.url()}
         />
-        {/* Buttons */}
         <PrevNextBtns />
-
         {/* <SelectResult
           options={[
             {
@@ -39,6 +37,6 @@ export default function QuestionPage() {
           ]}
         /> */}
       </div>
-    </>
+    </main>
   );
 }
