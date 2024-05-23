@@ -16,9 +16,9 @@ const QuestionTextArea: React.FunctionComponent<IQuestionTextAreaProps> = ({
   return (
     <div>
       <Textarea
+        variant="grad"
         maxLength={300}
         placeholder="답변을 입력하세요"
-        isGrad
         isError
         readOnly={readonly}
         value={value}
