@@ -39,10 +39,10 @@ export const ManageQuestionModal: React.FC<IManageQuestionModal> = ({
     <Modal title={modeTitle} desc="" isOpen={isOpen} onClose={onClose}>
       <QuestionForm />
       <div className="mt-10 flex items-center justify-end space-x-2 overflow-y-auto">
-        <Button disabled={loading} variant="outline" onClick={onClose}>
+        <Button disabled={loading} onClick={onClose}>
           취소
         </Button>
-        <Button disabled={loading} variant="secondary" onClick={onConfirm}>
+        <Button disabled={loading} onClick={onConfirm}>
           {buttonConfirm}
         </Button>
       </div>

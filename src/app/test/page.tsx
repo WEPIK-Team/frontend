@@ -32,20 +32,20 @@ const ButtonPage = () => {
         <Input placeholder="제목을 입력하세요" />
       </div>
       <div className="pb-5">
-        <Label>isGrad</Label>
-        <Input placeholder="제목을 입력하세요" isGrad />
+        <Label>grad</Label>
+        <Input placeholder="제목을 입력하세요" variant="grad" />
       </div>
       <div className="pb-5">
         <Label>isError</Label>
         <Input placeholder="제목을 입력하세요" isError />
       </div>
       <div className="pb-5">
-        <Label>isGrad && isError</Label>
-        <Input placeholder="제목을 입력하세요" isGrad isError />
+        <Label>grad && isError</Label>
+        <Input placeholder="제목을 입력하세요" variant="grad" isError />
       </div>
       <div className="pb-5">
-        <Label>isGrad && disabled</Label>
-        <Input placeholder="제목을 입력하세요" isGrad disabled />
+        <Label>grad && disabled</Label>
+        <Input placeholder="제목을 입력하세요" variant="grad" disabled />
       </div>
       <div className="pb-5">
         <Label>isError && disabled</Label>
