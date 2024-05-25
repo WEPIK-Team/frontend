@@ -81,7 +81,7 @@ const Question: React.FunctionComponent<IQuestionProps> = ({
         </div>
       )}
       {type === "textArea" && <QuestionTextArea />}
-      {type === "progress" && <QuestionSlider />}
+      {type === "progress" && <QuestionSlider color="default" />}
       {type === "datepicker" && <QuestionDatePicker />}
     </div>
   );

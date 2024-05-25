@@ -9,11 +9,11 @@ export default function QuestionPage() {
   return (
     <main className="py-[44px]">
       <QuestionHeader />
-      <div className="mx-auto flex w-full max-w-xl flex-col items-center justify-center px-[16px]">
+      <div className=" mx-auto flex w-full max-w-xl flex-col items-center justify-center px-[16px]">
         {/* Question */}
         <Question
           title="셋중 더 드랍하고 싶은 강의는?"
-          type="progress"
+          type="select"
           imageURL={faker.image.url()}
         />
         <PrevNextBtns />
