@@ -1,4 +1,5 @@
 import {
+  ChevronDownIcon,
   InputIcon,
   ListBulletIcon,
   SliderIcon,
@@ -16,12 +17,16 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { QuestionSelectOptions } from "@/lib/data/select";
+import { cn } from "@/lib/utils";
 
 interface IQuestionFormProps {}
 
 const QuestionForm: React.FunctionComponent<IQuestionFormProps> = () => {
   const [selectedFile, setSelectedFile] = React.useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = React.useState<string | null>(null);
+
+  const [isOpen, setIsOpen] = React.useState(false);
 
   React.useEffect(() => {
     if (!selectedFile) {
@@ -42,8 +47,10 @@ const QuestionForm: React.FunctionComponent<IQuestionFormProps> = () => {
   };
   return (
     <form className="grid w-full grid-cols-1 gap-4">
-      <div>
-        <Label htmlFor="title">제목</Label>
+      <div className="space-y-[10px]">
+        <Label htmlFor="title" className="text-[20px] text-wpc-primary">
+          제목
+        </Label>
         <Input
           disabled={false}
           onChange={onFileChange}
@@ -52,13 +59,20 @@ const QuestionForm: React.FunctionComponent<IQuestionFormProps> = () => {
         />
       </div>
       <div className="grid grid-cols-2 gap-x-2">
-        <div>
-          <Label htmlFor="thumbnail">썸네일</Label>
+        <div className="space-y-[10px]">
+          <Label htmlFor="thumbnail" className="text-[20px] text-wpc-primary">
+            썸네일
+          </Label>
           <Input
             disabled={false}
             onChange={onFileChange}
             id="thumbnail"
             type="file"
+            className="block w-full text-wpt-base-1 text-wpc-gray
+            file:me-4 
+            file:rounded-lg file:border file:border-wpc-primary
+            file:px-4 file:py-2 file:text-[15px] 
+            file:text-wpc-primary"
           />
         </div>
         <div>
@@ -67,47 +81,48 @@ const QuestionForm: React.FunctionComponent<IQuestionFormProps> = () => {
               src={previewUrl}
               alt="Preview"
               width={100}
-              height={100}
-              className="aspect-video max-h-[100px] w-full rounded-md bg-contain"
+              height={200}
+              className="aspect-video max-h-[200px] w-full rounded-md bg-cover"
             />
           ) : (
-            <div className="flex h-[150px] items-center justify-center rounded-md bg-slate-400">
-              Not Image
-            </div>
+            <div className="flex h-[200px] items-center justify-center rounded-md bg-wpc-gray2" />
           )}
         </div>
       </div>
-      <div>
-        <Label htmlFor="title">질문 타입</Label>
-        <Select>
-          <SelectTrigger className="w-full">
-            <SelectValue placeholder="Theme" />
+      <div className="space-y-[10px]">
+        <Label htmlFor="type" className="text-[20px] text-wpc-primary">
+          질문 타입
+        </Label>
+        <Select
+          onOpenChange={(isOpen) => {
+            setIsOpen(isOpen);
+          }}
+        >
+          <SelectTrigger className="h-[60px] w-full rounded-[18px] px-[15px] py-[17px]">
+            <div className="flex w-full items-center justify-between">
+              <SelectValue placeholder="타입 선택" className="text-wpt-md" />
+              <ChevronDownIcon
+                width={25}
+                height={20}
+                className={cn(
+                  "transition-transform",
+                  isOpen ? "rotate-180" : ""
+                )}
+              />
+            </div>
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="select">
-              <div className="flex items-center gap-x-2">
-                <ListBulletIcon />
-                Select
-              </div>
-            </SelectItem>
-            <SelectItem value="progress">
-              <div className="flex items-center gap-x-2">
-                <SliderIcon />
-                Progress
-              </div>
-            </SelectItem>
-            <SelectItem value="text">
-              <div className="flex items-center gap-x-2">
-                <InputIcon />
-                text
-              </div>
-            </SelectItem>
-            <SelectItem value="textArea">
-              <div className="flex items-center gap-x-2">
-                <TextAlignLeftIcon />
-                textArea
-              </div>
-            </SelectItem>
+            {QuestionSelectOptions.map((el) => (
+              <SelectItem
+                value={el.value}
+                key={new Date() + el.value}
+                className="w-full text-wpc-gray "
+              >
+                <div className="flex w-full items-center gap-x-2 ">
+                  {el.icon} {el.label}
+                </div>
+              </SelectItem>
+            ))}
           </SelectContent>
         </Select>
       </div>

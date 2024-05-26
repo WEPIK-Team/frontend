@@ -4,28 +4,30 @@ import { ColumnDef } from "@tanstack/react-table";
 
 import { cn } from "@/lib/utils";
 
-import { CellAction } from "./cell-action";
+import { QuestionTypeTest } from "@/lib/data/question";
 
-type QuestionType = "select" | "shortText" | "progress" | "textArea";
+import { CellAction } from "./cell-action";
 
 export interface IQuestion {
   id: string;
   title: string;
-  type: QuestionType;
+  type: QuestionTypeTest;
   createAt: string;
 }
 
 const typeColor = {
-  select: "bg-emerald-500",
-  shortText: "bg-blue-500",
-  progress: "bg-orange-500",
-  textArea: "bg-violet-500",
+  input: "#F693E7",
+  textarea: "#8076EC",
+  select: "#35DFC0",
+  bar: "#ED666E",
+  stars: "#F8B76B",
+  date: "#5FA3F3",
 };
 
 export const columns: ColumnDef<IQuestion>[] = [
   {
     accessorKey: "id",
-    header: "Id",
+    header: "ID",
   },
   {
     accessorKey: "title",
@@ -35,13 +37,15 @@ export const columns: ColumnDef<IQuestion>[] = [
     accessorKey: "type",
     header: "Type",
     cell(props) {
-      const value = (props.getValue() + "") as QuestionType;
+      const value = (props.getValue() + "") as QuestionTypeTest;
 
       return (
         <div
+          style={{
+            backgroundColor: typeColor[value],
+          }}
           className={cn(
-            "text-wpt-xs w-fit rounded-md p-1 font-semibold text-white",
-            typeColor[value]
+            "text-wpt-xs w-fit rounded-full px-[13px] pb-[9px] pt-[7px] font-semibold text-white"
           )}
         >
           {props.getValue() as React.ReactNode}

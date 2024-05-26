@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 import { IQuestion } from "./columns";
-import { ManageQuestionModal } from "./manage-question-modal";
+import { ManageQuestionModal } from "@/components/modal/manage-question-modal";
 
 interface CellActionProps {
   data: IQuestion;
@@ -63,9 +63,12 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
       />
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button className="h-8 w-8 p-0">
+          <Button
+            variant="gray"
+            className="h-8 w-8 cursor-pointer border-0 bg-transparent p-0 shadow-none"
+          >
             <span className="sr-only">메뉴 열기</span>
-            <DotsHorizontalIcon className="h-4 w-4" />
+            <DotsHorizontalIcon className="h-4 w-4 text-wpc-gray" />
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">

@@ -3,10 +3,8 @@
 import { PlusIcon } from "@radix-ui/react-icons";
 import * as React from "react";
 
-import { Button } from "@/components/ui/button";
-
-import { Heading } from "./heading";
-import { ManageQuestionModal } from "./manage-question-modal";
+import { ManageHeader } from "./manage-header";
+import { ManageQuestionModal } from "@/components/modal/manage-question-modal";
 
 interface IManegeQuestionHeaderProps {}
 
@@ -15,7 +13,6 @@ const ManegeQuestionHeader: React.FunctionComponent<
 > = () => {
   const [open, setOpen] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
-  const onCreate = async () => {};
 
   return (
     <>
@@ -27,16 +24,17 @@ const ManegeQuestionHeader: React.FunctionComponent<
         onConfirm={() => {}}
       />
       <div className="flex w-full items-center justify-between">
-        <Heading
+        <ManageHeader
           title="질문 관리"
           description="템플릿에 사용할 질문들을 생성하고 관리해 보세요."
         />
-        <Button
+        <button
           onClick={() => setOpen(true)}
-          className="h-fit rounded-md bg-black px-4 py-2"
+          className="flex items-center gap-x-[10px] rounded-full bg-wpc-primary px-[18px] py-[14px] text-wpt-md font-semibold text-white"
         >
-          <PlusIcon className="h-4 w-4" /> Add New
-        </Button>
+          <PlusIcon className="h-4 w-4" />
+          질문 생성
+        </button>
       </div>
     </>
   );
