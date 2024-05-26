@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 
 import { Modal } from "@/components/modal/modal";
-import { Button } from "@/components/ui/button";
+
 import QuestionForm from "@/app/(manage)/manage/question/components/question-form";
 
 interface IManageQuestionModal {

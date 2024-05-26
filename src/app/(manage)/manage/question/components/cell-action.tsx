@@ -8,6 +8,7 @@ import {
 import { useState } from "react";
 
 import { AlertModal } from "@/components/modal/alert-modal";
+import { ManageQuestionModal } from "@/components/modal/manage-question-modal";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -17,7 +18,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 import { IQuestion } from "./columns";
-import { ManageQuestionModal } from "@/components/modal/manage-question-modal";
 
 interface CellActionProps {
   data: IQuestion;

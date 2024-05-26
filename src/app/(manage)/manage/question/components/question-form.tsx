@@ -1,12 +1,8 @@
-import {
-  ChevronDownIcon,
-  InputIcon,
-  ListBulletIcon,
-  SliderIcon,
-  TextAlignLeftIcon,
-} from "@radix-ui/react-icons";
+import { ChevronDownIcon } from "@radix-ui/react-icons";
 import Image from "next/image";
 import * as React from "react";
+
+import { cn } from "@/lib/utils";
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -17,8 +13,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+
 import { QuestionSelectOptions } from "@/lib/data/select";
-import { cn } from "@/lib/utils";
 
 interface IQuestionFormProps {}
 
