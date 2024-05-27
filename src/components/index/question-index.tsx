@@ -57,7 +57,7 @@ const QuestionIndex = () => {
             />
           ))}
         </ul>
-        <Button className="my-[17px] py-4 text-white">이동</Button>
+        <Button className="mx-[16px] my-[17px] py-4 text-white">이동</Button>
       </DrawerContent>
     </Drawer>
   );
