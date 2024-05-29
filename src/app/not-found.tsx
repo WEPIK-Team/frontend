@@ -15,12 +15,7 @@ export default function NotFound() {
       <Header />
       <main className="m-auto my-11 w-full max-w-3xl flex-grow px-4">
         <section className="flex h-full flex-col items-center justify-center">
-          <Image
-            src="/images/404.svg"
-            alt="404-image"
-            width={260}
-            height={207}
-          />
+          <Image src="/svgs/404.svg" alt="404-image" width={260} height={207} />
           <div className="my-[10px] text-center text-wpt-lg font-semibold">
             <h1 className="m-0 p-0">일시적인 오류로</h1>
             <h1 className="m-0 p-0">서비스 접속에 실패했습니다.</h1>

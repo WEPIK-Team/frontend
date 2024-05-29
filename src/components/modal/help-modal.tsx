@@ -50,7 +50,7 @@ const HelpModal = () => {
                 </div>
                 <div>
                   <Image
-                    src="images/help/help-1.svg"
+                    src="svgs/help/help-1.svg"
                     alt="help-1"
                     width={326}
                     height={240}
@@ -80,7 +80,8 @@ const HelpModal = () => {
                 </div>
                 <div className="mt-[18px]">
                   <Image
-                    src="images/help/help-2.svg"
+                    className="w-full"
+                    src="svgs/help/help-2.svg"
                     alt="help-2"
                     width={508}
                     height={242}
@@ -103,7 +104,7 @@ const HelpModal = () => {
                 </div>
                 <div className="mt-[18px]">
                   <Image
-                    src="images/help/help-3.svg"
+                    src="svgs/help/help-3.svg"
                     alt="help-3"
                     width={318}
                     height={264}
@@ -126,7 +127,7 @@ const HelpModal = () => {
                 </div>
                 <div className="mt-[18px]">
                   <Image
-                    src="images/help/help-4.svg"
+                    src="svgs/help/help-4.svg"
                     alt="help-4"
                     width={508}
                     height={262}

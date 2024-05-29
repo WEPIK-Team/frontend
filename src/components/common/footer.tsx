@@ -4,11 +4,11 @@ import Link from "next/link";
 export default function Footer() {
   return (
     <>
-      <footer className="container w-full max-w-3xl bg-white py-4 text-wpt-sm font-medium text-wpc-gray">
+      <footer className="container h-[160px] w-full max-w-3xl bg-white py-4 text-wpt-sm font-medium text-wpc-gray">
         <section className="mb-[15px] flex justify-center">
           <Link href="/">
             <Image
-              src="/images/logo.svg"
+              src="/svgs/logo.svg"
               width={86}
               height={26}
               priority

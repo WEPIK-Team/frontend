@@ -10,7 +10,7 @@ export default function QuestionSuccessLayout({
   children: React.ReactNode;
 }) {
   return (
-    <>
+    <div className="flex min-h-screen flex-col">
       <nav className="fixed left-0 right-0 top-0 z-50 flex h-11 w-full items-center border-b bg-white">
         <div className="m-auto flex w-full max-w-3xl">
           <div className="flex justify-start">
@@ -19,7 +19,7 @@ export default function QuestionSuccessLayout({
           <div className="flex w-full items-center justify-center">
             <Link href="/">
               <Image
-                src="/images/logo.svg"
+                src="/svgs/logo.svg"
                 width={86}
                 height={26}
                 priority
@@ -29,10 +29,10 @@ export default function QuestionSuccessLayout({
           </div>
         </div>
       </nav>
-      <main className="m-auto my-11 w-full max-w-3xl flex-grow px-4 pt-10">
+      <main className="m-auto my-11 w-full max-w-3xl flex-1 px-4 pt-10">
         {children}
       </main>
       <Footer />
-    </>
+    </div>
   );
 }

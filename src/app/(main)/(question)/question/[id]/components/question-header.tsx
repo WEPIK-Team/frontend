@@ -24,7 +24,7 @@ const QuestionHeader: React.FunctionComponent<IQuestionHeaderProps> = () => {
         </Button>
 
         {/* logo */}
-        <Image src="/images/logo.svg" width={86} height={26} alt="logo" />
+        <Image src="/svgs/logo.svg" width={86} height={26} alt="logo" />
 
         {/* menu list */}
         <QuestionIndex />

@@ -1,4 +1,3 @@
-import { faker } from "@faker-js/faker";
 import Image from "next/image";
 
 import Heading from "@/components/common/heading";
@@ -17,11 +16,11 @@ export default function QuestionSuccessSender() {
         </p>
         <div className="mt-[22px] flex justify-center">
           <Image
-            src={faker.image.urlLoremFlickr()}
+            src="/svgs/success/sender.svg"
             className="rounded-[48px] object-cover"
-            width={358}
-            height={300}
-            alt="sample"
+            width={278}
+            height={278}
+            alt="sender-success"
           />
         </div>
         <div className="flex flex-col justify-center pt-12">

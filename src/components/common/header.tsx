@@ -8,7 +8,7 @@ export default function Header() {
         <div className="flex w-full items-center justify-center">
           <Link href="/">
             <Image
-              src="/images/logo.svg"
+              src="/svgs/logo.svg"
               width={86}
               height={26}
               priority
