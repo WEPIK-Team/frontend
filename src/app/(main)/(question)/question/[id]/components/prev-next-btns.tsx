@@ -6,10 +6,12 @@ import { Button } from "@/components/ui/button";
 
 interface IPrevNextBtnsProps {
   onPrev?: () => void;
+  onNext?: () => void;
 }
 
 const PrevNextBtns: React.FunctionComponent<IPrevNextBtnsProps> = ({
   onPrev,
+  onNext,
 }) => {
   return (
     <div className="mx-auto mt-10 flex w-full gap-x-4">
@@ -21,7 +23,12 @@ const PrevNextBtns: React.FunctionComponent<IPrevNextBtnsProps> = ({
       >
         이전
       </Button>
-      <Button variant="default" type="submit" className="w-full">
+      <Button
+        onClick={onNext}
+        variant="default"
+        type="button"
+        className="w-full"
+      >
         다음
       </Button>
     </div>

@@ -59,7 +59,7 @@ const QuestionTextArea: React.FunctionComponent<
     prevQuestion();
   });
 
-  const onNext = (data: z.infer<typeof FormSchema>) => {
+  const onNext = form.handleSubmit((data) => {
     console.log(data);
 
     if (index === maxLength) {
@@ -68,11 +68,15 @@ const QuestionTextArea: React.FunctionComponent<
       updateQuestion(id, data.TEXTAREA);
       nextQuestion();
     }
-  };
+  });
+
+  // const onNext = (data: z.infer<typeof FormSchema>) => {
+
+  // };
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onNext)}>
+      <form onSubmit={onNext}>
         <FormField
           control={form.control}
           name="TEXTAREA"
@@ -94,7 +98,7 @@ const QuestionTextArea: React.FunctionComponent<
           }}
         />
         <QuestionTextCounter max={300} current={textAreaLength} />
-        <PrevNextBtns onPrev={onPrev} />
+        <PrevNextBtns onPrev={onPrev} onNext={onNext} />
       </form>
     </Form>
   );

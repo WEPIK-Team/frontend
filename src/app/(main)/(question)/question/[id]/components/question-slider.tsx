@@ -40,7 +40,7 @@ const QuestionSlider: React.FunctionComponent<IQuestionSliderProps> = () => {
     prevQuestion();
   });
 
-  const onNext: SubmitHandler<IQuestionSlideerForm> = async (data) => {
+  const onNext = form.handleSubmit((data) => {
     console.log(data);
     if (index === maxLength) {
       console.log("Server Action");
@@ -48,10 +48,14 @@ const QuestionSlider: React.FunctionComponent<IQuestionSliderProps> = () => {
       updateQuestion(id, data.BAR.toString());
       nextQuestion();
     }
-  };
+  });
+
+  // const onNext: SubmitHandler<IQuestionSlideerForm> = async (data) => {
+
+  // };
 
   return (
-    <form onSubmit={form.handleSubmit(onNext)} className="w-full">
+    <form onSubmit={onNext} className="w-full">
       <Controller
         name="BAR"
         {...form}
@@ -70,7 +74,7 @@ const QuestionSlider: React.FunctionComponent<IQuestionSliderProps> = () => {
           );
         }}
       />
-      <PrevNextBtns onPrev={onPrev} />
+      <PrevNextBtns onPrev={onPrev} onNext={onNext} />
     </form>
   );
 };

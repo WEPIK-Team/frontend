@@ -83,7 +83,7 @@ export const QuestionDatePicker = () => {
     }
   });
 
-  const onNext = (data: z.infer<typeof FormSchema>) => {
+  const onNext = form.handleSubmit((data) => {
     console.log(data);
     if (index === maxLength) {
       console.log("Server Action");
@@ -94,11 +94,15 @@ export const QuestionDatePicker = () => {
       );
       nextQuestion();
     }
-  };
+  });
+
+  // const onNext = (data: z.infer<typeof FormSchema>) => {
+
+  // };
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onNext)} className="grid w-full gap-2">
+      <form onSubmit={onNext} className="grid w-full gap-2">
         <FormField
           control={form.control}
           name="DATE"
@@ -197,7 +201,7 @@ export const QuestionDatePicker = () => {
             );
           }}
         />
-        <PrevNextBtns onPrev={onPrev} />
+        <PrevNextBtns onPrev={onPrev} onNext={onNext} />
       </form>
     </Form>
   );

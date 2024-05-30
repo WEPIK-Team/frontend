@@ -51,7 +51,7 @@ const QuestionSelect: React.FunctionComponent<IQuestionSelectProps> = ({
     prevQuestion();
   });
 
-  const onNext = async (data: z.infer<typeof FormSchema>) => {
+  const onNext = form.handleSubmit((data) => {
     console.log(data);
     if (index === maxLength) {
       console.log("Server Action");
@@ -59,7 +59,11 @@ const QuestionSelect: React.FunctionComponent<IQuestionSelectProps> = ({
       updateQuestion(id, data.SELETE);
       nextQuestion();
     }
-  };
+  });
+
+  // const onNext = async (data: z.infer<typeof FormSchema>) => {
+
+  // };
 
   // const [selectedValues, setSelectedValues] = useState<SelectOption[]>([]);
 
@@ -90,7 +94,7 @@ const QuestionSelect: React.FunctionComponent<IQuestionSelectProps> = ({
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onNext)} className="w-full">
+      <form onSubmit={onNext} className="w-full">
         <FormField
           control={form.control}
           name="SELETE"
@@ -115,7 +119,7 @@ const QuestionSelect: React.FunctionComponent<IQuestionSelectProps> = ({
             );
           }}
         />
-        <PrevNextBtns onPrev={onPrev} />
+        <PrevNextBtns onPrev={onPrev} onNext={onNext} />
       </form>
     </Form>
   );

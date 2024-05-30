@@ -15,6 +15,7 @@ import useQuestion from "@/hooks/use-question";
 
 import PrevNextBtns from "./prev-next-btns";
 import QuestionTextCounter from "./question-text-counter";
+import { toast } from "@/components/ui/use-toast";
 
 interface IQuestionInputProps {}
 
@@ -54,7 +55,8 @@ const QuestionInput: React.FunctionComponent<IQuestionInputProps> = () => {
     prevQuestion();
   });
 
-  const onNext = (data: z.infer<typeof FormSchema>) => {
+  // function
+  const onNext = form.handleSubmit((data) => {
     console.log(data);
 
     if (index === maxLength) {
@@ -63,11 +65,11 @@ const QuestionInput: React.FunctionComponent<IQuestionInputProps> = () => {
       updateQuestion(id, data.INPUT);
       nextQuestion();
     }
-  };
+  });
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onNext)}>
+      <form onSubmit={onNext}>
         <FormField
           control={form.control}
           name="INPUT"
@@ -88,7 +90,7 @@ const QuestionInput: React.FunctionComponent<IQuestionInputProps> = () => {
           }}
         />
         <QuestionTextCounter max={50} current={inputLength} />
-        <PrevNextBtns onPrev={onPrev} />
+        <PrevNextBtns onPrev={onPrev} onNext={onNext} />
       </form>
     </Form>
   );

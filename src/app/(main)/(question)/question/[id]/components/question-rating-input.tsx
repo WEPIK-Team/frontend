@@ -47,7 +47,7 @@ const QuestionRatingInput: React.FunctionComponent<
     prevQuestion();
   });
 
-  const onNext = (data: z.infer<typeof FormSchema>) => {
+  const onNext = form.handleSubmit((data) => {
     console.log(data);
 
     if (index === maxLength) {
@@ -56,11 +56,15 @@ const QuestionRatingInput: React.FunctionComponent<
       updateQuestion(id, data.STARRATE);
       nextQuestion();
     }
-  };
+  });
+
+  // const onNext = (data: z.infer<typeof FormSchema>) => {
+
+  // };
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onNext)} className="w-full">
+      <form onSubmit={onNext} className="w-full">
         <FormField
           control={form.control}
           name="STARRATE"
@@ -84,7 +88,7 @@ const QuestionRatingInput: React.FunctionComponent<
             );
           }}
         />
-        <PrevNextBtns onPrev={onPrev} />
+        <PrevNextBtns onPrev={onPrev} onNext={onNext} />
       </form>
     </Form>
   );
