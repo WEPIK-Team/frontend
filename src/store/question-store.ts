@@ -47,6 +47,7 @@ const createQuestionStore = (initState: QuestionState = defaultInitState) =>
       set(() => ({
         currentQuestionIndex: index,
       })),
+    // record
     updateQuestion: (id: string, newValue: string) =>
       set((state) => {
         return {

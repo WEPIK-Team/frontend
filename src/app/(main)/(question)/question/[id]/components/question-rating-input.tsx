@@ -35,7 +35,7 @@ const QuestionRatingInput: React.FunctionComponent<
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      STARRATE: content,
+      STARRATE: content || "2.5",
     },
   });
 

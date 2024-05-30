@@ -1,7 +1,6 @@
 import { CaretSortIcon } from "@radix-ui/react-icons";
 
 import { TemplateSelectCard } from "@/components/card/template-select-card";
-import HelpModal from "@/components/modal/help-modal";
 import { TemplateTag } from "@/components/tag/template-tag";
 
 import { Tags, Templates } from "@/constants/dump";
@@ -32,7 +31,6 @@ export default function Template() {
           </div>
         ))}
       </div>
-      <HelpModal />
     </>
   );
 }

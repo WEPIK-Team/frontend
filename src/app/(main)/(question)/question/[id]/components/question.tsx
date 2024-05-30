@@ -38,6 +38,7 @@ const QuestionContent: React.FunctionComponent<{
 };
 
 const Question: React.FunctionComponent<IQuestionProps> = () => {
+  // 값을 가져오지 못할 경우 에러 관리
   const { currentQuestionIndex, questions } = useQuestionStore(
     (state) => state
   );

@@ -73,6 +73,7 @@ export const QuestionDatePicker = () => {
     });
   };
 
+  // if문 정리, data type쓰기 z.infer사용
   const onPrev = form.handleSubmit((data) => {
     if (data.DATE.from && data.DATE.to) {
       updateQuestion(
@@ -133,6 +134,7 @@ export const QuestionDatePicker = () => {
                               "mr-2 h-[26px] w-[26px] text-wpc-primary"
                             )}
                           />
+                          {/* 포뱃 후 값 불러오기 */}
                           {field.value?.from ? (
                             field.value.to ? (
                               <>
@@ -170,7 +172,7 @@ export const QuestionDatePicker = () => {
                       locale={ko}
                       initialFocus
                       mode="range"
-                      defaultMonth={field.value?.from}
+                      defaultMonth={field.value?.from || new Date()}
                       selected={field.value}
                       onSelect={field.onChange}
                       numberOfMonths={1}

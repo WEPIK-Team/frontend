@@ -20,6 +20,7 @@ export default function QuestionBoard({
   onQuestionSelected,
 }: QuestionBoardProps) {
   const [questions, setQuestions] = useState<BaseQuestion[]>([]);
+  //{used: [...questions], unused: [...questions]}
 
   // TODO: fetch시 ColumnType.Unused인 column 추가
   useEffect(() => {

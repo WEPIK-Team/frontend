@@ -11,13 +11,12 @@ const HelpModal = () => {
   const [open, setOpen] = useState(true);
   const [step, setStep] = useState(0);
 
-  const handleNext = () => {
-    if (step < 3) {
-      setStep(step + 1);
-    } else {
-      setOpen(false);
-    }
-  };
+  if (step < 3) {
+    setStep(step + 1);
+  } else {
+    setOpen(false);
+  }
+  const handleNext = () => {};
 
   const handlePrevious = () => {
     if (step > 0) {

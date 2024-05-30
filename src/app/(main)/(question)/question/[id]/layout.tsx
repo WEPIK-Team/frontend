@@ -80,6 +80,7 @@ export default async function MAinLayout({
   children: React.ReactNode;
 }) {
   // 서버로부터 질문 데이터 받아오기
+  // 캐싱으로 관리 generateStaticParams
   const data = await getQuestionData();
 
   return (

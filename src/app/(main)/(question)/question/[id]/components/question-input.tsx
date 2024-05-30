@@ -15,11 +15,11 @@ import useQuestion from "@/hooks/use-question";
 
 import PrevNextBtns from "./prev-next-btns";
 import QuestionTextCounter from "./question-text-counter";
-import { toast } from "@/components/ui/use-toast";
 
 interface IQuestionInputProps {}
 
 // form validation
+// 1글자만 적을 경우 에러 메세지가 나오지 않음
 const FormSchema = z.object({
   INPUT: z
     .string()
@@ -43,7 +43,7 @@ const QuestionInput: React.FunctionComponent<IQuestionInputProps> = () => {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      INPUT: content,
+      INPUT: content || "",
     },
   });
 
@@ -55,7 +55,6 @@ const QuestionInput: React.FunctionComponent<IQuestionInputProps> = () => {
     prevQuestion();
   });
 
-  // function
   const onNext = form.handleSubmit((data) => {
     console.log(data);
 
