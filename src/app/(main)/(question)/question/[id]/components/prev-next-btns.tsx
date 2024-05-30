@@ -7,11 +7,13 @@ import { Button } from "@/components/ui/button";
 interface IPrevNextBtnsProps {
   onPrev?: () => void;
   onNext?: () => void;
+  isMax?: boolean;
 }
 
 const PrevNextBtns: React.FunctionComponent<IPrevNextBtnsProps> = ({
   onPrev,
   onNext,
+  isMax,
 }) => {
   return (
     <div className="mx-auto mt-10 flex w-full gap-x-4">
@@ -29,7 +31,7 @@ const PrevNextBtns: React.FunctionComponent<IPrevNextBtnsProps> = ({
         type="button"
         className="w-full"
       >
-        다음
+        {isMax ? "완료" : "다음"}
       </Button>
     </div>
   );

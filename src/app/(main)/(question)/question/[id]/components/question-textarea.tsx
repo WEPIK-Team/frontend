@@ -98,7 +98,11 @@ const QuestionTextArea: React.FunctionComponent<
           }}
         />
         <QuestionTextCounter max={300} current={textAreaLength} />
-        <PrevNextBtns onPrev={onPrev} onNext={onNext} />
+        <PrevNextBtns
+          onPrev={onPrev}
+          onNext={onNext}
+          isMax={index === maxLength}
+        />
       </form>
     </Form>
   );

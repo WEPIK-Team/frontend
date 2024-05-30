@@ -201,7 +201,11 @@ export const QuestionDatePicker = () => {
             );
           }}
         />
-        <PrevNextBtns onPrev={onPrev} onNext={onNext} />
+        <PrevNextBtns
+          onPrev={onPrev}
+          onNext={onNext}
+          isMax={index === maxLength}
+        />
       </form>
     </Form>
   );

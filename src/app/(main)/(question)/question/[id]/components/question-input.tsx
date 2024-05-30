@@ -90,7 +90,11 @@ const QuestionInput: React.FunctionComponent<IQuestionInputProps> = () => {
           }}
         />
         <QuestionTextCounter max={50} current={inputLength} />
-        <PrevNextBtns onPrev={onPrev} onNext={onNext} />
+        <PrevNextBtns
+          onPrev={onPrev}
+          onNext={onNext}
+          isMax={index === maxLength}
+        />
       </form>
     </Form>
   );
