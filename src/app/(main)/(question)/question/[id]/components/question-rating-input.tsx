@@ -1,35 +1,24 @@
-"use client";
-
 import { zodResolver } from "@hookform/resolvers/zod";
+import * as React from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from "@/components/ui/form";
-import { Textarea } from "@/components/ui/textarea";
+import { Form, FormField, FormItem, FormMessage } from "@/components/ui/form";
 
 import useQuestion from "@/hooks/use-question";
 
 import PrevNextBtns from "./prev-next-btns";
-import QuestionTextCounter from "./question-text-counter";
+import RatingInput from "./rating-input";
 
-interface IQuestionTextAreaProps {}
+interface IQuestionRatingInputProps {}
 
 // form validation
 const FormSchema = z.object({
-  TEXTAREA: z
-    .string()
-    .min(10, { message: "10자 이상 입력해야 합니다." })
-    .max(300, { message: "300자 까지 입력할 수 있습니다." }),
+  STARRATE: z.string().min(1, { message: "별점을 선택해 주세요" }),
 });
 
-const QuestionTextArea: React.FunctionComponent<
-  IQuestionTextAreaProps
+const QuestionRatingInput: React.FunctionComponent<
+  IQuestionRatingInputProps
 > = () => {
   // zustand
   const {
@@ -40,22 +29,21 @@ const QuestionTextArea: React.FunctionComponent<
     nextQuestion,
     updateQuestion,
   } = useQuestion();
-
   const { id, content } = currentQuestion;
 
   // react hook form
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
-    mode: "all",
     defaultValues: {
-      TEXTAREA: content,
+      STARRATE: content,
     },
   });
-  const textAreaLength = form.watch("TEXTAREA").length || 0;
 
   // function
   const onPrev = form.handleSubmit((data) => {
-    updateQuestion(id, data.TEXTAREA);
+    console.log(data);
+
+    updateQuestion(id, data.STARRATE.toString());
     prevQuestion();
   });
 
@@ -65,39 +53,41 @@ const QuestionTextArea: React.FunctionComponent<
     if (index === maxLength) {
       console.log("Server Action");
     } else {
-      updateQuestion(id, data.TEXTAREA);
+      updateQuestion(id, data.STARRATE);
       nextQuestion();
     }
   };
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onNext)}>
+      <form onSubmit={form.handleSubmit(onNext)} className="w-full">
         <FormField
           control={form.control}
-          name="TEXTAREA"
-          render={({ field, formState }) => {
+          name="STARRATE"
+          render={({ field }) => {
             return (
               <FormItem>
-                <FormControl>
-                  <Textarea
-                    variant="grad"
-                    maxLength={300}
-                    isError={!formState.isValid}
-                    placeholder="답변을 입력하세요"
-                    {...field}
+                <div className="mx-auto w-full">
+                  <RatingInput
+                    id={10}
+                    size={56}
+                    emptyColor="#DBDADE"
+                    theme="sender"
+                    value={parseFloat(field.value)}
+                    onRateChange={(value) => {
+                      field.onChange(value.toString());
+                    }}
                   />
-                </FormControl>
+                </div>
                 <FormMessage />
               </FormItem>
             );
           }}
         />
-        <QuestionTextCounter max={300} current={textAreaLength} />
         <PrevNextBtns onPrev={onPrev} />
       </form>
     </Form>
   );
 };
 
-export default QuestionTextArea;
+export default QuestionRatingInput;

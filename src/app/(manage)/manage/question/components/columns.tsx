@@ -4,7 +4,7 @@ import { ColumnDef } from "@tanstack/react-table";
 
 import { cn } from "@/lib/utils";
 
-import { QuestionTypeTest } from "@/lib/data/question";
+import { QuestionTypeTest } from "@/lib/data/select";
 
 import { CellAction } from "./cell-action";
 
@@ -13,6 +13,7 @@ export interface IQuestion {
   title: string;
   type: QuestionTypeTest;
   createAt: string;
+  imageUrl?: string;
 }
 
 const typeColor = {
