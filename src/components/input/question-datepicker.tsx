@@ -20,7 +20,7 @@ import {
 
 import useQuestion from "@/hooks/use-question";
 
-import PrevNextBtns from "./prev-next-btns";
+import PrevNextBtns from "../question/prev-next-btns";
 
 // form validation
 const FormSchema = z.object({

@@ -6,8 +6,8 @@ import { Form, FormField, FormItem, FormMessage } from "@/components/ui/form";
 
 import useQuestion from "@/hooks/use-question";
 
-import PrevNextBtns from "./prev-next-btns";
-import SelectItem from "./select-item";
+import PrevNextBtns from "../question/prev-next-btns";
+import SelectItem from "../question/select-item";
 
 export interface SelectOption {
   label: string;

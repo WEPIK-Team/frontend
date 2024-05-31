@@ -1,32 +1,40 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import * as React from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { Form, FormField, FormItem, FormMessage } from "@/components/ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 
 import useQuestion from "@/hooks/use-question";
 
-import PrevNextBtns from "./prev-next-btns";
-import RatingInput from "./rating-input";
+import PrevNextBtns from "../question/prev-next-btns";
+import QuestionTextCounter from "../question/question-text-counter";
 
-interface IQuestionRatingInputProps {}
+interface IQuestionInputProps {}
 
 // form validation
+// 1글자만 적을 경우 에러 메세지가 나오지 않음
 const FormSchema = z.object({
-  STARRATE: z.string().min(1, { message: "별점을 선택해 주세요" }),
+  INPUT: z
+    .string()
+    .min(2, { message: "2자 이상 입력해야 합니다." })
+    .max(50, { message: "50자 까지 입력할 수 있습니다." }),
 });
 
-const QuestionRatingInput: React.FunctionComponent<
-  IQuestionRatingInputProps
-> = () => {
+const QuestionInput: React.FunctionComponent<IQuestionInputProps> = () => {
   // zustand
   const {
     maxLength,
     currentQuestion,
     currentQuestionIndex: index,
-    prevQuestion,
     nextQuestion,
+    prevQuestion,
     updateQuestion,
   } = useQuestion();
   const { id, content } = currentQuestion;
@@ -35,15 +43,15 @@ const QuestionRatingInput: React.FunctionComponent<
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      STARRATE: content || "2.5",
+      INPUT: content || "",
     },
   });
 
+  const inputLength = form.watch("INPUT").length || 0;
+
   // function
   const onPrev = form.handleSubmit((data) => {
-    console.log(data);
-
-    updateQuestion(id, data.STARRATE.toString());
+    updateQuestion(id, data.INPUT);
     prevQuestion();
   });
 
@@ -53,41 +61,34 @@ const QuestionRatingInput: React.FunctionComponent<
     if (index === maxLength) {
       console.log("Server Action");
     } else {
-      updateQuestion(id, data.STARRATE);
+      updateQuestion(id, data.INPUT);
       nextQuestion();
     }
   });
 
-  // const onNext = (data: z.infer<typeof FormSchema>) => {
-
-  // };
-
   return (
     <Form {...form}>
-      <form onSubmit={onNext} className="w-full">
+      <form onSubmit={onNext}>
         <FormField
           control={form.control}
-          name="STARRATE"
-          render={({ field }) => {
+          name="INPUT"
+          render={({ field, formState }) => {
             return (
               <FormItem>
-                <div className="mx-auto w-full">
-                  <RatingInput
-                    id={10}
-                    size={56}
-                    emptyColor="#DBDADE"
-                    theme="sender"
-                    value={parseFloat(field.value)}
-                    onRateChange={(value) => {
-                      field.onChange(value.toString());
-                    }}
+                <FormControl>
+                  <Input
+                    isError={!formState.isValid}
+                    variant="grad"
+                    {...field}
+                    placeholder="답변을 입력하세요"
                   />
-                </div>
+                </FormControl>
                 <FormMessage />
               </FormItem>
             );
           }}
         />
+        <QuestionTextCounter max={50} current={inputLength} />
         <PrevNextBtns
           onPrev={onPrev}
           onNext={onNext}
@@ -98,4 +99,4 @@ const QuestionRatingInput: React.FunctionComponent<
   );
 };
 
-export default QuestionRatingInput;
+export default QuestionInput;

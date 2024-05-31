@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 import { Modal } from "@/components/modal/modal";
 
-import QuestionForm from "@/app/(manage)/manage/question/components/question-form";
+import QuestionForm from "@/components/manage/question-form";
 
 interface IManageQuestionModal {
   mode: "create" | "edit";

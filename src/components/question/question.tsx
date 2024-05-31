@@ -6,13 +6,13 @@ import { cn } from "@/lib/utils";
 import { QuestionTypeTest } from "@/lib/data/select";
 import { useQuestionStore } from "@/provider/question-store-provider";
 
-import QuestionDatePicker from "./question-datepicker";
-import QuestionInput from "./question-input";
-import QuestionRatingInput from "./question-rating-input";
-import QuestionSelect from "./question-select";
-import QuestionSlider from "./question-slider";
-import QuestionTextArea from "./question-textarea";
-import QuestionTitle from "./question-title";
+import QuestionTitle from "@/components/question/question-title";
+import QuestionTextArea from "@/components/input/question-textarea";
+import QuestionInput from "@/components/input/question-input";
+import QuestionSelect from "@/components/input/question-select";
+import QuestionRatingInput from "@/components/input/question-rating-input";
+import QuestionSlider from "@/components/input/question-slider";
+import QuestionDatePicker from "@/components/input/question-datepicker";
 
 interface IQuestionProps {}
 

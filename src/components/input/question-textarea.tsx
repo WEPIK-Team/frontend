@@ -1,3 +1,5 @@
+"use client";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -9,49 +11,51 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 
 import useQuestion from "@/hooks/use-question";
 
-import PrevNextBtns from "./prev-next-btns";
+import PrevNextBtns from "../../../../../../components/question/prev-next-btns";
 import QuestionTextCounter from "./question-text-counter";
 
-interface IQuestionInputProps {}
+interface IQuestionTextAreaProps {}
 
 // form validation
-// 1글자만 적을 경우 에러 메세지가 나오지 않음
 const FormSchema = z.object({
-  INPUT: z
+  TEXTAREA: z
     .string()
-    .min(2, { message: "2자 이상 입력해야 합니다." })
-    .max(50, { message: "50자 까지 입력할 수 있습니다." }),
+    .min(10, { message: "10자 이상 입력해야 합니다." })
+    .max(300, { message: "300자 까지 입력할 수 있습니다." }),
 });
 
-const QuestionInput: React.FunctionComponent<IQuestionInputProps> = () => {
+const QuestionTextArea: React.FunctionComponent<
+  IQuestionTextAreaProps
+> = () => {
   // zustand
   const {
     maxLength,
     currentQuestion,
     currentQuestionIndex: index,
-    nextQuestion,
     prevQuestion,
+    nextQuestion,
     updateQuestion,
   } = useQuestion();
+
   const { id, content } = currentQuestion;
 
   // react hook form
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
+    mode: "all",
     defaultValues: {
-      INPUT: content || "",
+      TEXTAREA: content,
     },
   });
-
-  const inputLength = form.watch("INPUT").length || 0;
+  const textAreaLength = form.watch("TEXTAREA").length || 0;
 
   // function
   const onPrev = form.handleSubmit((data) => {
-    updateQuestion(id, data.INPUT);
+    updateQuestion(id, data.TEXTAREA);
     prevQuestion();
   });
 
@@ -61,26 +65,31 @@ const QuestionInput: React.FunctionComponent<IQuestionInputProps> = () => {
     if (index === maxLength) {
       console.log("Server Action");
     } else {
-      updateQuestion(id, data.INPUT);
+      updateQuestion(id, data.TEXTAREA);
       nextQuestion();
     }
   });
+
+  // const onNext = (data: z.infer<typeof FormSchema>) => {
+
+  // };
 
   return (
     <Form {...form}>
       <form onSubmit={onNext}>
         <FormField
           control={form.control}
-          name="INPUT"
+          name="TEXTAREA"
           render={({ field, formState }) => {
             return (
               <FormItem>
                 <FormControl>
-                  <Input
-                    isError={!formState.isValid}
+                  <Textarea
                     variant="grad"
-                    {...field}
+                    maxLength={300}
+                    isError={!formState.isValid}
                     placeholder="답변을 입력하세요"
+                    {...field}
                   />
                 </FormControl>
                 <FormMessage />
@@ -88,7 +97,7 @@ const QuestionInput: React.FunctionComponent<IQuestionInputProps> = () => {
             );
           }}
         />
-        <QuestionTextCounter max={50} current={inputLength} />
+        <QuestionTextCounter max={300} current={textAreaLength} />
         <PrevNextBtns
           onPrev={onPrev}
           onNext={onNext}
@@ -99,4 +108,4 @@ const QuestionInput: React.FunctionComponent<IQuestionInputProps> = () => {
   );
 };
 
-export default QuestionInput;
+export default QuestionTextArea;

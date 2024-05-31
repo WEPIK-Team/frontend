@@ -1,7 +1,7 @@
 "use client";
 
-import Question from "./components/question";
-import QuestionHeader from "./components/question-header";
+import Question from "@/components/question/question";
+import QuestionHeader from "@/components/question/question-header";
 
 export default function QuestionPage() {
   return (

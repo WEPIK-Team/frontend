@@ -7,7 +7,7 @@ import { Slider } from "@/components/ui/slider";
 
 import useQuestion from "@/hooks/use-question";
 
-import PrevNextBtns from "./prev-next-btns";
+import PrevNextBtns from "../../../../../../components/question/prev-next-btns";
 
 interface IQuestionSliderProps {}
 

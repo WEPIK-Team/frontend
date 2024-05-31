@@ -4,8 +4,7 @@ import { PlusIcon } from "@radix-ui/react-icons";
 import * as React from "react";
 
 import { ManageQuestionModal } from "@/components/modal/manage-question-modal";
-
-import { ManageHeader } from "./manage-header";
+import { ManageHeader } from "@/components/manage/manage-header";
 
 interface IManegeQuestionHeaderProps {}
 

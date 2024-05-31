@@ -6,9 +6,9 @@ import { Separator } from "@/components/ui/separator";
 
 import { QuestionTypeTest } from "@/lib/data/select";
 
-import { columns, IQuestion } from "./components/columns";
-import { DataTable } from "./components/data-table";
-import ManegeQuestionHeader from "./components/manage-question-header";
+import { columns, IQuestion } from "../../../../components/manage/columns";
+import { DataTable } from "../../../../components/manage/data-table";
+import ManegeQuestionHeader from "../../../../components/manage/manage-question-header";
 
 async function getQuestionData(): Promise<IQuestion[]> {
   // Fetch data from your API here.
