@@ -4,6 +4,8 @@ import Image from "next/image";
 import Heading from "@/components/common/heading";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 
+import { TemplateAction } from "./template-action";
+
 import { TemplateSelectCardProps } from "@/types/template-select";
 
 export function TemplateSelectCard({
@@ -11,6 +13,7 @@ export function TemplateSelectCard({
   title,
   tag,
   views,
+  isAdmin = false,
 }: TemplateSelectCardProps) {
   return (
     <>
@@ -31,7 +34,7 @@ export function TemplateSelectCard({
             </div>
           </div>
         </CardContent>
-        <CardFooter>
+        <CardFooter className="flex justify-between">
           <div className="flex flex-col">
             <div className="relative">
               <Heading as="h3" className="m-0 p-0 text-[17px]">
@@ -46,6 +49,7 @@ export function TemplateSelectCard({
               ))}
             </div>
           </div>
+          {isAdmin ? <TemplateAction /> : null}
         </CardFooter>
       </Card>
     </>

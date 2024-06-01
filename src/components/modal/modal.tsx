@@ -36,7 +36,7 @@ export const Modal: React.FC<ModalProps> = ({
           <DialogTitle className="text-wpt-xl">{title}</DialogTitle>
           <DialogDescription>{desc}</DialogDescription>
         </DialogHeader>
-        <div>{children}</div>
+        {children}
       </DialogContent>
     </Dialog>
   );

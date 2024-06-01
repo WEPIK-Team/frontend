@@ -15,8 +15,8 @@ import { Textarea } from "@/components/ui/textarea";
 
 import useQuestion from "@/hooks/use-question";
 
-import PrevNextBtns from "../../../../../../components/question/prev-next-btns";
 import QuestionTextCounter from "./question-text-counter";
+import PrevNextBtns from "../../../../../../components/question/prev-next-btns";
 
 interface IQuestionTextAreaProps {}
 

@@ -7,8 +7,8 @@ import { Form, FormField, FormItem, FormMessage } from "@/components/ui/form";
 
 import useQuestion from "@/hooks/use-question";
 
-import PrevNextBtns from "../question/prev-next-btns";
 import RatingInput from "./rating-input";
+import PrevNextBtns from "../question/prev-next-btns";
 
 interface IQuestionRatingInputProps {}
 

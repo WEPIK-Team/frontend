@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 
 import { Slider } from "@/components/ui/slider";
 

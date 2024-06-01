@@ -1,6 +1,5 @@
 import Header from "@/components/common/header";
-
-import ManageSidebar from "./manage-sidebar";
+import ManageSidebar from "@/components/manage/manage-sidebar";
 
 export default function ManageLayout({
   children,

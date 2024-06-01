@@ -3,4 +3,5 @@ export type TemplateSelectCardProps = {
   title: string;
   tag: string[];
   views: number;
+  isAdmin?: boolean;
 };
