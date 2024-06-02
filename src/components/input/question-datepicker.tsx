@@ -1,7 +1,8 @@
 "use client";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CalendarIcon, ChevronDownIcon } from "@radix-ui/react-icons";
-import { addDays, format } from "date-fns";
+import { addDays } from "date-fns";
 import { ko } from "date-fns/locale";
 import * as React from "react";
 import { useForm } from "react-hook-form";
@@ -20,34 +21,31 @@ import {
 
 import useQuestion from "@/hooks/use-question";
 
-import PrevNextBtns from "../question/prev-next-btns";
+import PrevNextBtns, { formatDateforKor } from "../question/prev-next-btns";
 
 // form validation
 const FormSchema = z.object({
   DATE: z.object(
     {
       from: z.date(),
-      to: z.date(),
+      to: z.date().optional(),
     },
     { required_error: "날짜를 선택해 주세요" }
   ),
 });
 
+type FormSchemeType = z.infer<typeof FormSchema>;
+
 export const QuestionDatePicker = () => {
   // zustand
-  const {
-    maxLength,
-    currentQuestion,
-    currentQuestionIndex: index,
-    nextQuestion,
-    prevQuestion,
-    updateQuestion,
-  } = useQuestion();
-  const { id, content } = currentQuestion;
+  const { currentQuestion } = useQuestion();
+  const { content } = currentQuestion;
+  const [startDateString, endDateString] = content
+    ? content.split(" - ")
+    : [new Date(), new Date()];
 
-  const [startDateString, endDateString] = content.split(" - ");
-  const from = new Date(startDateString);
-  const to = new Date(endDateString);
+  const from = startDateString ? new Date(startDateString) : new Date();
+  const to = endDateString ? new Date(endDateString) : undefined;
 
   // State
   const [isOpen, setIsOpen] = React.useState(false);
@@ -57,53 +55,26 @@ export const QuestionDatePicker = () => {
     resolver: zodResolver(FormSchema),
     defaultValues: {
       DATE: {
-        from: from || new Date(),
-        to: to || addDays(new Date(from || new Date()), 1),
+        from: from,
+        to: to,
       },
     },
   });
 
   // function
-  const onInit = () => {
+  const handleInit = () => {
     const defaultFrom = new Date();
     const defaultTo = addDays(defaultFrom, 1);
     form.setValue("DATE", {
       from: defaultFrom,
       to: defaultTo,
     });
+    setIsOpen(false);
   };
-
-  // if문 정리, data type쓰기 z.infer사용
-  const onPrev = form.handleSubmit((data) => {
-    if (data.DATE.from && data.DATE.to) {
-      updateQuestion(
-        id,
-        `${format(data.DATE.from, "yyyy/MM/dd")} - ${format(data.DATE.to, "yyyy/MM/dd")}`
-      );
-      prevQuestion();
-    }
-  });
-
-  const onNext = form.handleSubmit((data) => {
-    console.log(data);
-    if (index === maxLength) {
-      console.log("Server Action");
-    } else {
-      updateQuestion(
-        id,
-        `${format(data.DATE.from, "yyyy/MM/dd")} - ${format(data.DATE.to, "yyyy/MM/dd")}`
-      );
-      nextQuestion();
-    }
-  });
-
-  // const onNext = (data: z.infer<typeof FormSchema>) => {
-
-  // };
 
   return (
     <Form {...form}>
-      <form onSubmit={onNext} className="grid w-full gap-2">
+      <form className="grid w-full gap-2">
         <FormField
           control={form.control}
           name="DATE"
@@ -134,22 +105,14 @@ export const QuestionDatePicker = () => {
                               "mr-2 h-[26px] w-[26px] text-wpc-primary"
                             )}
                           />
-                          {/* 포뱃 후 값 불러오기 */}
                           {field.value?.from ? (
                             field.value.to ? (
                               <>
-                                {format(field.value.from, "yyyy/MM/dd", {
-                                  locale: ko,
-                                })}{" "}
-                                -{" "}
-                                {format(field.value.to, "yyyy/MM/dd", {
-                                  locale: ko,
-                                })}
+                                {formatDateforKor(field.value.from)} -{" "}
+                                {formatDateforKor(field.value.to)}
                               </>
                             ) : (
-                              format(field.value.from, "yyyy/MM/dd", {
-                                locale: ko,
-                              })
+                              formatDateforKor(field.value.from)
                             )
                           ) : (
                             <span>날짜를 선택하세요</span>
@@ -172,16 +135,17 @@ export const QuestionDatePicker = () => {
                       locale={ko}
                       initialFocus
                       mode="range"
-                      defaultMonth={field.value?.from || new Date()}
+                      defaultMonth={form.getValues("DATE")?.to}
                       selected={field.value}
                       onSelect={field.onChange}
                       numberOfMonths={1}
                       showOutsideDays={false}
+                      className="max-h-[350px] overflow-y-scroll"
                       footer={
-                        <div className="mt-2 flex w-full justify-between">
+                        <div className=" flex w-full justify-between">
                           <Button
                             type="button"
-                            onClick={onInit}
+                            onClick={handleInit}
                             className="h-[44px] rounded-full border border-wpc-gray3 bg-transparent px-[20px] py-[10px] text-wpt-md font-normal text-wpc-primary hover:bg-transparent"
                           >
                             초기화
@@ -203,11 +167,7 @@ export const QuestionDatePicker = () => {
             );
           }}
         />
-        <PrevNextBtns
-          onPrev={onPrev}
-          onNext={onNext}
-          isMax={index === maxLength}
-        />
+        <PrevNextBtns<FormSchemeType> form={form} type="DATE" />
       </form>
     </Form>
   );

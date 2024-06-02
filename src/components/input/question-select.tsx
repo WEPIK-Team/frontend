@@ -1,3 +1,5 @@
+"use cllient";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -8,6 +10,8 @@ import useQuestion from "@/hooks/use-question";
 
 import PrevNextBtns from "../question/prev-next-btns";
 import SelectItem from "../question/select-item";
+
+import { ISelectQuestion } from "@/types/question";
 
 export interface SelectOption {
   label: string;
@@ -20,45 +24,26 @@ interface IQuestionSelectProps {
 
 // form validation
 const FormSchema = z.object({
-  SELETE: z.string().min(1, { message: "옵션을 선택해 주세요" }),
+  SELECT: z.string().min(1, { message: "옵션을 선택해 주세요" }),
 });
+
+type FormSchemaType = z.infer<typeof FormSchema>;
 
 const QuestionSelect: React.FunctionComponent<IQuestionSelectProps> = ({
   type,
 }) => {
   // zustand
-  const {
-    maxLength,
-    currentQuestion,
-    currentQuestionIndex: index,
-    prevQuestion,
-    nextQuestion,
-    updateQuestion,
-  } = useQuestion();
-  const { id, content, selects } = currentQuestion;
+  const { currentQuestion } = useQuestion();
+  const { content, selectQuestions } = currentQuestion;
+
+  console.log(content);
 
   // react hook form
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      SELETE: content,
+      SELECT: content,
     },
-  });
-
-  // function
-  const onPrev = form.handleSubmit((data) => {
-    updateQuestion(id, data.SELETE.toString());
-    prevQuestion();
-  });
-
-  const onNext = form.handleSubmit((data) => {
-    console.log(data);
-    if (index === maxLength) {
-      console.log("Server Action");
-    } else {
-      updateQuestion(id, data.SELETE);
-      nextQuestion();
-    }
   });
 
   // const onNext = async (data: z.infer<typeof FormSchema>) => {
@@ -94,19 +79,19 @@ const QuestionSelect: React.FunctionComponent<IQuestionSelectProps> = ({
 
   return (
     <Form {...form}>
-      <form onSubmit={onNext} className="w-full">
+      <form className="w-full">
         <FormField
           control={form.control}
-          name="SELETE"
+          name="SELECT"
           render={({ field }) => {
             return (
               <FormItem>
                 <ul className="w-full space-y-2">
-                  {selects.map((el: any, i: number) => (
+                  {selectQuestions.map((el: ISelectQuestion, i: number) => (
                     <SelectItem
-                      key={el.value}
-                      value={el.label}
-                      isSelect={i === +field.value}
+                      key={el.id}
+                      value={el.title}
+                      isSelect={i === parseInt(field.value)}
                       theme="default"
                       onClick={() => {
                         field.onChange(i + "");
@@ -119,11 +104,7 @@ const QuestionSelect: React.FunctionComponent<IQuestionSelectProps> = ({
             );
           }}
         />
-        <PrevNextBtns
-          onPrev={onPrev}
-          onNext={onNext}
-          isMax={index === maxLength}
-        />
+        <PrevNextBtns<FormSchemaType> type="SELECT" form={form} />
       </form>
     </Form>
   );

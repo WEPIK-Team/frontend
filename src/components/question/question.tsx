@@ -11,26 +11,27 @@ import QuestionSlider from "@/components/input/question-slider";
 import QuestionTextArea from "@/components/input/question-textarea";
 import QuestionTitle from "@/components/question/question-title";
 
-import { QuestionTypeTest } from "@/lib/data/select";
-import { useQuestionStore } from "@/provider/question-store-provider";
+import useQuestion from "@/hooks/use-question";
+
+import { QuestionType } from "@/types/question";
 
 interface IQuestionProps {}
 
 const QuestionContent: React.FunctionComponent<{
-  type: QuestionTypeTest;
+  type: QuestionType;
 }> = ({ type }) => {
   switch (type) {
-    case "input":
+    case "INPUT":
       return <QuestionInput />;
-    case "select":
+    case "SELECT":
       return <QuestionSelect type="single" />;
-    case "stars":
+    case "STAR_RANK":
       return <QuestionRatingInput />;
-    case "textarea":
+    case "TEXTAREA":
       return <QuestionTextArea />;
-    case "bar":
+    case "BAR":
       return <QuestionSlider />;
-    case "date":
+    case "DATE":
       return <QuestionDatePicker />;
     default:
       return null;
@@ -39,28 +40,32 @@ const QuestionContent: React.FunctionComponent<{
 
 const Question: React.FunctionComponent<IQuestionProps> = () => {
   // 값을 가져오지 못할 경우 에러 관리
-  const { currentQuestionIndex, questions } = useQuestionStore(
-    (state) => state
-  );
-  const { imageUrl, title, type } = questions[currentQuestionIndex];
+
+  const { currentQuestion } = useQuestion();
+  const { imageURL, title, type } = currentQuestion;
 
   return (
-    <div className="mx-auto flex w-full max-w-xl flex-col items-center justify-center px-[16px]">
+    <div className="mx-auto flex h-full w-full max-w-xl flex-col items-center justify-center px-[16px]">
       <div
         className={cn(
-          "min-h-[400px] w-full",
-          imageUrl
-            ? "mt-[40px] space-y-[24px]"
-            : "flex flex-col items-center justify-center gap-y-[13px]"
+          "relative mt-[40px] w-full  pb-[70px]",
+          imageURL
+            ? " h-full space-y-[24px]"
+            : "flex min-h-[400px] flex-col gap-y-[20px]"
         )}
       >
         <QuestionTitle>{title}</QuestionTitle>
-        {imageUrl ? (
+        {imageURL ? (
           <div
-            style={{ backgroundImage: `url(${imageUrl})` }}
-            className="mx-auto h-[240px] w-full rounded-[18px]"
+            style={{
+              backgroundImage: `url(${imageURL})`,
+              backgroundRepeat: "no-repeat",
+              backgroundSize: "cover",
+            }}
+            className="mx-auto h-[240px] w-full rounded-[18px] bg-auto"
           />
-        ) : null}
+        ) : // <div className="mx-auto h-[240px] w-full rounded-[18px] bg-slate-800" />
+        null}
         <QuestionContent type={type} />
       </div>
     </div>

@@ -4,6 +4,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
+import PrevNextBtns from "@/components/question/prev-next-btns";
+import QuestionTextCounter from "@/components/question/question-text-counter";
 import {
   Form,
   FormControl,
@@ -15,33 +17,25 @@ import { Textarea } from "@/components/ui/textarea";
 
 import useQuestion from "@/hooks/use-question";
 
-import QuestionTextCounter from "./question-text-counter";
-import PrevNextBtns from "../../../../../../components/question/prev-next-btns";
-
 interface IQuestionTextAreaProps {}
 
 // form validation
 const FormSchema = z.object({
   TEXTAREA: z
     .string()
+    .min(1, { message: "내용을 작성해 주세요" })
     .min(10, { message: "10자 이상 입력해야 합니다." })
     .max(300, { message: "300자 까지 입력할 수 있습니다." }),
 });
+
+type FormSchemeType = z.infer<typeof FormSchema>;
 
 const QuestionTextArea: React.FunctionComponent<
   IQuestionTextAreaProps
 > = () => {
   // zustand
-  const {
-    maxLength,
-    currentQuestion,
-    currentQuestionIndex: index,
-    prevQuestion,
-    nextQuestion,
-    updateQuestion,
-  } = useQuestion();
-
-  const { id, content } = currentQuestion;
+  const { currentQuestion } = useQuestion();
+  const { content } = currentQuestion;
 
   // react hook form
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -51,32 +45,11 @@ const QuestionTextArea: React.FunctionComponent<
       TEXTAREA: content,
     },
   });
-  const textAreaLength = form.watch("TEXTAREA").length || 0;
-
-  // function
-  const onPrev = form.handleSubmit((data) => {
-    updateQuestion(id, data.TEXTAREA);
-    prevQuestion();
-  });
-
-  const onNext = form.handleSubmit((data) => {
-    console.log(data);
-
-    if (index === maxLength) {
-      console.log("Server Action");
-    } else {
-      updateQuestion(id, data.TEXTAREA);
-      nextQuestion();
-    }
-  });
-
-  // const onNext = (data: z.infer<typeof FormSchema>) => {
-
-  // };
+  const textAreaLength = form.watch("TEXTAREA")?.length || 0;
 
   return (
     <Form {...form}>
-      <form onSubmit={onNext}>
+      <form className="w-full">
         <FormField
           control={form.control}
           name="TEXTAREA"
@@ -98,11 +71,7 @@ const QuestionTextArea: React.FunctionComponent<
           }}
         />
         <QuestionTextCounter max={300} current={textAreaLength} />
-        <PrevNextBtns
-          onPrev={onPrev}
-          onNext={onNext}
-          isMax={index === maxLength}
-        />
+        <PrevNextBtns<FormSchemeType> type="TEXTAREA" form={form} />
       </form>
     </Form>
   );

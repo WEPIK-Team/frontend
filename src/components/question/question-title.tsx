@@ -4,7 +4,7 @@ import * as React from "react";
 
 import Heading from "@/components/common/heading";
 
-import { useQuestionStore } from "@/provider/question-store-provider";
+import useQuestion from "@/hooks/use-question";
 
 interface IQuestionTitleProps {
   children: string;
@@ -15,11 +15,9 @@ const QuestionTitle: React.FunctionComponent<IQuestionTitleProps> = ({
 }) => {
   // zustand로 현재 문제 index 확인
 
-  const { currentQuestionIndex, questions } = useQuestionStore(
-    (state) => state
-  );
+  const { currentQuestionIndex, questions } = useQuestion();
   return (
-    <div className="mx-auto max-w-[240px] space-y-[10px] text-center leading-[22px]">
+    <div className="mx-auto max-w-[240px] space-y-[8px] text-center leading-[22px]">
       <h1>
         <span className="text-wpt-xl font-semibold text-wpc-primary">{`Q${currentQuestionIndex + 1}`}</span>
         <span className="text-wpt-md font-light">

@@ -1,3 +1,5 @@
+"use cllient";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as React from "react";
 import { useForm } from "react-hook-form";
@@ -14,48 +16,24 @@ interface IQuestionRatingInputProps {}
 
 // form validation
 const FormSchema = z.object({
-  STARRATE: z.string().min(1, { message: "별점을 선택해 주세요" }),
+  STAR_RANK: z.string().min(1, { message: "별점을 선택해 주세요" }),
 });
+
+type FormSchemeType = z.infer<typeof FormSchema>;
 
 const QuestionRatingInput: React.FunctionComponent<
   IQuestionRatingInputProps
 > = () => {
   // zustand
-  const {
-    maxLength,
-    currentQuestion,
-    currentQuestionIndex: index,
-    prevQuestion,
-    nextQuestion,
-    updateQuestion,
-  } = useQuestion();
-  const { id, content } = currentQuestion;
+  const { currentQuestion } = useQuestion();
+  const { content } = currentQuestion;
 
   // react hook form
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      STARRATE: content || "2.5",
+      STAR_RANK: content === "0" ? "0" : content ? content : "2.5",
     },
-  });
-
-  // function
-  const onPrev = form.handleSubmit((data) => {
-    console.log(data);
-
-    updateQuestion(id, data.STARRATE.toString());
-    prevQuestion();
-  });
-
-  const onNext = form.handleSubmit((data) => {
-    console.log(data);
-
-    if (index === maxLength) {
-      console.log("Server Action");
-    } else {
-      updateQuestion(id, data.STARRATE);
-      nextQuestion();
-    }
   });
 
   // const onNext = (data: z.infer<typeof FormSchema>) => {
@@ -64,10 +42,10 @@ const QuestionRatingInput: React.FunctionComponent<
 
   return (
     <Form {...form}>
-      <form onSubmit={onNext} className="w-full">
+      <form className="w-full">
         <FormField
           control={form.control}
-          name="STARRATE"
+          name="STAR_RANK"
           render={({ field }) => {
             return (
               <FormItem>
@@ -88,11 +66,7 @@ const QuestionRatingInput: React.FunctionComponent<
             );
           }}
         />
-        <PrevNextBtns
-          onPrev={onPrev}
-          onNext={onNext}
-          isMax={index === maxLength}
-        />
+        <PrevNextBtns<FormSchemeType> type="STAR_RANK" form={form} />
       </form>
     </Form>
   );

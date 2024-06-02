@@ -3,7 +3,7 @@ import * as React from "react";
 
 import { cn } from "@/lib/utils";
 
-import Rate from "./rate";
+import Rate from "@/components/question/rate";
 
 interface IRateProps {
   id: number;
@@ -76,6 +76,9 @@ function RatingInput({
           disabled={readOnly}
         />
       </div>
+      <p className="text-center text-wpt-md font-semibold text-wpc-primary">
+        {value}
+      </p>
     </div>
   );
 }

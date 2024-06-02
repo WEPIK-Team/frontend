@@ -15,8 +15,11 @@ export default function useQuestion() {
   );
   const updateQuestion = useQuestionStore((state) => state.updateQuestion);
 
+  const clearQuestion = useQuestionStore((state) => state.clearStore);
+
   return {
     currentQuestionIndex,
+    clearQuestion,
     questions,
     maxLength,
     currentQuestion,

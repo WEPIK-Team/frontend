@@ -1,3 +1,5 @@
+"use client";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -18,26 +20,19 @@ import QuestionTextCounter from "../question/question-text-counter";
 
 interface IQuestionInputProps {}
 
-// form validation
-// 1글자만 적을 경우 에러 메세지가 나오지 않음
 const FormSchema = z.object({
   INPUT: z
     .string()
+    .min(1, { message: "내용을 작성해 주세요" })
     .min(2, { message: "2자 이상 입력해야 합니다." })
     .max(50, { message: "50자 까지 입력할 수 있습니다." }),
 });
+type FormSchemeType = z.infer<typeof FormSchema>;
 
 const QuestionInput: React.FunctionComponent<IQuestionInputProps> = () => {
   // zustand
-  const {
-    maxLength,
-    currentQuestion,
-    currentQuestionIndex: index,
-    nextQuestion,
-    prevQuestion,
-    updateQuestion,
-  } = useQuestion();
-  const { id, content } = currentQuestion;
+  const { currentQuestion } = useQuestion();
+  const { content } = currentQuestion;
 
   // react hook form
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -49,26 +44,9 @@ const QuestionInput: React.FunctionComponent<IQuestionInputProps> = () => {
 
   const inputLength = form.watch("INPUT").length || 0;
 
-  // function
-  const onPrev = form.handleSubmit((data) => {
-    updateQuestion(id, data.INPUT);
-    prevQuestion();
-  });
-
-  const onNext = form.handleSubmit((data) => {
-    console.log(data);
-
-    if (index === maxLength) {
-      console.log("Server Action");
-    } else {
-      updateQuestion(id, data.INPUT);
-      nextQuestion();
-    }
-  });
-
   return (
     <Form {...form}>
-      <form onSubmit={onNext}>
+      <form className=" w-full">
         <FormField
           control={form.control}
           name="INPUT"
@@ -89,12 +67,8 @@ const QuestionInput: React.FunctionComponent<IQuestionInputProps> = () => {
           }}
         />
         <QuestionTextCounter max={50} current={inputLength} />
-        <PrevNextBtns
-          onPrev={onPrev}
-          onNext={onNext}
-          isMax={index === maxLength}
-        />
       </form>
+      <PrevNextBtns<FormSchemeType> type="INPUT" form={form} />
     </Form>
   );
 };

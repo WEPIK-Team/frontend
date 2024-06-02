@@ -16,15 +16,8 @@ interface IQuestionSlideerForm {
 
 const QuestionSlider: React.FunctionComponent<IQuestionSliderProps> = () => {
   // zustand
-  const {
-    maxLength,
-    currentQuestion,
-    currentQuestionIndex: index,
-    prevQuestion,
-    nextQuestion,
-    updateQuestion,
-  } = useQuestion();
-  const { id, content } = currentQuestion;
+  const { currentQuestion } = useQuestion();
+  const { content } = currentQuestion;
 
   // react hook form
   const form = useForm<IQuestionSlideerForm>({
@@ -33,28 +26,12 @@ const QuestionSlider: React.FunctionComponent<IQuestionSliderProps> = () => {
     },
   });
 
-  // function
-  const onPrev = form.handleSubmit((data) => {
-    updateQuestion(id, data.BAR.toString());
-    prevQuestion();
-  });
-
-  const onNext = form.handleSubmit((data) => {
-    console.log(data);
-    if (index === maxLength) {
-      console.log("Server Action");
-    } else {
-      updateQuestion(id, data.BAR.toString());
-      nextQuestion();
-    }
-  });
-
   // const onNext: SubmitHandler<IQuestionSlideerForm> = async (data) => {
 
   // };
 
   return (
-    <form onSubmit={onNext} className="w-full">
+    <form className="my-[50px] w-full">
       <Controller
         name="BAR"
         {...form}
@@ -73,11 +50,7 @@ const QuestionSlider: React.FunctionComponent<IQuestionSliderProps> = () => {
           );
         }}
       />
-      <PrevNextBtns
-        onPrev={onPrev}
-        onNext={onNext}
-        isMax={index === maxLength}
-      />
+      <PrevNextBtns form={form} type="BAR" />
     </form>
   );
 };

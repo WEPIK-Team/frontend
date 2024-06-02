@@ -1,20 +1,24 @@
+import { persist } from "zustand/middleware";
 import { createStore } from "zustand/vanilla";
+
+import { IQuestion } from "@/types/question";
 
 export type QuestionState = {
   currentQuestionIndex: number;
-  questions: any[];
+  questions: IQuestion[];
 };
 
 export type CounterActions = {
   nextQuestion: () => void;
   prevQuestion: () => void;
   moveIndexQuestion: (index: number) => void;
-  updateQuestion: (id: string, newValue: string) => void;
+  updateQuestion: ({ id, newValue }: Record<"id" | "newValue", string>) => void;
+  clearStore: () => void;
 };
 
 export type QuestionStore = QuestionState & CounterActions;
 
-const initQuestionStore = (questions: any[]): QuestionState => ({
+const initQuestionStore = (questions: IQuestion[]): QuestionState => ({
   currentQuestionIndex: 0,
   questions,
 });
@@ -25,37 +29,46 @@ const defaultInitState: QuestionState = {
 };
 
 const createQuestionStore = (initState: QuestionState = defaultInitState) =>
-  createStore<QuestionStore>((set) => ({
-    ...initState,
-    nextQuestion: () =>
-      set((state) => {
-        return {
-          currentQuestionIndex: Math.min(
-            state.currentQuestionIndex + 1,
-            state.questions.length - 1
-          ),
-        };
+  createStore<QuestionStore>()(
+    persist<QuestionStore>(
+      (set) => ({
+        ...initState,
+        nextQuestion: () =>
+          set((state) => ({
+            currentQuestionIndex: Math.min(
+              state.currentQuestionIndex + 1,
+              state.questions.length - 1
+            ),
+          })),
+        prevQuestion: () =>
+          set((state) => {
+            if (state.currentQuestionIndex === 0) return {};
+            return {
+              currentQuestionIndex: Math.max(state.currentQuestionIndex - 1, 0),
+            };
+          }),
+        moveIndexQuestion: (index: number) =>
+          set(() => ({
+            currentQuestionIndex: index,
+          })),
+        updateQuestion: ({ id, newValue }: Record<"id" | "newValue", string>) =>
+          set((state) => ({
+            questions: state.questions.map((q) =>
+              q.id === id ? { ...q, content: newValue } : q
+            ),
+          })),
+        clearStore: () => {
+          localStorage.removeItem("question-storage");
+          return set(() => ({
+            ...defaultInitState,
+          }));
+        },
       }),
-    prevQuestion: () =>
-      set((state) => {
-        if (state.currentQuestionIndex === 0) return {};
-        return {
-          currentQuestionIndex: Math.max(state.currentQuestionIndex - 1, 0),
-        };
-      }),
-    moveIndexQuestion: (index: number) =>
-      set(() => ({
-        currentQuestionIndex: index,
-      })),
-    // record
-    updateQuestion: (id: string, newValue: string) =>
-      set((state) => {
-        return {
-          questions: state.questions.map((q) =>
-            q.id === id ? { ...q, content: newValue } : q
-          ),
-        };
-      }),
-  }));
+      {
+        name: "question-storage",
+        getStorage: () => localStorage,
+      }
+    )
+  );
 
 export { createQuestionStore, initQuestionStore };

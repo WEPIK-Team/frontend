@@ -9,9 +9,11 @@ import {
   QuestionStore,
 } from "@/store/question-store";
 
+import { IQuestion } from "@/types/question";
+
 interface QuestionStoreProviderProps {
   children: ReactNode;
-  questions: any;
+  questions: IQuestion[];
 }
 
 const QuestionStoreContext = createContext<StoreApi<QuestionStore> | null>(
