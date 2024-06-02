@@ -16,7 +16,7 @@ const SERVER_URL = process.env.SERVER_URL;
 export default async function MainLayout({ children, params }: IPageProps) {
   // 서버로부터 질문 데이터 받아오기
   const { id } = params;
-  const { questions }: ITemplate = await fetch(`${SERVER_URL}template/${id}`)
+  const { questions }: ITemplate = await fetch(`${SERVER_URL}/template/${id}`)
     .then((res) => res.json())
     .catch((error) => {
       throw new Error(error.message);
@@ -31,7 +31,7 @@ export default async function MainLayout({ children, params }: IPageProps) {
 
 // id에 따른 정적 경로 생성
 export async function generateStaticParams(): Promise<IPageProps[]> {
-  const templetes = await fetch(`${SERVER_URL}template`)
+  const templetes = await fetch(`${SERVER_URL}/template`)
     .then((res) => res.json())
     .catch((error) => {
       throw new Error(error.message);
