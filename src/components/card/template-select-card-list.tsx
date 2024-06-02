@@ -1,6 +1,6 @@
 "use client";
 
-import { CaretSortIcon } from "@radix-ui/react-icons";
+import Image from "next/image";
 import { useState } from "react";
 
 import { TemplateSelectCard } from "@/components/card/template-select-card";
@@ -51,11 +51,11 @@ export function TemplateSelectCardList({
         ))}
       </div>
       <div
-        className="flex cursor-pointer items-center justify-end gap-1"
+        className="flex cursor-pointer items-center justify-end gap-[5px]"
         onClick={() => setSortByPopularity(!sortByPopularity)}
       >
-        <CaretSortIcon className="h-5 w-5" />
-        <p>인기순</p>
+        <Image src="svgs/sort.svg" alt="sortIcon" width={12} height={12} />
+        <p className="text-wpt-base-1">인기순</p>
       </div>
       <div className="grid grid-cols-12 gap-[14px] pt-3 font-pretendard">
         {filteredTemplateList.map((template) => (
@@ -66,6 +66,7 @@ export function TemplateSelectCardList({
               title={template.title}
               templateTags={template.templateTags}
               useCount={template.useCount}
+              selectedTags={selectedTags}
             />
           </div>
         ))}

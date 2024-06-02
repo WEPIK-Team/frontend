@@ -1,15 +1,16 @@
 "use client";
 
-import { PlayIcon } from "@radix-ui/react-icons";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+
+import { cn } from "@/lib/utils";
 
 import Heading from "@/components/common/heading";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 
 import { TemplateAction } from "./template-action";
 
-import { Template } from "@/types/template";
+import { TemplateSelectCardProps } from "@/types/template";
 
 export function TemplateSelectCard({
   id,
@@ -18,7 +19,8 @@ export function TemplateSelectCard({
   templateTags,
   useCount,
   isAdmin = false,
-}: Template) {
+  selectedTags,
+}: TemplateSelectCardProps) {
   const router = useRouter();
   return (
     <>
@@ -26,7 +28,7 @@ export function TemplateSelectCard({
         className="cursor-pointer"
         onClick={() => router.push(`/question/${id}`)}
       >
-        <CardContent className="w-full">
+        <CardContent className="relative w-full">
           <div>
             <div className="relative h-[174px] w-full">
               <Image
@@ -37,22 +39,35 @@ export function TemplateSelectCard({
                 sizes="50vw"
               />
             </div>
-            <div className="absolute bottom-3 left-3 flex items-center space-x-2 text-sm text-white">
-              <PlayIcon />
-              <span>{useCount}</span>
+            <div className="absolute bottom-0 left-0 right-0 z-20 flex h-9 rounded-b-lg bg-gradient-to-t from-[rgba(0,0,0,0.3)] to-white">
+              <div className="ml-3 flex items-center gap-[6px] text-sm text-white">
+                <Image
+                  width={12}
+                  height={12}
+                  src="/svgs/play.svg"
+                  alt="playIcon"
+                />
+                <span>{useCount}</span>
+              </div>
             </div>
           </div>
         </CardContent>
-        <CardFooter className="flex justify-between">
+        <CardFooter className="mt-2 flex justify-between">
           <div className="flex flex-col">
-            <div className="relative">
-              <Heading as="h3" className="m-0 p-0 text-[17px]">
-                {title}
-              </Heading>
-            </div>
-            <div className="flex space-x-2 text-[#8F8F95]">
+            <Heading as="h3" className="m-0 p-0 text-wpt-md">
+              {title}
+            </Heading>
+            <div className="mt-[3px] flex gap-[5px]">
               {templateTags.map((tag) => (
-                <p className="m-0 p-0 text-[13px]" key={tag}>
+                <p
+                  className={cn(
+                    "text-wpt-sm",
+                    selectedTags?.includes(tag)
+                      ? "font-medium text-wpc-primary"
+                      : "text-wpc-gray"
+                  )}
+                  key={tag}
+                >
                   #{tag}
                 </p>
               ))}
