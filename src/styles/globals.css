@@ -91,7 +91,7 @@
     @apply border-border;
   }
   body {
-    @apply h-full bg-background text-foreground;
+    @apply h-full overflow-y-scroll bg-background text-foreground;
   }
   html {
     @apply h-full;

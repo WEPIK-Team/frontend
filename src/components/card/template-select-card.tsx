@@ -39,7 +39,7 @@ export function TemplateSelectCard({
                 sizes="50vw"
               />
             </div>
-            <div className="absolute bottom-0 left-0 right-0 z-20 flex h-9 rounded-b-lg bg-gradient-to-t from-[rgba(0,0,0,0.3)] to-white">
+            <div className="absolute bottom-0 left-0 right-0 z-20 flex h-9 rounded-b-lg bg-gradient-to-t from-[rgba(0,0,0,0.3)]">
               <div className="ml-3 flex items-center gap-[6px] text-sm text-white">
                 <Image
                   width={12}
