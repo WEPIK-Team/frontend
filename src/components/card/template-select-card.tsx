@@ -1,36 +1,45 @@
+"use client";
+
 import { PlayIcon } from "@radix-ui/react-icons";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 import Heading from "@/components/common/heading";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 
 import { TemplateAction } from "./template-action";
 
-import { TemplateSelectCardProps } from "@/types/template-select";
+import { Template } from "@/types/template";
 
 export function TemplateSelectCard({
-  image,
+  id,
+  imageURL,
   title,
-  tag,
-  views,
+  templateTags,
+  useCount,
   isAdmin = false,
-}: TemplateSelectCardProps) {
+}: Template) {
+  const router = useRouter();
   return (
     <>
-      <Card>
+      <Card
+        className="cursor-pointer"
+        onClick={() => router.push(`/question/${id}`)}
+      >
         <CardContent className="w-full">
-          <div className="relative">
-            <div className="h-[174px] w-full">
+          <div>
+            <div className="relative h-[174px] w-full">
               <Image
-                src={image}
-                className="rounded-xl object-cover"
+                src={imageURL}
+                className="h-auto w-auto rounded-xl"
                 alt={title}
-                layout="fill"
+                fill
+                sizes="50vw"
               />
             </div>
             <div className="absolute bottom-3 left-3 flex items-center space-x-2 text-sm text-white">
               <PlayIcon />
-              <span>{views}</span>
+              <span>{useCount}</span>
             </div>
           </div>
         </CardContent>
@@ -42,7 +51,7 @@ export function TemplateSelectCard({
               </Heading>
             </div>
             <div className="flex space-x-2 text-[#8F8F95]">
-              {tag.map((tag) => (
+              {templateTags.map((tag) => (
                 <p className="m-0 p-0 text-[13px]" key={tag}>
                   #{tag}
                 </p>

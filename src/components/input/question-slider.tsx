@@ -3,11 +3,10 @@
 import * as React from "react";
 import { Controller, useForm } from "react-hook-form";
 
+import PrevNextBtns from "@/components/question/prev-next-btns";
 import { Slider } from "@/components/ui/slider";
 
 import useQuestion from "@/hooks/use-question";
-
-import PrevNextBtns from "../../../../../../components/question/prev-next-btns";
 
 interface IQuestionSliderProps {}
 
