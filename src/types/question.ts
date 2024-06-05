@@ -14,10 +14,13 @@ export type QuestionType =
 export interface IQuestion {
   id: string;
   title: string;
-  type: QuestionType;
+  type: QuestionType | "";
   imageURL: string | null;
-  content: string;
   selectQuestions: ISelectQuestion[];
+}
+
+export interface IQuestionRequest extends IQuestion {
+  content: string;
 }
 
 export interface ITemplate {
@@ -27,4 +30,13 @@ export interface ITemplate {
   imageURL: string;
   templateTags: string[];
   questions: IQuestion[];
+}
+
+export interface IFileResponse {
+  id: number;
+  originalName: string;
+  storedName: string;
+  path: string;
+  type: string;
+  size: number;
 }

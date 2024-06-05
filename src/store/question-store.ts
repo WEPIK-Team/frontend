@@ -1,11 +1,11 @@
 import { persist } from "zustand/middleware";
 import { createStore } from "zustand/vanilla";
 
-import { IQuestion } from "@/types/question";
+import { IQuestionRequest } from "@/types/question";
 
 export type QuestionState = {
   currentQuestionIndex: number;
-  questions: IQuestion[];
+  questions: IQuestionRequest[];
 };
 
 export type CounterActions = {
@@ -18,7 +18,7 @@ export type CounterActions = {
 
 export type QuestionStore = QuestionState & CounterActions;
 
-const initQuestionStore = (questions: IQuestion[]): QuestionState => ({
+const initQuestionStore = (questions: IQuestionRequest[]): QuestionState => ({
   currentQuestionIndex: 0,
   questions,
 });

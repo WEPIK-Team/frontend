@@ -7,12 +7,12 @@ import StarRankIcon from "@/components/icon/star-rank-icon";
 import TextAreaIcon from "@/components/icon/text-area-icon";
 
 export enum QuestionTypeTest {
-  INPUT = "input",
-  TEXTAREA = "textarea",
-  STAR_RANK = "stars",
-  BAR = "bar",
-  SELECT = "select",
-  DATE = "date",
+  INPUT = "INPUT",
+  TEXTAREA = "TEXTAREA",
+  STAR_RANK = "STAR_RANK",
+  BAR = "BAR",
+  SELECT = "SELECT",
+  DATE = "DATE",
 }
 
 export const QuestionSelectOptions = [
@@ -53,3 +53,7 @@ export const QuestionSelectOptions = [
     icon: <DateIcon size={16} />,
   },
 ];
+
+export const QuestionSelectFormOptions = QuestionSelectOptions.filter(
+  (_, i) => i !== 0
+);

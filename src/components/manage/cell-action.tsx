@@ -1,14 +1,9 @@
-"use client";
-
 import {
   DotsHorizontalIcon,
   Pencil2Icon,
   TrashIcon,
 } from "@radix-ui/react-icons";
-import { useState } from "react";
 
-import { AlertModal } from "@/components/modal/alert-modal";
-import { ManageQuestionModal } from "@/components/modal/manage-question-modal";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -17,50 +12,24 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-import { IQuestion } from "./columns";
+import useQuestionModalStore from "@/store/question-modal-store";
+
+import { IQuestion } from "@/types/question";
 
 interface CellActionProps {
   data: IQuestion;
 }
 
 export const CellAction: React.FC<CellActionProps> = ({ data }) => {
-  const [loading, setLoading] = useState(false);
-  const [open, setOpen] = useState(false);
-
-  const [questionloading, setQuestionLoading] = useState(false);
-  const [questionOpen, setQuestionOpen] = useState(false);
+  const { onOpen, setTargetId } = useQuestionModalStore();
 
   //   const onCopy = (id: string) => {
   //     navigator.clipboard.writeText(id);
   //     // toast.success("클립보드에 복사 되었습니다.");
   //   };
 
-  const onDelete = async () => {
-    try {
-      //   toast.success("삭제 되었습니다.");
-    } catch (error) {
-      //   toast.error("서버 오류가 발생하였습니다.");
-    } finally {
-      setLoading(false);
-      setOpen(false);
-    }
-  };
-
   return (
     <>
-      <AlertModal
-        isOpen={open}
-        loading={loading}
-        onClose={() => setOpen(false)}
-        onConfirm={onDelete}
-      />
-      <ManageQuestionModal
-        mode="edit"
-        isOpen={questionOpen}
-        loading={questionloading}
-        onClose={() => setQuestionOpen(false)}
-        onConfirm={() => {}}
-      />
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button
@@ -72,11 +41,21 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuItem onClick={() => setQuestionOpen(true)}>
+          <DropdownMenuItem
+            onClick={() => {
+              onOpen("EDIT");
+              setTargetId(data.id);
+            }}
+          >
             <Pencil2Icon className="mr-2 h-4 w-4" />
             수정하기
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => setOpen(true)}>
+          <DropdownMenuItem
+            onClick={() => {
+              onOpen("DELETE");
+              setTargetId(data.id);
+            }}
+          >
             <TrashIcon className="mr-2 h-4 w-4" />
             삭제하기
           </DropdownMenuItem>

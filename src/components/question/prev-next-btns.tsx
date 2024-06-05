@@ -6,12 +6,13 @@ import { useParams, useRouter, useSearchParams } from "next/navigation";
 import * as React from "react";
 import { FieldValues, UseFormReturn } from "react-hook-form";
 
+import { cn } from "@/lib/utils";
+
 import { Button } from "@/components/ui/button";
 
 import useQuestion from "@/hooks/use-question";
 
 import { IQuestion, QuestionType } from "@/types/question";
-import { cn } from "@/lib/utils";
 
 interface IPrevNextBtnsProps<T extends FieldValues> {
   form: UseFormReturn<T, any, undefined>;

@@ -4,41 +4,39 @@ import { ColumnDef } from "@tanstack/react-table";
 
 import { cn } from "@/lib/utils";
 
-import { QuestionTypeTest } from "@/lib/data/select";
-
 import { CellAction } from "./cell-action";
 
-export interface IQuestion {
-  id: string;
-  title: string;
-  type: QuestionTypeTest;
-  createAt: string;
-  imageUrl?: string;
-}
+import { IQuestion, QuestionType } from "@/types/question";
 
 const typeColor = {
-  input: "#F693E7",
-  textarea: "#8076EC",
-  select: "#35DFC0",
-  bar: "#ED666E",
-  stars: "#F8B76B",
-  date: "#5FA3F3",
+  INPUT: "#F693E7",
+  TEXTAREA: "#8076EC",
+  SELECT: "#35DFC0",
+  BAR: "#ED666E",
+  STAR_RANK: "#F8B76B",
+  DATE: "#5FA3F3",
 };
 
 export const columns: ColumnDef<IQuestion>[] = [
   {
     accessorKey: "id",
     header: "ID",
+    cell(props) {
+      return <div className="pl-2">{props.getValue() as React.ReactNode}</div>;
+    },
   },
   {
     accessorKey: "title",
     header: "Title",
+    cell(props) {
+      return <div className="pl-2">{props.getValue() as React.ReactNode}</div>;
+    },
   },
   {
     accessorKey: "type",
     header: "Type",
     cell(props) {
-      const value = (props.getValue() + "") as QuestionTypeTest;
+      const value = (props.getValue() + "") as QuestionType;
 
       return (
         <div
@@ -53,10 +51,6 @@ export const columns: ColumnDef<IQuestion>[] = [
         </div>
       );
     },
-  },
-  {
-    accessorKey: "createAt",
-    header: "CreateAt",
   },
   {
     accessorKey: "Edit",
