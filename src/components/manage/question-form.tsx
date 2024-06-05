@@ -196,8 +196,6 @@ const QuestionForm: React.FunctionComponent<IQuestionFormProps> = ({
     }
   };
 
-  console.log(isLoading);
-
   return (
     <Form {...form}>
       <form
