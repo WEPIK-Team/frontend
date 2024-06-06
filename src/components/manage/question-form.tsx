@@ -225,7 +225,6 @@ const QuestionForm: React.FunctionComponent<IQuestionFormProps> = ({
             </FormItem>
           )}
         />
-
         <FormField
           disabled={isLoading}
           control={form.control}

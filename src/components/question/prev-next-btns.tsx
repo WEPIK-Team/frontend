@@ -21,7 +21,9 @@ import useGlobalLoadingModalStore from "@/store/global-loading-modal-store";
 
 import useQuestion from "@/hooks/use-question";
 
+import { completeQuestionAnswer } from "@/lib/api/question";
 import { IAnswerQuestionParam, QuestionType } from "@/types/question";
+import useGlobalLoadingModalStore from "@/store/global-loading-modal-store";
 
 interface IPrevNextBtnsProps<T extends FieldValues> {
   form: UseFormReturn<T, any, undefined>;
@@ -68,13 +70,17 @@ const PrevNextBtns = <T extends FieldValues>({
             to: data.DATE.to,
           });
 
-    updateQuestion({ id: questionId, newValue });
+    // 새로운 배열 업데이트
+    const newQuestions = questions.map((q) =>
+      q.id === questionId ? { ...q, content: newValue } : q
+    );
+    updateQuestion(newQuestions);
 
     if (direction === "next") {
       if (index === maxLength) {
         onLoadingOpen();
         const requestData = generateQuestionRequestData({
-          questions,
+          questions: newQuestions,
           templateId,
           senderId: senderIdParams,
         });
@@ -83,17 +89,10 @@ const PrevNextBtns = <T extends FieldValues>({
         const { receiverId, senderId } =
           await completeQuestionAnswer(requestData);
 
-        if (!receiverId) {
-          clearQuestion();
-          throw new Error(
-            "데이터를 저장하던 도중 server에서 오류가 발생하였습니다!"
-          );
-        }
-
-        clearQuestion();
         onLoadingClose();
+        clearQuestion();
 
-        if (senderIdParams) {
+        if (senderIdParams && receiverId && senderId) {
           router.replace(
             `${pathname}/success/sender/receiver?senderId=${senderId}&receiver=${receiverId}`
           );
@@ -163,7 +162,7 @@ function generateQuestionRequestData({
   const uuid = senderId ? senderId : null;
 
   const answerDtos = questions.map((question, i) => ({
-    content: question.content,
+    content: question.content.toString(),
     type: question.type,
     questionId: parseInt(question.id),
     sequence: i + 1,

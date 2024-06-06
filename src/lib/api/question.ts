@@ -16,8 +16,11 @@ export const completeQuestionAnswer = async (
         "Content-Type": "application/json",
       },
       body: JSON.stringify(requestData),
+      cache: "no-store",
     }
-  );
+  ).catch((error) => {
+    throw new Error(error.message);
+  });
 
   return response.json();
 };

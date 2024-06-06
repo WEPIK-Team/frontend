@@ -30,7 +30,9 @@ const QuestionAddSelect: React.FunctionComponent<IQuestionAddSelectProps> = ({
   };
 
   const onKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === "Enter") {
+    if (event.key !== "Enter") return;
+
+    if (event.key === "Enter" && title !== "") {
       handleAdd(title);
       event.preventDefault();
     }
@@ -46,6 +48,7 @@ const QuestionAddSelect: React.FunctionComponent<IQuestionAddSelectProps> = ({
           >
             <p>{el.title}</p>
             <Button
+              type="button"
               className="aspect-square h-full  bg-transparent p-1 text-wpc-primary"
               onClick={() => handleDelete(i)}
             >

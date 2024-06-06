@@ -1,4 +1,3 @@
-import { persist } from "zustand/middleware";
 import { createStore } from "zustand/vanilla";
 
 import { IQuestionRequest } from "@/types/question";
@@ -12,7 +11,7 @@ export type CounterActions = {
   nextQuestion: () => void;
   prevQuestion: () => void;
   moveIndexQuestion: (index: number) => void;
-  updateQuestion: ({ id, newValue }: Record<"id" | "newValue", string>) => void;
+  updateQuestion: (newQuestions: IQuestionRequest[]) => void;
   clearStore: () => void;
 };
 
@@ -29,43 +28,34 @@ const defaultInitState: QuestionState = {
 };
 
 const createQuestionStore = (initState: QuestionState = defaultInitState) =>
-  createStore<QuestionStore>()(
-    persist<QuestionStore>(
-      (set) => ({
-        ...initState,
-        nextQuestion: () =>
-          set((state) => ({
-            currentQuestionIndex: Math.min(
-              state.currentQuestionIndex + 1,
-              state.questions.length - 1
-            ),
-          })),
-        prevQuestion: () =>
-          set((state) => {
-            if (state.currentQuestionIndex === 0) return {};
-            return {
-              currentQuestionIndex: Math.max(state.currentQuestionIndex - 1, 0),
-            };
-          }),
-        moveIndexQuestion: (index: number) =>
-          set(() => ({
-            currentQuestionIndex: index,
-          })),
-        updateQuestion: ({ id, newValue }: Record<"id" | "newValue", string>) =>
-          set((state) => ({
-            questions: state.questions.map((q) =>
-              q.id === id ? { ...q, content: newValue } : q
-            ),
-          })),
-        clearStore: () => {
-          localStorage.removeItem("question-storage");
-        },
+  createStore<QuestionStore>()((set) => ({
+    ...initState,
+    nextQuestion: () =>
+      set((state) => ({
+        currentQuestionIndex: Math.min(
+          state.currentQuestionIndex + 1,
+          state.questions.length - 1
+        ),
+      })),
+    prevQuestion: () =>
+      set((state) => {
+        return {
+          currentQuestionIndex: Math.max(state.currentQuestionIndex - 1, 0),
+        };
       }),
-      {
-        name: "question-storage",
-        getStorage: () => localStorage,
-      }
-    )
-  );
+    moveIndexQuestion: (index: number) =>
+      set(() => ({
+        currentQuestionIndex: index,
+      })),
+    updateQuestion: (newQuestions) =>
+      set(() => {
+        return {
+          questions: newQuestions,
+        };
+      }),
+    clearStore: () => {
+      localStorage.removeItem("question-storage");
+    },
+  }));
 
 export { createQuestionStore, initQuestionStore };

@@ -20,7 +20,8 @@ export const getTempleteDetail = async (
   id: string
 ): Promise<ITemplateDetail> => {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}${process.env.NEXT_PUBLIC_TEMPLATE}/${id}`
+    `${process.env.NEXT_PUBLIC_API_URL}${process.env.NEXT_PUBLIC_TEMPLATE}/${id}`,
+    { cache: "no-store" }
   );
 
   return response.json();

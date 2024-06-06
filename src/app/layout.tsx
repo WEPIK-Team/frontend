@@ -8,6 +8,7 @@ import { Toaster } from "@/components/ui/toaster";
 
 import { MetaData } from "@/constants/config";
 import ReactQueryProvider from "@/provider/query-provider";
+import GlobalLoadingModal from "@/components/modal/global-loading-modal";
 
 export const metadata: Metadata = MetaData;
 

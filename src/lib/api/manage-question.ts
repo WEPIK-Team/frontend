@@ -10,6 +10,7 @@ export const getManageQuestionList = async (): Promise<IQuestion[]> => {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}${process.env.NEXT_PUBLIC_QUESTION}`,
     {
+      cache: "no-store",
       next: {
         tags: ["manage-question"],
       },
@@ -79,7 +80,6 @@ export const updateQuestion = async ({
       body: JSON.stringify(questionFormData),
     }
   ).catch((error) => {
-    console.log("질문 수정에러");
     throw new Error(error.message);
   });
 
