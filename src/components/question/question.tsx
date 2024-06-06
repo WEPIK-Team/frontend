@@ -18,7 +18,7 @@ import { QuestionType } from "@/types/question";
 interface IQuestionProps {}
 
 const QuestionContent: React.FunctionComponent<{
-  type: QuestionType;
+  type: QuestionType | "";
 }> = ({ type }) => {
   switch (type) {
     case "INPUT":

@@ -23,15 +23,6 @@ export interface IQuestionRequest extends IQuestion {
   content: string;
 }
 
-export interface ITemplate {
-  id: number;
-  title: string;
-  useCount: number;
-  imageURL: string;
-  templateTags: string[];
-  questions: IQuestion[];
-}
-
 export interface IFileResponse {
   id: number;
   originalName: string;
@@ -39,4 +30,26 @@ export interface IFileResponse {
   path: string;
   type: string;
   size: number;
+}
+
+export interface IAnswerQuestionParam {
+  questions: IQuestionRequest[];
+  templateId: string;
+  senderId?: string;
+}
+
+interface IAnswerDtos {
+  content: string;
+  type: string;
+  questionId: number;
+  sequence: number;
+}
+export interface IAnswerQuestionRequest {
+  templateId: number;
+  answerDtos: IAnswerDtos[];
+}
+
+export interface IAnswerQuestionResponse {
+  senderId: string;
+  receiverId: string;
 }

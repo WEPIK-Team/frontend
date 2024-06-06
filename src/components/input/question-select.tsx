@@ -36,8 +36,6 @@ const QuestionSelect: React.FunctionComponent<IQuestionSelectProps> = ({
   const { currentQuestion } = useQuestion();
   const { content, selectQuestions } = currentQuestion;
 
-  console.log(content);
-
   // react hook form
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),

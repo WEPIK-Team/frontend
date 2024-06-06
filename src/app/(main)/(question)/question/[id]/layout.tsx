@@ -1,6 +1,8 @@
+import { getTemplateList, getTempleteDetail } from "@/lib/api/template";
+
 import { QuestionStoreProvider } from "@/provider/question-store-provider";
 
-import { ITemplate } from "@/types/question";
+import { Template } from "@/types/template";
 
 interface IPageParams {
   id: string;
@@ -11,16 +13,11 @@ interface IPageProps {
   children: React.ReactNode;
 }
 
-const SERVER_URL = process.env.SERVER_URL;
-
 export default async function MainLayout({ children, params }: IPageProps) {
-  // 서버로부터 질문 데이터 받아오기
   const { id } = params;
-  const { questions }: ITemplate = await fetch(`${SERVER_URL}template/${id}`)
-    .then((res) => res.json())
-    .catch((error) => {
-      throw new Error(error.message);
-    });
+  const { questions } = await getTempleteDetail(id);
+
+  if (!questions) throw new Error("잘못된 URL로 접속하셨습니다!");
 
   return (
     <QuestionStoreProvider questions={questions}>
@@ -29,17 +26,16 @@ export default async function MainLayout({ children, params }: IPageProps) {
   );
 }
 
-// id에 따른 정적 경로 생성
-export async function generateStaticParams(): Promise<IPageProps[]> {
-  const templetes = await fetch(`${SERVER_URL}template`)
-    .then((res) => res.json())
-    .catch((error) => {
-      throw new Error(error.message);
-    });
+export async function generateStaticParams(): Promise<IPageParams[]> {
+  const templetes = await getTemplateList().catch((error) => {
+    throw new Error(error.message);
+  });
 
-  if (!templetes) return [];
+  if (!templetes || !templetes.length) return [];
 
-  return templetes?.map((templete: ITemplate) => ({
+  const templeteIds = templetes.map((templete: Template) => ({
     id: templete.id.toString(),
   }));
+
+  return templeteIds;
 }

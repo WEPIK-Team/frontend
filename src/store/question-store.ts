@@ -59,9 +59,6 @@ const createQuestionStore = (initState: QuestionState = defaultInitState) =>
           })),
         clearStore: () => {
           localStorage.removeItem("question-storage");
-          return set(() => ({
-            ...defaultInitState,
-          }));
         },
       }),
       {

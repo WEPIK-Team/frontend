@@ -9,6 +9,7 @@ import { useForm } from "react-hook-form";
 import {
   createQuestion,
   questionUploadImageFile,
+  updateQuestion,
 } from "@/lib/api/manage-question";
 
 import { cn } from "@/lib/utils";
@@ -46,6 +47,7 @@ interface IQuestionFormProps {
   onClose: () => void;
   onConfirm?: () => void;
   questionData: IQuestion;
+  mode: "create" | "edit";
 }
 
 interface IFileState {
@@ -61,6 +63,7 @@ const QuestionForm: React.FunctionComponent<IQuestionFormProps> = ({
   onClose,
   onConfirm,
   questionData,
+  mode,
 }) => {
   // form
   const form = useForm<QuestionFormSchemaType>({
@@ -168,20 +171,23 @@ const QuestionForm: React.FunctionComponent<IQuestionFormProps> = ({
         newFormData.storedName = uploadFilePath.storedName;
       }
 
-      const successData = await createQuestion(newFormData);
+      let successData;
+      if (mode === "create") {
+        successData = await createQuestion(newFormData);
+      } else if (mode === "edit") {
+        successData = await updateQuestion({
+          id: questionData.id,
+          questionFormData: newFormData,
+        });
+      }
 
-      if (!successData)
-        throw new Error(
-          "데이터를 업로드 하는 도중 오류가 발생하였습니다! 다시 한번 시도해 주세요"
-        );
-
-      if (successData.id) {
+      if (successData) {
         toast({
           variant: "success",
           className: cn(
             "top-0 right-0 flex fixed md:max-w-[420px] md:top-4 md:right-4"
           ),
-          title: "질문 작성에 성공하셨습니다!",
+          title: `질문 ${mode === "edit" ? "수정" : "작성"}에 성공하셨습니다!`,
         });
         onClose();
         handleLoading(false);

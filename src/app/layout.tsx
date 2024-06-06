@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import "@/styles/globals.css";
 import { allRoundGothic, pretendard } from "@/styles/font";
 
+import GlobalLoadingModal from "@/components/modal/global-loading-modal";
 import { Toaster } from "@/components/ui/toaster";
 
 import { MetaData } from "@/constants/config";
@@ -23,6 +24,10 @@ export default function RootLayout({
       <body className={`${pretendard.className} `}>
         <Toaster />
         <ReactQueryProvider>{children}</ReactQueryProvider>
+        <GlobalLoadingModal
+          title="잠시만 기다려 주세요"
+          description="데이터를 불러오는 중 입니다...."
+        />
       </body>
     </html>
   );

@@ -20,7 +20,6 @@ const ManegeQuestionHeader: React.FunctionComponent<
       <ManageQuestionModal
         mode="create"
         isOpen={open}
-        loading={loading}
         onClose={() => setOpen(false)}
         onConfirm={() => {}}
       />

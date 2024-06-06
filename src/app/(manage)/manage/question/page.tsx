@@ -85,11 +85,11 @@ export default async function ManageQuestionPage() {
   const data = await getManageQuestionList();
 
   return (
-    <div className="py-4">
+    <main className="py-4">
       <ManegeQuestionHeader />
       <Separator className="mb-5 mt-10" />
       <DataTable columns={columns} data={data} />
       <QuestionModals />
-    </div>
+    </main>
   );
 }

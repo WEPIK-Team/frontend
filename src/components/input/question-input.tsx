@@ -46,7 +46,7 @@ const QuestionInput: React.FunctionComponent<IQuestionInputProps> = () => {
 
   return (
     <Form {...form}>
-      <form className=" w-full">
+      <form className="w-full space-y-2">
         <FormField
           control={form.control}
           name="INPUT"

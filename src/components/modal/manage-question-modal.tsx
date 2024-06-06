@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
@@ -79,6 +81,7 @@ export const ManageQuestionModal: React.FC<IManageQuestionModal> = ({
           buttonConfirmName={buttonConfirmName}
           onClose={onClose}
           questionData={data}
+          mode={mode}
         />
       )}
     </Modal>

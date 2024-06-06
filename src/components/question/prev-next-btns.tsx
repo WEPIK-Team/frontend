@@ -2,17 +2,26 @@
 
 import { format } from "date-fns";
 import { ko } from "date-fns/locale";
-import { useParams, useRouter, useSearchParams } from "next/navigation";
+import {
+  useParams,
+  usePathname,
+  useRouter,
+  useSearchParams,
+} from "next/navigation";
 import * as React from "react";
 import { FieldValues, UseFormReturn } from "react-hook-form";
+
+import { completeQuestionAnswer } from "@/lib/api/question";
 
 import { cn } from "@/lib/utils";
 
 import { Button } from "@/components/ui/button";
 
+import useGlobalLoadingModalStore from "@/store/global-loading-modal-store";
+
 import useQuestion from "@/hooks/use-question";
 
-import { IQuestion, QuestionType } from "@/types/question";
+import { IAnswerQuestionParam, QuestionType } from "@/types/question";
 
 interface IPrevNextBtnsProps<T extends FieldValues> {
   form: UseFormReturn<T, any, undefined>;
@@ -26,9 +35,10 @@ const PrevNextBtns = <T extends FieldValues>({
   // params
   const { id: templateId } = useParams<{ id: string }>();
   const searchParams = useSearchParams();
-  const senderId = searchParams.get("senderId") ?? undefined;
+  const senderIdParams = searchParams.get("senderId") ?? undefined;
 
   const router = useRouter();
+  const pathname = usePathname();
 
   // zustand
   const {
@@ -44,8 +54,12 @@ const PrevNextBtns = <T extends FieldValues>({
 
   const { id: questionId, imageURL } = currentQuestion;
 
+  const { onOpen: onLoadingOpen, onClose: onLoadingClose } =
+    useGlobalLoadingModalStore();
+
   // function
-  const handlePrev = form.handleSubmit((data: T) => {
+
+  const handleSubmit = async (data: T, direction: "prev" | "next") => {
     const newValue =
       type !== "DATE"
         ? data[type]
@@ -55,56 +69,52 @@ const PrevNextBtns = <T extends FieldValues>({
           });
 
     updateQuestion({ id: questionId, newValue });
-    prevQuestion();
-  });
 
-  const handleNext = form.handleSubmit(async (data: T) => {
-    const newValue =
-      type !== "DATE"
-        ? data[type]
-        : formatDateforServer({
-            from: data.DATE.from,
-            to: data.DATE.to,
-          });
-
-    if (index === maxLength) {
-      updateQuestion({ id: questionId, newValue });
-      const requestData = generateQuestionRequestData({
-        questions,
-        templateId,
-        senderId,
-      });
-
-      await fetch(`${process.env.NEXT_PUBLIC_API_URL}answer`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          credentials: "include",
-        },
-        body: JSON.stringify(requestData),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          // 라우트 이동
-          console.log("Success:", data);
-          clearQuestion();
-          router.replace("/");
-        })
-        .catch((error) => {
-          // 에러 발생
-          console.error("Error:", error);
-          throw new Error(error.message);
+    if (direction === "next") {
+      if (index === maxLength) {
+        onLoadingOpen();
+        const requestData = generateQuestionRequestData({
+          questions,
+          templateId,
+          senderId: senderIdParams,
         });
+
+        // Success
+        const { receiverId, senderId } =
+          await completeQuestionAnswer(requestData);
+
+        if (!receiverId) {
+          clearQuestion();
+          throw new Error(
+            "데이터를 저장하던 도중 server에서 오류가 발생하였습니다!"
+          );
+        }
+
+        clearQuestion();
+        onLoadingClose();
+
+        if (senderIdParams) {
+          router.replace(
+            `${pathname}/success/sender/receiver?senderId=${senderId}&receiver=${receiverId}`
+          );
+        } else {
+          router.replace(`${pathname}/success/sender?senderId=${receiverId}`);
+        }
+      } else {
+        nextQuestion();
+      }
     } else {
-      updateQuestion({ id: questionId, newValue });
-      nextQuestion();
+      prevQuestion();
     }
-  });
+  };
+
+  const handlePrev = form.handleSubmit((data: T) => handleSubmit(data, "prev"));
+  const handleNext = form.handleSubmit((data: T) => handleSubmit(data, "next"));
 
   return (
     <div
       className={cn(
-        " absolute bottom-0 mx-auto flex w-full gap-x-4",
+        "absolute bottom-0 mx-auto flex w-full gap-x-4",
         imageURL ? "" : "mt-[40px]"
       )}
     >
@@ -149,15 +159,25 @@ function generateQuestionRequestData({
   questions,
   templateId,
   senderId,
-}: {
-  questions: IQuestion[];
-  templateId: string;
-  senderId?: string;
-}) {
-  const uuid = senderId ? senderId : "";
+}: IAnswerQuestionParam) {
+  const uuid = senderId ? senderId : null;
+
+  const answerDtos = questions.map((question, i) => ({
+    content: question.content,
+    type: question.type,
+    questionId: parseInt(question.id),
+    sequence: i + 1,
+  }));
+
+  if (!uuid)
+    return {
+      templateId: parseInt(templateId),
+      answerDtos,
+    };
+
   return {
     uuid,
-    templateId,
-    answerDtos: questions,
+    templateId: parseInt(templateId),
+    answerDtos,
   };
 }

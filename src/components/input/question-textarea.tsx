@@ -49,7 +49,7 @@ const QuestionTextArea: React.FunctionComponent<
 
   return (
     <Form {...form}>
-      <form className="w-full">
+      <form className="w-full space-y-2">
         <FormField
           control={form.control}
           name="TEXTAREA"

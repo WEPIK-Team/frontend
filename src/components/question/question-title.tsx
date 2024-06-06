@@ -5,7 +5,6 @@ import * as React from "react";
 import Heading from "@/components/common/heading";
 
 import useQuestion from "@/hooks/use-question";
-import useQuestion from "@/hooks/use-question";
 
 interface IQuestionTitleProps {
   children: string;

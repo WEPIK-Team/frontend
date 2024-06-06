@@ -14,11 +14,9 @@ export const getManageQuestionList = async (): Promise<IQuestion[]> => {
         tags: ["manage-question"],
       },
     }
-  )
-    .then((res) => res.json())
-    .catch((error) => new Error(error.message));
+  );
 
-  return response;
+  return response.json();
 };
 
 export const questionUploadImageFile = async (
@@ -30,11 +28,9 @@ export const questionUploadImageFile = async (
       method: "POST",
       body: imageFileData,
     }
-  )
-    .then((res) => res.json())
-    .catch((error) => new Error(error.message));
+  );
 
-  return response;
+  return response.json();
 };
 
 export const createQuestion = async (
@@ -49,12 +45,10 @@ export const createQuestion = async (
       },
       body: JSON.stringify(questionFormData),
     }
-  )
-    .then((res) => res.json())
-    .catch((error) => new Error(error.message));
+  );
 
   revalidateTag("manage-question");
-  return response;
+  return response.json();
 };
 
 export const deleteQuestion = async (id: string) => {
@@ -68,17 +62,48 @@ export const deleteQuestion = async (id: string) => {
   revalidateTag("manage-question");
 };
 
+export const updateQuestion = async ({
+  id,
+  questionFormData,
+}: {
+  id: string;
+  questionFormData: QuestionFormSchemaType;
+}): Promise<string> => {
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}${process.env.NEXT_PUBLIC_QUESTION}/${id}`,
+    {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(questionFormData),
+    }
+  ).catch((error) => {
+    console.log("질문 수정에러");
+    throw new Error(error.message);
+  });
+
+  revalidateTag("manage-question");
+
+  return response.text();
+};
+
 export const getQuestionbyId = async (id: string): Promise<IQuestion> => {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}${process.env.NEXT_PUBLIC_QUESTION}/${id}`,
     {
       method: "GET",
     }
-  )
-    .then((res) => res.json())
-    .catch((error) => {
-      throw new Error(error.message);
-    });
+  ).catch((error) => {
+    throw new Error(error.message);
+  });
 
-  return response;
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(
+      `Request failed with status ${response.status}: ${errorText}`
+    );
+  }
+
+  return response.json();
 };
