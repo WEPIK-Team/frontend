@@ -83,13 +83,6 @@ const PrevNextBtns = <T extends FieldValues>({
         const { receiverId, senderId } =
           await completeQuestionAnswer(requestData);
 
-        if (!receiverId) {
-          clearQuestion();
-          throw new Error(
-            "데이터를 저장하던 도중 server에서 오류가 발생하였습니다!"
-          );
-        }
-
         clearQuestion();
         onLoadingClose();
 
