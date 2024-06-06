@@ -1,22 +1,26 @@
 "use client";
 
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
+
+import useHelpModalStore from "@/store/help-modal-store";
 
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 
 const HelpModal = () => {
-  const [open, setOpen] = useState(true);
+  const { isVisited, openModal } = useHelpModalStore();
+  const [isOpen, setIsOpen] = useState(false);
   const [step, setStep] = useState(0);
 
-  if (step < 3) {
-    setStep(step + 1);
-  } else {
-    setOpen(false);
-  }
-  const handleNext = () => {};
+  const handleNext = () => {
+    if (step < 3) {
+      setStep(step + 1);
+    } else {
+      setIsOpen(false);
+    }
+  };
 
   const handlePrevious = () => {
     if (step > 0) {
@@ -24,17 +28,18 @@ const HelpModal = () => {
     }
   };
 
-  const onOpenChange = (open: boolean) => {
-    if (!open) {
-      setOpen(false);
+  useEffect(() => {
+    if (!isVisited) {
+      setIsOpen(true);
+      openModal();
     }
-  };
+  }, []);
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog open={isOpen} onOpenChange={() => setIsOpen(false)}>
       <DialogContent className="max-w-[358px] rounded-[30px] px-4 sm:rounded-[30px]">
         <DialogHeader>
-          <DialogTitle className="text-center text-wpt-md font-normal text-wpc-gray">
+          <DialogTitle className="text-center text-wpt-md font-medium text-wpc-gray">
             시작하기 전에
           </DialogTitle>
         </DialogHeader>
@@ -42,14 +47,14 @@ const HelpModal = () => {
           {step === 0 && (
             <div className="h-[340px]">
               <div className="flex flex-col items-center justify-center">
-                <div className="mt-[30px] text-wpt-xl font-bold">
+                <div className="mt-[30px] text-wpt-xl font-semibold">
                   <p>
                     <span className="text-wpc-primary">WEPIK</span>이란?
                   </p>
                 </div>
                 <div>
                   <Image
-                    src="svgs/help/help-1.svg"
+                    src="/images/help/help-1.png"
                     alt="help-1"
                     width={326}
                     height={240}
@@ -79,10 +84,9 @@ const HelpModal = () => {
                 </div>
                 <div className="mt-[18px]">
                   <Image
-                    className="w-full"
-                    src="svgs/help/help-2.svg"
+                    src="/images/help/help-2.png"
                     alt="help-2"
-                    width={508}
+                    width={250}
                     height={242}
                   />
                 </div>
@@ -103,10 +107,10 @@ const HelpModal = () => {
                 </div>
                 <div className="mt-[18px]">
                   <Image
-                    src="svgs/help/help-3.svg"
+                    src="/images/help/help-3.png"
                     alt="help-3"
-                    width={318}
-                    height={264}
+                    width={220}
+                    height={220}
                   />
                 </div>
               </div>
@@ -126,9 +130,9 @@ const HelpModal = () => {
                 </div>
                 <div className="mt-[18px]">
                   <Image
-                    src="svgs/help/help-4.svg"
+                    src="/images/help/help-4.png"
                     alt="help-4"
-                    width={508}
+                    width={250}
                     height={262}
                   />
                 </div>
@@ -139,14 +143,14 @@ const HelpModal = () => {
             {step > 0 && (
               <Button
                 onClick={handlePrevious}
-                className="h-[60px] w-[159px] border-none bg-wpc-light-gray text-wpc-gray shadow-xl"
+                className="h-[60px] w-[159px] border-none bg-wpc-light-gray text-wpc-gray"
               >
                 이전
               </Button>
             )}
             <Button
               onClick={handleNext}
-              className={`h-[60px] ${step > 0 ? "w-[159px]" : "w-full"} border-none bg-wpc-second-grad shadow-xl`}
+              className={`h-[60px] ${step > 0 ? "w-[159px]" : "w-full"} border-none bg-wpc-second-grad shadow-[0px_2px_10px_rgba(99,119,221,0.5)]`}
             >
               {step < 3 ? "다음" : "시작하기"}
             </Button>

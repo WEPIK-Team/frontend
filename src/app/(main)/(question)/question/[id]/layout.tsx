@@ -1,5 +1,7 @@
 import { getTemplateList, getTempleteDetail } from "@/lib/api/template";
 
+import HelpModal from "@/components/modal/help-modal";
+
 import { QuestionStoreProvider } from "@/provider/question-store-provider";
 
 import { Template } from "@/types/template";
@@ -22,6 +24,7 @@ export default async function MainLayout({ children, params }: IPageProps) {
   return (
     <QuestionStoreProvider questions={questions}>
       {children}
+      <HelpModal />
     </QuestionStoreProvider>
   );
 }
