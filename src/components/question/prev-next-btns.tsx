@@ -12,18 +12,18 @@ import * as React from "react";
 import { FieldValues, UseFormReturn } from "react-hook-form";
 
 import { completeQuestionAnswer } from "@/lib/api/question";
+import { completeQuestionAnswer } from "@/lib/api/question";
 
 import { cn } from "@/lib/utils";
 
 import { Button } from "@/components/ui/button";
 
 import useGlobalLoadingModalStore from "@/store/global-loading-modal-store";
+import useGlobalLoadingModalStore from "@/store/global-loading-modal-store";
 
 import useQuestion from "@/hooks/use-question";
 
-import { completeQuestionAnswer } from "@/lib/api/question";
 import { IAnswerQuestionParam, QuestionType } from "@/types/question";
-import useGlobalLoadingModalStore from "@/store/global-loading-modal-store";
 
 interface IPrevNextBtnsProps<T extends FieldValues> {
   form: UseFormReturn<T, any, undefined>;
