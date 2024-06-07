@@ -12,13 +12,15 @@ const typeSchema = z
   })
   .min(1, "질문 타입을 선택해 주세요");
 
-const selectItemSchema = z.object({
-  title: requiredString.max(30, "30자 이상은 입력하실 수 없습니다."),
-});
-
-const selectListSchema = z.array(selectItemSchema).optional();
-
 const questionImageSchema = z.string().optional();
+
+const selectListSchema = z
+  .array(
+    z.object({
+      title: z.string().min(1, "빈 문자열은 입력할 수 없습니다."),
+    })
+  )
+  .optional();
 
 export const QuestionSchema = z
   .object({
