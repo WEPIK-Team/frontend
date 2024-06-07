@@ -90,7 +90,7 @@ const DrawerTitle = React.forwardRef<
   <DrawerPrimitive.Title
     ref={ref}
     className={cn(
-      "text-wpt-lg font-semibold leading-none tracking-tight",
+      "text-center text-wpt-lg font-semibold leading-none tracking-tight",
       className
     )}
     {...props}
@@ -104,7 +104,7 @@ const DrawerDescription = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <DrawerPrimitive.Description
     ref={ref}
-    className={cn("text-wpt-base-1 text-wpc-gray", className)}
+    className={cn("text-center text-wpt-base-1 text-wpc-gray", className)}
     {...props}
   />
 ));
