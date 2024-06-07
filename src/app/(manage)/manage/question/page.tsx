@@ -4,6 +4,7 @@ import { getManageQuestionList } from "@/lib/api/manage-question";
 
 import { columns } from "@/components/manage/columns";
 import { DataTable } from "@/components/manage/data-table";
+import GlobalLoadingModal from "@/components/modal/global-loading-modal";
 import ManegeQuestionHeader from "@/components/manage/manage-question-header";
 import QuestionModals from "@/components/manage/question-modals";
 import { Separator } from "@/components/ui/separator";
@@ -90,6 +91,10 @@ export default async function ManageQuestionPage() {
       <Separator className="mb-5 mt-10" />
       <DataTable columns={columns} data={data} />
       <QuestionModals />
+      <GlobalLoadingModal
+        title="잠시만 기다려 주세요"
+        description="데이터를 불러오는 중 입니다...."
+      />
     </main>
   );
 }

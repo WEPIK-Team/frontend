@@ -19,7 +19,7 @@ const GlobalLoadingModal: React.FunctionComponent<ILoadingModalProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-[9999] mx-auto flex max-w-[768px] items-center justify-center bg-black/35 bg-red-400">
+    <div className="fixed inset-0 z-[9999] mx-auto flex max-w-[768px] items-center justify-center bg-black/35">
       <div className="flex w-full flex-col items-center justify-center gap-y-2">
         <Image
           src="/gifs/loading.gif"
