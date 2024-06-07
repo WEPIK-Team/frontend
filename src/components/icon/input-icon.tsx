@@ -10,20 +10,20 @@ const InputIconComponents: React.FC<React.SVGProps<SVGSVGElement>> = (
       <path
         d="M1 1H14"
         stroke={props.color}
-        stroke-width="1.25"
-        stroke-linecap="round"
+        strokeWidth="1.25"
+        strokeLinecap="round"
       />
       <path
         d="M1 6H17"
         stroke={props.color}
-        stroke-width="1.25"
-        stroke-linecap="round"
+        strokeWidth="1.25"
+        strokeLinecap="round"
       />
       <path
         d="M1 11H10"
         stroke={props.color}
-        stroke-width="1.25"
-        stroke-linecap="round"
+        strokeWidth="1.25"
+        strokeLinecap="round"
       />
     </svg>
   );

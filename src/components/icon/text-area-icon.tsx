@@ -10,26 +10,26 @@ const TextAreaIconComponents: React.FC<React.SVGProps<SVGSVGElement>> = (
       <path
         d="M1 1H17"
         stroke={props.color}
-        stroke-width="1.25"
-        stroke-linecap="round"
+        strokeWidth="1.25"
+        strokeLinecap="round"
       />
       <path
         d="M1 5.20001H17"
         stroke={props.color}
-        stroke-width="1.25"
-        stroke-linecap="round"
+        strokeWidth="1.25"
+        strokeLinecap="round"
       />
       <path
         d="M1 9.40002H15"
         stroke={props.color}
-        stroke-width="1.25"
-        stroke-linecap="round"
+        strokeWidth="1.25"
+        strokeLinecap="round"
       />
       <path
         d="M1 13.6H9"
         stroke={props.color}
-        stroke-width="1.25"
-        stroke-linecap="round"
+        strokeWidth="1.25"
+        strokeLinecap="round"
       />
     </svg>
   );
