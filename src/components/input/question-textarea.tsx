@@ -22,8 +22,9 @@ interface IQuestionTextAreaProps {}
 // form validation
 const FormSchema = z.object({
   TEXTAREA: z
-    .string()
-    .min(1, { message: "내용을 작성해 주세요" })
+    .string({
+      required_error: "내용을 작성해 주세요",
+    })
     .min(10, { message: "10자 이상 입력해야 합니다." })
     .max(300, { message: "300자 까지 입력할 수 있습니다." }),
 });
@@ -40,7 +41,7 @@ const QuestionTextArea: React.FunctionComponent<
   // react hook form
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
-    mode: "all",
+    mode: "onTouched",
     defaultValues: {
       TEXTAREA: content,
     },
@@ -60,7 +61,7 @@ const QuestionTextArea: React.FunctionComponent<
                   <Textarea
                     variant="grad"
                     maxLength={300}
-                    isError={!formState.isValid}
+                    isError={!!formState.errors.TEXTAREA?.message || false}
                     placeholder="답변을 입력하세요"
                     {...field}
                   />

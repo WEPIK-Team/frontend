@@ -24,7 +24,11 @@ interface IQuestionSelectProps {
 
 // form validation
 const FormSchema = z.object({
-  SELECT: z.string().min(1, { message: "옵션을 선택해 주세요" }),
+  SELECT: z
+    .string({
+      required_error: "질문을 선택해 주세요",
+    })
+    .min(1, { message: "옵션을 선택해 주세요" }),
 });
 
 type FormSchemaType = z.infer<typeof FormSchema>;

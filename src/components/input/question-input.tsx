@@ -22,8 +22,9 @@ interface IQuestionInputProps {}
 
 const FormSchema = z.object({
   INPUT: z
-    .string()
-    .min(1, { message: "내용을 작성해 주세요" })
+    .string({
+      required_error: "내용을 작성해야 합니다.",
+    })
     .min(2, { message: "2자 이상 입력해야 합니다." })
     .max(50, { message: "50자 까지 입력할 수 있습니다." }),
 });
@@ -37,6 +38,7 @@ const QuestionInput: React.FunctionComponent<IQuestionInputProps> = () => {
   // react hook form
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
+    mode: "onTouched",
     defaultValues: {
       INPUT: content || "",
     },
@@ -55,7 +57,7 @@ const QuestionInput: React.FunctionComponent<IQuestionInputProps> = () => {
               <FormItem>
                 <FormControl>
                   <Input
-                    isError={!formState.isValid}
+                    isError={!!formState.errors.INPUT?.message || false}
                     variant="grad"
                     {...field}
                     placeholder="답변을 입력하세요"
