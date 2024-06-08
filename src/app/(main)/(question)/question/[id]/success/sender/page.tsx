@@ -1,8 +1,7 @@
 import Image from "next/image";
 
 import Heading from "@/components/common/heading";
-
-import { Icons } from "@/constants/data";
+import SocialShare from "@/components/share/social-share";
 
 export default function QuestionSuccessSender() {
   return (
@@ -27,17 +26,7 @@ export default function QuestionSuccessSender() {
           <p className="m-auto p-0 text-wpt-base-1 font-semibold">
             상대방에게 답변 받기
           </p>
-          <div className="flex gap-3 pt-4">
-            {Icons.map((icon) => (
-              <Image
-                key={icon.alt}
-                src={icon.src}
-                alt={icon.alt}
-                width={52}
-                height={52}
-              />
-            ))}
-          </div>
+          <SocialShare kakaoId={108687} type="sender" />
         </div>
       </div>
     </>
