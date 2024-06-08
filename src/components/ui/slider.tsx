@@ -5,7 +5,7 @@ import * as React from "react";
 
 import { cn } from "@/lib/utils";
 
-import SpeechBubble from "@/app/(main)/(question)/question/[id]/components/speech-bubble";
+import SpeechBubble from "@/components/question/speech-bubble";
 
 interface SliderProps
   extends React.ComponentPropsWithoutRef<typeof SliderPrimitive.Root> {

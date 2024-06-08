@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 
 import { Modal } from "./modal";
-import { Button } from "../ui/button";
 
 interface IAlertModalProps {
   isOpen: boolean;
@@ -36,12 +35,20 @@ export const AlertModal: React.FC<IAlertModalProps> = ({
       onClose={onClose}
     >
       <div className="flex w-full items-center justify-end space-x-2 pt-6">
-        <Button disabled={loading} onClick={onClose}>
+        <button
+          disabled={loading}
+          onClick={onClose}
+          className="h-fit rounded-[16px] bg-wpc-light-gray px-[30px] py-[13px] text-wpc-gray disabled:cursor-not-allowed disabled:opacity-70"
+        >
           취소
-        </Button>
-        <Button disabled={loading} onClick={onConfirm}>
+        </button>
+        <button
+          disabled={loading}
+          onClick={onConfirm}
+          className="h-fit rounded-[16px] bg-wpc-error px-[30px] py-[13px] text-white disabled:cursor-not-allowed disabled:opacity-70"
+        >
           확인
-        </Button>
+        </button>
       </div>
     </Modal>
   );

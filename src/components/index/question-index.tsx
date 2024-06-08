@@ -13,9 +13,7 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 
-import { Questions } from "@/constants/dump";
-
-import IndexItem from "./index-item";
+import QuestionIndexList from "./question-index-list";
 
 const QuestionIndex = () => {
   return (
@@ -27,12 +25,16 @@ const QuestionIndex = () => {
             width={22}
             height={14}
             alt="qustion-list"
+            style={{ width: 22, height: 14 }}
           />
         </Button>
       </DrawerTrigger>
       <DrawerContent>
         <DrawerHeader>
-          <DrawerClose asChild className="absolute right-4 top-4">
+          <DrawerClose
+            asChild
+            className="absolute right-4 top-4 cursor-pointer"
+          >
             <Image
               src="/svgs/index-close.svg"
               width={22}
@@ -46,18 +48,7 @@ const QuestionIndex = () => {
           </DrawerDescription>
           <div className="w-full border-b border-b-wpc-gray pt-2" />
         </DrawerHeader>
-        <ul className="flex flex-col gap-[11px] overflow-y-scroll px-[16px] py-[1px]">
-          {Questions.map((question, idx) => (
-            <IndexItem
-              key={question.title}
-              title={question.title}
-              isAnswer={question.isAnswer}
-              isSelected={question.isSelected}
-              idx={idx}
-            />
-          ))}
-        </ul>
-        <Button className="my-[17px] py-4 text-white">이동</Button>
+        <QuestionIndexList />
       </DrawerContent>
     </Drawer>
   );

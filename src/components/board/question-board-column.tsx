@@ -146,9 +146,12 @@ const Column = ({ title, questions, column, setQuestions }: ColumnProps) => {
   const filteredCards = questions.filter((c) => c.column === column);
 
   return (
-    <div className="flex flex-col">
+    <div className="flex w-full grow flex-col">
       <div className="mb-3 flex items-center justify-between">
-        <Heading as="h2" className="text-wpt-base-2 font-medium">
+        <Heading
+          as="h2"
+          className="text-wpt-base-2 font-medium text-wpc-primary"
+        >
           {title}
         </Heading>
         <span className="rounded text-wpt-sm text-neutral-400">
@@ -156,7 +159,7 @@ const Column = ({ title, questions, column, setQuestions }: ColumnProps) => {
         </span>
       </div>
 
-      <div className="h-[500px] w-80 shrink-0 overflow-y-scroll">
+      <div className="h-[420px] shrink-0 overflow-y-scroll rounded-[18px] bg-[#F8F7FD] p-[11px]">
         <div
           onDrop={handleDragEnd}
           onDragOver={handleDragOver}

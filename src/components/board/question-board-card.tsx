@@ -39,7 +39,7 @@ const QuestionBoardCard = ({
           onDragStart={(e) => handleDragStart(e, { id, title, column, type })}
           onClick={handleCardClick}
           className={cn(
-            "cursor-grab rounded border border-wpc-primary p-2 active:cursor-grabbing",
+            "cursor-grab rounded-[12px] border-[0.8px] border-wpc-primary p-2 active:cursor-grabbing",
             columnClass
           )}
         >

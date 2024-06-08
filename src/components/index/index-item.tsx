@@ -1,12 +1,24 @@
 import { cva } from "class-variance-authority";
 import Image from "next/image";
 
+import { motion } from "framer-motion";
+import { cn } from "@/lib/utils";
+
 interface IndexItemProps {
   title: string;
-  isAnswer: boolean;
+  content?: string;
   isSelected: boolean;
   idx: number;
+  onSelect: () => void;
 }
+
+const liVariants = cva("relative rounded-[15px] bg-white cursor-pointer", {
+  variants: {
+    isSelected: {
+      true: "border div-border-gradient box-border",
+    },
+  },
+});
 
 const titleVariants = cva("ml-1 break-words text-wpt-md z-10", {
   variants: {
@@ -21,36 +33,44 @@ const titleVariants = cva("ml-1 break-words text-wpt-md z-10", {
   },
 });
 
-const IndexItem = ({ title, isAnswer, idx, isSelected }: IndexItemProps) => {
-  return (
-    <li className="relative flex items-center rounded-[15px] bg-white p-[16px]">
-      {isSelected ? (
-        <>
-          <div
-            className="absolute -inset-px rounded-2xl bg-wpc-primary-grad"
-            aria-hidden="true"
-          />
-          <div
-            className="absolute inset-0 rounded-2xl bg-white"
-            aria-hidden="true"
-          />
-        </>
-      ) : null}
-      {isAnswer ? (
-        <div className="w-[32px]">
-          <Image
-            src="/svgs/check-active.svg"
-            width={24}
-            height={24}
-            alt="index-isAnswer"
-          />
-        </div>
-      ) : (
-        <span className="z-10 w-[32px] flex-shrink-0 text-left text-[20px] font-semibold leading-[22px] text-wpc-primary">{`Q${idx + 1}.`}</span>
-      )}
+const IndexItem = ({
+  title,
+  content,
+  idx,
+  isSelected,
+  onSelect,
+}: IndexItemProps) => {
+  const isAnswer = !!content && content.trim().length > 0;
 
-      <span className={titleVariants({ isAnswer, isSelected })}>{title}</span>
-    </li>
+  const motionVariants = {
+    selected: { scale: 1.02, transition: { duration: 0.2 } },
+    notSelected: { scale: 1, transition: { duration: 0.2 } },
+  };
+
+  return (
+    <motion.li
+      className={cn(liVariants({ isSelected }))}
+      onClick={onSelect}
+      variants={motionVariants}
+      animate={isSelected ? "selected" : "notSelected"}
+    >
+      <div className="flex items-center p-[16px]">
+        {isAnswer ? (
+          <div className="w-[32px]">
+            <Image
+              src="/svgs/sender-check.svg"
+              width={24}
+              height={24}
+              alt="index-isAnswer"
+            />
+          </div>
+        ) : (
+          <span className="z-10 w-[40px] flex-shrink-0 text-left text-[20px] font-semibold leading-[22px] text-wpc-primary">{`Q${idx + 1}.`}</span>
+        )}
+
+        <span className={titleVariants({ isAnswer, isSelected })}>{title}</span>
+      </div>
+    </motion.li>
   );
 };
 

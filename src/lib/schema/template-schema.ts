@@ -25,11 +25,18 @@ const templateThumbnailSchema = z
     return !file || file.size < 1024 * 1024 * 2;
   }, "파일 크기는 2MB 이하여야 합니다.");
 
-export const createTemplateSchema = z.object({
+export const stepOneSchema = z.object({
   title: requiredString.max(15),
   thumbnail: templateThumbnailSchema,
-  questions: questionsSchema,
   tags: tagsSchema,
 });
 
+export const stepTwoSchema = z.object({
+  questions: questionsSchema,
+});
+
+export const createTemplateSchema = stepOneSchema.merge(stepTwoSchema);
+
+export type StepOneData = z.infer<typeof stepOneSchema>;
+export type StepTwoData = z.infer<typeof stepTwoSchema>;
 export type CreateTemplateValues = z.infer<typeof createTemplateSchema>;

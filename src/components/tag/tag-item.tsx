@@ -6,30 +6,21 @@ import { UnionTag } from "@/lib/data/tag";
 
 interface TagItemProps {
   tag: UnionTag;
-  selectedTags: UnionTag[];
-  handleSelectTag: (tagName: string) => void;
+  onRemoveTag: (tag: UnionTag) => void;
 }
 
-const tagStyles = cva("px-1 cursor-pointer", {
-  variants: {
-    isSelected: {
-      true: "text-black",
-      false: "text-muted-foreground/70",
-    },
-  },
-});
+const tagStyles = cva(
+  "py-[5px] px-[10px] cursor-pointer border border-wpc-primary rounded-[18px] text-wpc-primary flex justify-center items-center gap-2",
+  {
+    variants: {},
+  }
+);
 
-const TagItem = ({ tag, selectedTags, handleSelectTag }: TagItemProps) => {
-  const isSelected = selectedTags.some(
-    (selectedTag) => selectedTag.name === tag.name
-  );
-
+const TagItem = ({ tag, onRemoveTag }: TagItemProps) => {
   return (
-    <div
-      className={cn(tagStyles({ isSelected }))}
-      onClick={() => handleSelectTag(tag.name)}
-    >
-      #{tag.name}
+    <div className={cn(tagStyles())}>
+      <span>{tag.name}</span>
+      <div onClick={() => onRemoveTag(tag)}>&times;</div>
     </div>
   );
 };

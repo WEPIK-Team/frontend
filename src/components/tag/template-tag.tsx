@@ -14,8 +14,8 @@ export function TemplateTag({ label }: { label: string }) {
       <button
         className={`flex items-center space-x-1 rounded-2xl border-[1px] border-solid bg-white px-3 py-1 text-[15px] transition-colors duration-300 ${
           active
-            ? "border-[#6377DD] font-semibold text-[#6377DD]"
-            : "border-[#CCCAD1] text-[#CCCAD1]"
+            ? "border-wpc-primary text-wpt-base-1 font-semibold text-wpc-primary"
+            : "border-wpc-gray text-wpc-gray"
         }`}
         onClick={handleClick}
       >

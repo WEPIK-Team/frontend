@@ -20,8 +20,8 @@ export default function QuestionBoard({
   onQuestionSelected,
 }: QuestionBoardProps) {
   const [questions, setQuestions] = useState<BaseQuestion[]>([]);
+  //{used: [...questions], unused: [...questions]}
 
-  // TODO: fetch시 ColumnType.Unused인 column 추가
   useEffect(() => {
     const initialQuestions = generateQuestions();
     setQuestions(initialQuestions);
@@ -42,7 +42,7 @@ export default function QuestionBoard({
   }, [questions, onQuestionSelected]);
 
   return (
-    <div className="flex h-full w-full gap-3 py-2">
+    <div className="relative flex h-full w-full gap-[8px] py-2">
       {questions !== null && (
         <>
           <Column

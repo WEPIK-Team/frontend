@@ -1,9 +1,7 @@
-import { faker } from "@faker-js/faker";
 import Image from "next/image";
 
 import Heading from "@/components/common/heading";
-
-import { Icons } from "@/constants/data";
+import SocialShare from "@/components/share/social-share";
 
 export default function QuestionSuccessSender() {
   return (
@@ -17,28 +15,18 @@ export default function QuestionSuccessSender() {
         </p>
         <div className="mt-[22px] flex justify-center">
           <Image
-            src={faker.image.urlLoremFlickr()}
+            src="/svgs/success/sender.svg"
             className="rounded-[48px] object-cover"
-            width={358}
-            height={300}
-            alt="sample"
+            width={278}
+            height={278}
+            alt="sender-success"
           />
         </div>
         <div className="flex flex-col justify-center pt-12">
           <p className="m-auto p-0 text-wpt-base-1 font-semibold">
             상대방에게 답변 받기
           </p>
-          <div className="flex gap-3 pt-4">
-            {Icons.map((icon) => (
-              <Image
-                key={icon.alt}
-                src={icon.src}
-                alt={icon.alt}
-                width={52}
-                height={52}
-              />
-            ))}
-          </div>
+          <SocialShare kakaoId={108687} type="sender" />
         </div>
       </div>
     </>
