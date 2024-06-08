@@ -1,27 +1,27 @@
-"use client";
-
 import { TemplateSelectCard } from "@/components/card/template-select-card";
 import { Separator } from "@/components/ui/separator";
 
-import { Templates } from "@/constants/dump";
-
 import ManegeTemplateHeader from "../../../../components/manage/manage-template-header";
+import { getTemplateList } from "@/lib/api/template";
 
-export default function TemplatePage() {
+export default async function TemplatePage() {
+  const templateList = await getTemplateList();
+
   return (
     <main className="py-10">
       <ManegeTemplateHeader />
       <Separator className="mb-5 mt-10" />
 
       <div className="grid grid-cols-12 gap-[14px] pt-3 font-pretendard">
-        {Templates?.map((template) => (
+        {templateList?.map((template) => (
           <div key={template.title} className="col-span-3">
             <TemplateSelectCard
               isAdmin
-              image={template.image}
+              id={template.id}
+              imageURL={template.imageURL}
               title={template.title}
-              tag={template.tag}
-              views={template.views}
+              templateTags={template.templateTags}
+              useCount={template.useCount}
             />
           </div>
         ))}

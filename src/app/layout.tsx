@@ -20,6 +20,10 @@ export default function RootLayout({
       lang="ko"
       className={`${pretendard.variable} ${allRoundGothic.variable}`}
     >
+      <meta
+        name="naver-site-verification"
+        content="b6fe706535961ac3e136fea215622f264cce6a98"
+      />
       <body className={`${pretendard.className} `}>
         <Toaster />
         <ReactQueryProvider>{children}</ReactQueryProvider>

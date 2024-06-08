@@ -1,18 +1,19 @@
 import { cn } from "@/lib/utils";
 
 import { QuestionTypeTest } from "@/lib/data/select";
+import { QuestionType } from "@/types/question";
 
 interface InputTagProps {
-  tagType: QuestionTypeTest;
+  tagType: QuestionType;
 }
 
 const typeColor = {
-  input: "#F693E7",
-  textarea: "#8076EC",
-  select: "#35DFC0",
-  bar: "#ED666E",
-  stars: "#F8B76B",
-  date: "#5FA3F3",
+  INPUT: "#F693E7",
+  SELECT: "#8076EC",
+  TEXTAREA: "#35DFC0",
+  BAR: "#ED666E",
+  STAR_RANK: "#F8B76B",
+  DATE: "#5FA3F3",
 };
 
 const InputTag = ({ tagType }: InputTagProps) => {
