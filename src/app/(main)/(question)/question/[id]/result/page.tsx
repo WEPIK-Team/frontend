@@ -1,15 +1,15 @@
 import Image from "next/image";
 
 import Heading from "@/components/common/heading";
-import QuestionResultButton from "@/components/question/result-button";
 import SocialShare from "@/components/share/social-share";
+import { Button } from "@/components/ui/button";
 
-export default function QuestionSuccessSender() {
+export default function QuestionResult() {
   return (
     <>
       <div className="flex flex-col items-center justify-center">
         <Heading as="h3" className="text-wpt-2xl font-semibold">
-          답변 완료!
+          답변 결과
         </Heading>
         <p className="mt-3 p-0 text-wpt-md">
           공유하고 상대방의 답변을 받아보세요.
@@ -24,7 +24,12 @@ export default function QuestionSuccessSender() {
           />
         </div>
         <div className="m-auto mt-4 w-[358px]">
-          <QuestionResultButton />
+          <Button className="h-[60px] w-full rounded-[30px] bg-wpc-second-grad text-white shadow-xl">
+            <span className="text-wpt-lg font-semibold">답변 확인하기</span>
+          </Button>
+          <div className="m-auto mt-5 cursor-pointer text-center text-wpt-base-2 text-wpc-gray underline underline-offset-[6px]">
+            다른 템플릿 보러가기
+          </div>
         </div>
         <div className="mt-7 h-5 w-full bg-gradient-to-t from-white to-[#F8F7FD]" />
         <div className="flex flex-col justify-center pt-12">
