@@ -25,6 +25,7 @@ const QuestionIndex = () => {
             width={22}
             height={14}
             alt="qustion-list"
+            style={{ width: 22, height: 14 }}
           />
         </Button>
       </DrawerTrigger>

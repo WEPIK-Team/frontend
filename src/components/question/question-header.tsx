@@ -13,20 +13,29 @@ interface IQuestionHeaderProps {}
 const QuestionHeader: React.FunctionComponent<IQuestionHeaderProps> = () => {
   const router = useRouter();
   return (
-    <div className="fixed inset-x-0 top-0 z-[2] mx-auto max-w-3xl bg-white">
+    <nav className="fixed inset-x-0 top-0 z-[2] mx-auto max-w-3xl bg-white">
       <div className="flex h-[44px] w-full items-center justify-between">
         {/* back button */}
         <Button className="bg-transparent" onClick={() => router.back()}>
           <Image
             src="/svgs/chevron-left.svg"
             width={11}
-            height={20}
+            height={11}
             alt="back"
+            style={{ width: 11, height: 11 }}
           />
         </Button>
 
         {/* logo */}
-        <Image src="/svgs/logo.svg" width={86} height={26} alt="logo" />
+        <Button className="bg-transparent" onClick={() => router.push("/")}>
+          <Image
+            src="/svgs/logo.svg"
+            width={86}
+            height={26}
+            style={{ width: 86, height: 26 }}
+            alt="logo"
+          />
+        </Button>
 
         {/* menu list */}
         <QuestionIndex />
@@ -34,7 +43,7 @@ const QuestionHeader: React.FunctionComponent<IQuestionHeaderProps> = () => {
 
       {/* progress bar */}
       <QuestionProgressbar />
-    </div>
+    </nav>
   );
 };
 
