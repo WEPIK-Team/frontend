@@ -1,6 +1,7 @@
 import { useQuestionStore } from "@/provider/question-store-provider";
 
 export default function useQuestion() {
+  // values
   const currentQuestionIndex = useQuestionStore(
     (state) => state.currentQuestionIndex
   );
@@ -8,24 +9,28 @@ export default function useQuestion() {
   const currentQuestion = questions[currentQuestionIndex];
   const maxLength = questions.length - 1;
 
+  // actions
   const prevQuestion = useQuestionStore((state) => state.prevQuestion);
   const nextQuestion = useQuestionStore((state) => state.nextQuestion);
   const moveIndexQuestion = useQuestionStore(
     (state) => state.moveIndexQuestion
   );
   const updateQuestion = useQuestionStore((state) => state.updateQuestion);
-
+  const changeQuestionValue = useQuestionStore(
+    (state) => state.changeQuestionValue
+  );
   const clearQuestion = useQuestionStore((state) => state.clearStore);
 
   return {
     currentQuestionIndex,
-    clearQuestion,
     questions,
-    maxLength,
     currentQuestion,
+    maxLength,
+    moveIndexQuestion,
     prevQuestion,
     nextQuestion,
-    moveIndexQuestion,
     updateQuestion,
+    changeQuestionValue,
+    clearQuestion,
   };
 }

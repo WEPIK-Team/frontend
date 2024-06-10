@@ -1,7 +1,9 @@
-"use cllient";
+"use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { ControllerRenderProps, useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Form, FormField, FormItem, FormMessage } from "@/components/ui/form";
@@ -18,9 +20,7 @@ export interface SelectOption {
   value: string;
 }
 
-interface IQuestionSelectProps {
-  type: "single" | "double" | "triple";
-}
+interface IQuestionSelectProps {}
 
 // form validation
 const FormSchema = z.object({
@@ -28,56 +28,55 @@ const FormSchema = z.object({
     .string({
       required_error: "질문을 선택해 주세요",
     })
-    .min(1, { message: "옵션을 선택해 주세요" }),
+    .min(1, "질문을 선택해 주세요"),
 });
 
 type FormSchemaType = z.infer<typeof FormSchema>;
 
-const QuestionSelect: React.FunctionComponent<IQuestionSelectProps> = ({
-  type,
-}) => {
-  // zustand
+const QuestionSelect: React.FunctionComponent<IQuestionSelectProps> = () => {
   const { currentQuestion } = useQuestion();
-  const { content, selectQuestions } = currentQuestion;
+  const { content, selectQuestions, id } = currentQuestion;
+  const [, setSelectedValue] = useState(content);
 
-  // react hook form
-  const form = useForm<z.infer<typeof FormSchema>>({
+  const form = useForm<FormSchemaType>({
     resolver: zodResolver(FormSchema),
-    defaultValues: {
-      SELECT: content,
-    },
   });
 
-  // const onNext = async (data: z.infer<typeof FormSchema>) => {
+  useEffect(() => {
+    setSelectedValue(content);
+    form.reset({ SELECT: content });
+  }, [content, form, id]);
 
-  // };
-
-  // const [selectedValues, setSelectedValues] = useState<SelectOption[]>([]);
-
-  // const handleSelect = (option: SelectOption) => {
-  //   switch (type) {
-  //     case "single":
-  //       setSelectedValues([option]);
-
-  //       break;
-  //     case "double":
-  //       if (selectedValues.includes(option)) {
-  //         setSelectedValues(selectedValues.filter((val) => val !== option));
-  //       } else if (selectedValues.length < 2) {
-  //         setSelectedValues([...selectedValues, option]);
-  //       }
-  //       break;
-  //     case "triple":
-  //       if (selectedValues.includes(option)) {
-  //         setSelectedValues(selectedValues.filter((val) => val !== option));
-  //       } else if (selectedValues.length < 3) {
-  //         setSelectedValues([...selectedValues, option]);
-  //       }
-  //       break;
-  //     default:
-  //       break;
-  //   }
-  // };
+  const renderSelectItems = (
+    field: ControllerRenderProps<
+      {
+        SELECT: string;
+      },
+      "SELECT"
+    >
+  ) => (
+    <ul className="w-full space-y-2">
+      {selectQuestions.map((el: ISelectQuestion, i: number) => (
+        <motion.div
+          key={el.id}
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: i * 0.1 }}
+          style={{ listStyleType: "none" }}
+        >
+          <SelectItem
+            value={el.title}
+            theme="default"
+            isSelect={i === parseInt(field.value)}
+            onClick={() => {
+              setSelectedValue(i + "");
+              field.onChange(i + "");
+            }}
+          />
+        </motion.div>
+      ))}
+    </ul>
+  );
 
   return (
     <Form {...form}>
@@ -85,26 +84,12 @@ const QuestionSelect: React.FunctionComponent<IQuestionSelectProps> = ({
         <FormField
           control={form.control}
           name="SELECT"
-          render={({ field }) => {
-            return (
-              <FormItem>
-                <ul className="w-full space-y-2">
-                  {selectQuestions.map((el: ISelectQuestion, i: number) => (
-                    <SelectItem
-                      key={el.id}
-                      value={el.title}
-                      isSelect={i === parseInt(field.value)}
-                      theme="default"
-                      onClick={() => {
-                        field.onChange(i + "");
-                      }}
-                    />
-                  ))}
-                </ul>
-                <FormMessage />
-              </FormItem>
-            );
-          }}
+          render={({ field }) => (
+            <FormItem>
+              {renderSelectItems(field)}
+              <FormMessage />
+            </FormItem>
+          )}
         />
         <PrevNextBtns<FormSchemaType> type="SELECT" form={form} />
       </form>

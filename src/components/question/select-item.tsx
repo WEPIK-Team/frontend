@@ -3,6 +3,8 @@ import * as React from "react";
 
 import { cn } from "@/lib/utils";
 
+import AnimatieSelectIcon from "./animate-select-icon";
+
 interface ISelectItemProps extends React.HTMLAttributes<HTMLLIElement> {
   value: string;
   theme: "sender" | "receiver" | "default" | "both";
@@ -34,7 +36,7 @@ const SelectItem: React.FunctionComponent<ISelectItemProps> = ({
   return (
     <li
       className={cn(
-        "relative w-full rounded-full text-wpt-base-2 font-semibold transition-all ",
+        "relative w-full cursor-pointer rounded-full text-wpt-base-2 font-semibold transition-all ",
         isSelect ? ItemTheme.theme[theme] : "border border-wpc-gray"
       )}
       onClick={onClick}
@@ -43,13 +45,7 @@ const SelectItem: React.FunctionComponent<ISelectItemProps> = ({
         <p>{value}</p>
       </div>
       {isSelect && theme !== "both" && (
-        <Image
-          src={ItemTheme.iconPath[theme]}
-          width={24}
-          height={24}
-          alt="selectIcon"
-          className="absolute right-[15px] top-1/2 -translate-y-1/2"
-        />
+        <AnimatieSelectIcon className="absolute right-[15px] top-1/2 -translate-y-1/2" />
       )}
 
       {isSelect && theme === "both" && (

@@ -5,11 +5,14 @@ import { CalendarIcon, ChevronDownIcon } from "@radix-ui/react-icons";
 import { addDays } from "date-fns";
 import { ko } from "date-fns/locale";
 import * as React from "react";
+import { useEffect, useState } from "react";
+import { DateRange } from "react-day-picker";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { cn } from "@/lib/utils";
 
+import PrevNextBtns from "@/components/question/prev-next-btns";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { Form, FormField, FormItem, FormMessage } from "@/components/ui/form";
@@ -20,8 +23,7 @@ import {
 } from "@/components/ui/popover";
 
 import useQuestion from "@/hooks/use-question";
-
-import PrevNextBtns, { formatDateforKor } from "../question/prev-next-btns";
+import { formatDateforKor } from "@/lib/question";
 
 // form validation
 const FormSchema = z.object({
@@ -34,12 +36,12 @@ const FormSchema = z.object({
   ),
 });
 
-type FormSchemeType = z.infer<typeof FormSchema>;
+type FormSchemaType = z.infer<typeof FormSchema>;
 
 export const QuestionDatePicker = () => {
   // zustand
   const { currentQuestion } = useQuestion();
-  const { content } = currentQuestion;
+  const { content, id } = currentQuestion;
   const [startDateString, endDateString] = content
     ? content.split(" - ")
     : [new Date(), new Date()];
@@ -48,23 +50,29 @@ export const QuestionDatePicker = () => {
   const to = endDateString ? new Date(endDateString) : undefined;
 
   // State
-  const [isOpen, setIsOpen] = React.useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [dateRange, setDateRange] = useState<DateRange | undefined>({
+    from,
+    to,
+  });
 
   // react hook form
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
-    defaultValues: {
-      DATE: {
-        from: from,
-        to: to,
-      },
-    },
   });
+
+  useEffect(() => {
+    const newFrom = startDateString ? new Date(startDateString) : new Date();
+    const newTo = endDateString ? new Date(endDateString) : undefined;
+    setDateRange({ from: newFrom, to: newTo });
+    form.reset({ DATE: { from: newFrom, to: newTo } });
+  }, [content, form, id]);
 
   // function
   const handleInit = () => {
     const defaultFrom = new Date();
     const defaultTo = addDays(defaultFrom, 1);
+    setDateRange({ from: defaultFrom, to: defaultTo });
     form.setValue("DATE", {
       from: defaultFrom,
       to: defaultTo,
@@ -105,14 +113,14 @@ export const QuestionDatePicker = () => {
                               "mr-2 h-[26px] w-[26px] text-wpc-primary"
                             )}
                           />
-                          {field.value?.from ? (
-                            field.value.to ? (
+                          {dateRange?.from ? (
+                            dateRange.to ? (
                               <>
-                                {formatDateforKor(field.value.from)} -{" "}
-                                {formatDateforKor(field.value.to)}
+                                {formatDateforKor(dateRange.from)} -{" "}
+                                {formatDateforKor(dateRange.to)}
                               </>
                             ) : (
-                              formatDateforKor(field.value.from)
+                              formatDateforKor(dateRange.from)
                             )
                           ) : (
                             <span>날짜를 선택하세요</span>
@@ -135,9 +143,12 @@ export const QuestionDatePicker = () => {
                       locale={ko}
                       initialFocus
                       mode="range"
-                      defaultMonth={form.getValues("DATE")?.to}
-                      selected={field.value}
-                      onSelect={field.onChange}
+                      defaultMonth={dateRange?.to}
+                      selected={dateRange}
+                      onSelect={(range) => {
+                        setDateRange(range);
+                        field.onChange(range);
+                      }}
                       numberOfMonths={1}
                       showOutsideDays={false}
                       className="max-h-[350px] overflow-y-scroll"
@@ -167,7 +178,7 @@ export const QuestionDatePicker = () => {
             );
           }}
         />
-        <PrevNextBtns<FormSchemeType> form={form} type="DATE" />
+        <PrevNextBtns<FormSchemaType> form={form} type="DATE" />
       </form>
     </Form>
   );
