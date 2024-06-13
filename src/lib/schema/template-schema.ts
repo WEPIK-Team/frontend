@@ -22,7 +22,7 @@ const templateThumbnailSchema = z
 
 export const stepOneSchema = z.object({
   title: requiredString.max(15),
-  thumbnail: templateThumbnailSchema,
+  thumbnail: templateThumbnailSchema.optional(),
   tags: tagsSchema,
 });
 

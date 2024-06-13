@@ -44,9 +44,10 @@ const TemplateFormStepTwo = () => {
   };
 
   const submit = async (data: StepTwoData) => {
+    if (!stepOneData.thumbnail) return;
     setStepTwoData(data);
     const formData = new FormData();
-    formData.append("image", stepOneData.thumbnail);
+    formData.append("image", stepOneData?.thumbnail);
 
     const uploadFilePath = await TemplatenUploadImageFile(formData);
 
