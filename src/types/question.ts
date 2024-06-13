@@ -14,7 +14,7 @@ export type QuestionType =
 export interface IQuestion {
   id: number;
   title: string;
-  type: QuestionType | "";
+  type: QuestionType;
   imageURL: string | null;
   content?: string;
   selectQuestions: ISelectQuestion[];
