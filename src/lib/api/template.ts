@@ -17,7 +17,7 @@ export const getTagList = async (): Promise<string[]> => {
 };
 
 export const getTempleteDetail = async (
-  id: string
+  id: number
 ): Promise<ITemplateDetail> => {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}${process.env.NEXT_PUBLIC_TEMPLATE}/${id}`,

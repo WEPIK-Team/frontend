@@ -8,7 +8,7 @@ import { QuestionStoreProvider } from "@/provider/question-store-provider";
 import { Template } from "@/types/template";
 
 interface IPageParams {
-  id: string;
+  id: number;
 }
 
 interface IPageProps {
@@ -40,7 +40,7 @@ export async function generateStaticParams(): Promise<IPageParams[]> {
   if (!templetes || !templetes.length) return [];
 
   const templeteIds = templetes.map((templete: Template) => ({
-    id: templete.id.toString(),
+    id: templete.id,
   }));
 
   return templeteIds;

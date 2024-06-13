@@ -13,7 +13,7 @@ import { IQuestion } from "@/types/question";
 interface IManageQuestionModal {
   mode: "create" | "edit";
   isOpen: boolean;
-  questionId?: string;
+  questionId?: number;
   onClose: () => void;
   onConfirm: () => void;
 }
@@ -31,7 +31,7 @@ export const ManageQuestionModal: React.FC<IManageQuestionModal> = ({
   }, []);
 
   const [data, setData] = useState<IQuestion>({
-    id: null,
+    id: 0,
     imageURL: "",
     title: "",
     type: "",

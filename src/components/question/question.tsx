@@ -24,7 +24,7 @@ const QuestionContent: React.FunctionComponent<{
     case "INPUT":
       return <QuestionInput />;
     case "SELECT":
-      return <QuestionSelect type="single" />;
+      return <QuestionSelect />;
     case "STAR_RANK":
       return <QuestionRatingInput />;
     case "TEXTAREA":
