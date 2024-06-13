@@ -3,20 +3,15 @@ import { z } from "zod";
 const requiredString = z.string().min(1, "필수 입력");
 
 const questionsSchema = z
-  .array(z.string())
+  .array(z.number())
   .min(5, "적어도 5개 이상 질문이 필요합니다.");
 
-const tagSchema = z.object({
-  id: z.string().optional(),
-  name: z.string(),
-});
-
 const tagsSchema = z
-  .array(tagSchema)
+  .array(z.string())
   .min(2, "적어도 2개 이상의 태그가 필요합니다.");
 
 const templateThumbnailSchema = z
-  .custom<File | undefined>()
+  .custom<File>()
   .refine(
     (file) => !file || (file instanceof File && file.type.startsWith("image/")),
     "이미지 파일이어야 합니다."
@@ -32,7 +27,7 @@ export const stepOneSchema = z.object({
 });
 
 export const stepTwoSchema = z.object({
-  questions: questionsSchema,
+  questionIds: questionsSchema,
 });
 
 export const createTemplateSchema = stepOneSchema.merge(stepTwoSchema);

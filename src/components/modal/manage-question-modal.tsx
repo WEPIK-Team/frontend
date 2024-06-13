@@ -31,7 +31,7 @@ export const ManageQuestionModal: React.FC<IManageQuestionModal> = ({
   }, []);
 
   const [data, setData] = useState<IQuestion>({
-    id: "",
+    id: null,
     imageURL: "",
     title: "",
     type: "",

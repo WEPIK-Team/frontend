@@ -3,6 +3,8 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
+import { createTemplate } from "@/lib/api/manage-template";
+
 import QuestionBoard from "@/components/board/question-board";
 import { Button } from "@/components/ui/button";
 import {
@@ -16,28 +18,24 @@ import {
 
 import useTemplateFormStore from "@/store/template-form-store";
 
-import {
-  CreateTemplateValues,
-  StepTwoData,
-  stepTwoSchema,
-} from "@/lib/schema/template-schema";
+import { TemplatenUploadImageFile } from "@/app/(manage)/manage/template/actions";
+import { StepTwoData, stepTwoSchema } from "@/lib/schema/template-schema";
 
 const TemplateFormStepTwo = () => {
   const { decrement, setStepTwoData, stepOneData, stepTwoData } =
     useTemplateFormStore();
 
-  const form = useForm<CreateTemplateValues>({
+  const form = useForm<StepTwoData>({
     resolver: zodResolver(stepTwoSchema),
-    defaultValues: stepTwoData || {},
+    defaultValues: {
+      questionIds: stepTwoData.questionIds,
+    },
   });
 
   const {
     handleSubmit,
     control,
     setValue,
-    // setFocus,
-    watch,
-    trigger,
     formState: { isSubmitting },
   } = form;
 
@@ -45,16 +43,30 @@ const TemplateFormStepTwo = () => {
     decrement();
   };
 
-  const submit = (data: StepTwoData) => {};
+  const submit = async (data: StepTwoData) => {
+    setStepTwoData(data);
+    const formData = new FormData();
+    formData.append("image", stepOneData.thumbnail);
+
+    const uploadFilePath = await TemplatenUploadImageFile(formData);
+
+    const combinedData = {
+      ...stepOneData,
+      ...data,
+      storedName: uploadFilePath.storedName,
+    };
+
+    await createTemplate(combinedData);
+  };
 
   return (
     <Form {...form}>
       <form noValidate onSubmit={handleSubmit(submit)}>
         <FormField
           control={control}
-          name="questions"
+          name="questionIds"
           render={() => (
-            <FormItem>
+            <FormItem className="pb-[20px]">
               <FormLabel>질문 선택</FormLabel>
               <FormControl>
                 <QuestionBoard onQuestionSelected={setValue} />
@@ -64,7 +76,7 @@ const TemplateFormStepTwo = () => {
           )}
         />
 
-        <div className="flex items-center justify-end gap-[10px] pt-[43px]">
+        <div className="flex items-center justify-end gap-[10px]">
           <Button
             type="button"
             variant="gray"

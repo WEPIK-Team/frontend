@@ -3,28 +3,28 @@ import { DragEvent } from "react";
 
 import { cn } from "@/lib/utils";
 
-import { BaseQuestion, ColumnType } from "@/lib/data/question";
-
 import DropIndicator from "./drop-indicator";
+import InputTag from "../tag/input-tag";
 
-export interface CardProps extends BaseQuestion {
-  handleDragStart: (
-    e: DragEvent<HTMLDivElement>,
-    question: BaseQuestion
-  ) => void;
-  handleClick: (questionId: string) => void;
+import { ColumnType, IQuestion } from "@/types/question";
+
+export interface CardProps {
+  question: IQuestion;
+  column: ColumnType;
+  handleDragStart: (e: DragEvent<HTMLDivElement>, question: IQuestion) => void;
+  handleClick: (questionId: number) => void;
 }
 
 const QuestionBoardCard = ({
-  id,
-  title,
+  question,
   column,
-  type,
   handleDragStart,
   handleClick,
 }: CardProps) => {
+  const id = String(question.id);
+
   const handleCardClick = () => {
-    handleClick(id);
+    handleClick(question.id);
   };
 
   const columnClass = column === ColumnType.Use ? "bg-white" : "bg-neutral-50";
@@ -36,14 +36,15 @@ const QuestionBoardCard = ({
       <motion.div layout layoutId={id}>
         <div
           draggable="true"
-          onDragStart={(e) => handleDragStart(e, { id, title, column, type })}
+          onDragStart={(e) => handleDragStart(e, question)}
           onClick={handleCardClick}
           className={cn(
-            "cursor-grab rounded-[12px] border-[0.8px] border-wpc-primary p-2 active:cursor-grabbing",
+            "flex cursor-grab items-center justify-between gap-[10px] rounded-[12px] border-[0.8px] border-wpc-primary p-2 active:cursor-grabbing",
             columnClass
           )}
         >
-          <p className="text-sm">{title}</p>
+          <p className="text-sm">{question.title}</p>
+          <InputTag tagType={question.type} />
         </div>
       </motion.div>
     </>

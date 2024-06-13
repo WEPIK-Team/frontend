@@ -1,25 +1,26 @@
 "use client";
 
-import { Dispatch, DragEvent, SetStateAction, useState } from "react";
-
-import { BaseQuestion, ColumnType } from "@/lib/data/question";
+import { DragEvent, useState } from "react";
 
 import DropIndicator from "./drop-indicator";
+import { SetQuestionsType } from "./question-board";
 import QuestionBoardCard from "./question-board-card";
 import Heading from "../common/heading";
+
+import { ColumnType, IQuestion } from "@/types/question";
 
 interface ColumnProps {
   title: string;
   column: ColumnType;
-  questions: BaseQuestion[];
-  setQuestions: Dispatch<SetStateAction<BaseQuestion[]>>;
+  questions: IQuestion[];
+  setQuestions: SetQuestionsType;
 }
 
 const Column = ({ title, questions, column, setQuestions }: ColumnProps) => {
   const [active, setActive] = useState(false);
 
-  const handleDragStart = (e: DragEvent, question: BaseQuestion) => {
-    e.dataTransfer?.setData("questionId", question.id);
+  const handleDragStart = (e: DragEvent, question: IQuestion) => {
+    e.dataTransfer?.setData("questionId", String(question.id));
   };
 
   const handleDragOver = (e: DragEvent<HTMLDivElement>) => {
@@ -34,25 +35,37 @@ const Column = ({ title, questions, column, setQuestions }: ColumnProps) => {
     setActive(false);
   };
 
-  const handleClick = (questionId: string) => {
-    let copy = [...questions];
+  const handleClick = (questionId: number) => {
+    setQuestions((prevQuestions) => {
+      const used = [...prevQuestions.used];
+      const unused = [...prevQuestions.unused];
 
-    const cardToMove = copy.find((c) => c.id === questionId);
-    if (!cardToMove) return;
+      let cardToMove;
+      let sourceArray, destinationArray;
 
-    let columnToMoveTo = ColumnType.Unused;
+      if (used.some((q) => q.id === questionId)) {
+        sourceArray = used;
+        destinationArray = unused;
+      } else if (unused.some((q) => q.id === questionId)) {
+        sourceArray = unused;
+        destinationArray = used;
+      } else {
+        return prevQuestions;
+      }
 
-    if (cardToMove.column === ColumnType.Unused) {
-      columnToMoveTo = ColumnType.Use;
-    }
+      const questionIndex = sourceArray.findIndex((q) => q.id === questionId);
+      if (questionIndex === -1) return prevQuestions;
 
-    cardToMove.column = columnToMoveTo;
+      // eslint-disable-next-line prefer-const
+      [cardToMove] = sourceArray.splice(questionIndex, 1);
 
-    copy = copy.filter((c) => c.id !== questionId);
+      destinationArray.push(cardToMove);
 
-    copy.push(cardToMove);
-
-    setQuestions(copy);
+      return {
+        used,
+        unused,
+      };
+    });
   };
 
   const handleDragEnd = (e: DragEvent<HTMLDivElement>) => {
@@ -66,28 +79,32 @@ const Column = ({ title, questions, column, setQuestions }: ColumnProps) => {
 
     const before = element.dataset.before || "-1";
 
-    if (before !== questionId) {
-      let copy = [...questions];
+    setQuestions((prevQuestions) => {
+      const used = [...prevQuestions.used];
+      const unused = [...prevQuestions.unused];
 
-      let cardToTransfer = copy.find((c) => c.id === questionId);
-      if (!cardToTransfer) return;
-      cardToTransfer = { ...cardToTransfer, column };
+      let question = null;
 
-      copy = copy.filter((c) => c.id !== questionId);
+      const findAndRemoveQuestion = (list: IQuestion[], id: string) => {
+        const index = list.findIndex((q) => String(q.id) === id);
+        return index !== -1 ? list.splice(index, 1)[0] : null;
+      };
 
-      const moveToBack = before === "-1";
+      question =
+        findAndRemoveQuestion(used, questionId) ||
+        findAndRemoveQuestion(unused, questionId);
 
-      if (moveToBack) {
-        copy.push(cardToTransfer);
-      } else {
-        const insertAtIndex = copy.findIndex((el) => el.id === before);
-        if (insertAtIndex === undefined) return;
-
-        copy.splice(insertAtIndex, 0, cardToTransfer);
+      if (question && before !== questionId) {
+        const insertIndex = used.findIndex((q) => String(q.id) === before);
+        if (insertIndex === -1) {
+          used.push(question);
+        } else {
+          used.splice(insertIndex, 0, question);
+        }
       }
 
-      setQuestions(copy);
-    }
+      return { used, unused };
+    });
   };
 
   const clearHighlights = (els?: HTMLElement[]) => {
@@ -143,8 +160,6 @@ const Column = ({ title, questions, column, setQuestions }: ColumnProps) => {
     );
   };
 
-  const filteredCards = questions.filter((c) => c.column === column);
-
   return (
     <div className="flex w-full grow flex-col">
       <div className="mb-3 flex items-center justify-between">
@@ -155,11 +170,11 @@ const Column = ({ title, questions, column, setQuestions }: ColumnProps) => {
           {title}
         </Heading>
         <span className="rounded text-wpt-sm text-neutral-400">
-          {filteredCards.length}
+          {questions.length}
         </span>
       </div>
 
-      <div className="h-[420px] shrink-0 overflow-y-scroll rounded-[18px] bg-[#F8F7FD] p-[11px]">
+      <div className="h-[400px] shrink-0 overflow-y-scroll rounded-[18px] bg-[#F8F7FD] p-[11px]">
         <div
           onDrop={handleDragEnd}
           onDragOver={handleDragOver}
@@ -168,11 +183,12 @@ const Column = ({ title, questions, column, setQuestions }: ColumnProps) => {
             active ? "bg-neutral-200/50" : "bg-neutral-300/0"
           }`}
         >
-          {filteredCards.map((c) => {
+          {questions?.map((question) => {
             return (
               <QuestionBoardCard
-                key={c.id}
-                {...c}
+                key={question.id}
+                column={column}
+                question={question}
                 handleDragStart={handleDragStart}
                 handleClick={handleClick}
               />

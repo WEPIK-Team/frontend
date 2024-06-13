@@ -1,6 +1,5 @@
 import { cn } from "@/lib/utils";
 
-import { QuestionTypeTest } from "@/lib/data/select";
 import { QuestionType } from "@/types/question";
 
 interface InputTagProps {
@@ -22,9 +21,7 @@ const InputTag = ({ tagType }: InputTagProps) => {
       style={{
         backgroundColor: typeColor[tagType],
       }}
-      className={cn(
-        "text-wpt-xs w-fit rounded-full px-[13px] pb-[9px] pt-[7px] font-semibold text-white"
-      )}
+      className={cn("w-fit rounded-full p-[6px] text-[10px]  text-white")}
     >
       {tagType}
     </div>

@@ -65,74 +65,82 @@ const TemplateFormStepOne = () => {
 
   return (
     <Form {...form}>
-      <form
-        className="space-y-4"
-        noValidate
-        onSubmit={handleSubmit(handleNext)}
-      >
-        <FormField
-          control={control}
-          name="title"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>제목</FormLabel>
-              <FormControl>
-                <Input placeholder="" {...field} disabled={false} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={control}
-          name="thumbnail"
-          render={({ field: { value, onChange, ...fieldValues } }) => (
-            <div className="flex space-x-[28px]">
+      <form noValidate onSubmit={handleSubmit(handleNext)}>
+        <div className="space-y-4">
+          <FormField
+            control={control}
+            name="title"
+            render={({ field }) => (
               <FormItem>
-                <FormLabel>썸네일</FormLabel>
+                <FormLabel>제목</FormLabel>
                 <FormControl>
                   <Input
-                    {...fieldValues}
-                    type="file"
-                    accept="image/*"
+                    placeholder=""
+                    {...field}
                     disabled={false}
-                    onChange={(event) =>
-                      onChange(event.target.files && event.target.files[0])
-                    }
+                    className="p-[16px]"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={control}
+            name="thumbnail"
+            render={({ field: { value, onChange, ...fieldValues } }) => (
+              <div className="flex space-x-[28px]">
+                <FormItem>
+                  <FormLabel>썸네일</FormLabel>
+                  <FormControl>
+                    <Input
+                      {...fieldValues}
+                      type="file"
+                      accept="image/*"
+                      disabled={false}
+                      onChange={(event) =>
+                        onChange(event.target.files && event.target.files[0])
+                      }
+                      className="block w-full text-wpt-base-1 text-wpc-gray
+                    file:me-4 
+                    file:rounded-lg file:border file:border-wpc-primary
+                    file:px-4 file:py-2 file:text-[15px] 
+                    file:text-wpc-primary"
+                    />
+                  </FormControl>
+                  <FormMessage isAbsolute />
+                </FormItem>
+                <div className="h-[200px] w-[264px] rounded-[18px] bg-wpc-gray2">
+                  {preview && (
+                    <Image
+                      src={preview}
+                      width={200}
+                      height={265}
+                      alt="Thumbnail Preview"
+                    />
+                  )}
+                </div>
+              </div>
+            )}
+          />
+          <FormField
+            control={control}
+            name="tags"
+            render={() => (
+              <FormItem className="pb-[80px]">
+                <FormLabel>태그 선택</FormLabel>
+                <FormControl>
+                  <TagBoard
+                    onTagSelected={setValue}
+                    storeTags={stepOneData.tags}
                   />
                 </FormControl>
                 <FormMessage isAbsolute />
               </FormItem>
-              <div className="h-[200px] w-[264px] rounded-[18px] bg-wpc-gray2">
-                {preview && (
-                  <Image
-                    src={preview}
-                    width={200}
-                    height={265}
-                    alt="Thumbnail Preview"
-                  />
-                )}
-              </div>
-            </div>
-          )}
-        />
-        <FormField
-          control={control}
-          name="tags"
-          render={() => (
-            <FormItem>
-              <FormLabel>태그 선택</FormLabel>
-              <FormControl>
-                <TagBoard
-                  onTagSelected={setValue}
-                  storeTags={stepOneData.tags}
-                />
-              </FormControl>
-              <FormMessage isAbsolute />
-            </FormItem>
-          )}
-        />
-        <div className="flex items-center justify-end gap-[10px] pt-[80px]">
+            )}
+          />
+        </div>
+        <div className="flex items-end justify-end gap-[10px]">
           <DialogClose asChild>
             <Button
               variant="gray"

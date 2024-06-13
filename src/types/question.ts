@@ -16,6 +16,7 @@ export interface IQuestion {
   title: string;
   type: QuestionType | "";
   imageURL: string | null;
+  content?: string;
   selectQuestions: ISelectQuestion[];
 }
 
@@ -52,4 +53,9 @@ export interface IAnswerQuestionRequest {
 export interface IAnswerQuestionResponse {
   senderId: string;
   receiverId: string;
+}
+
+export enum ColumnType {
+  Use = "use",
+  Unused = "unused",
 }

@@ -31,7 +31,7 @@ export const Modal: React.FC<ModalProps> = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onChange}>
-      <DialogContent className="max-h-[650px] overflow-y-auto">
+      <DialogContent className="max-h-[650px]">
         <DialogHeader>
           <DialogTitle className="text-wpt-xl">{title}</DialogTitle>
           <DialogDescription>{desc}</DialogDescription>

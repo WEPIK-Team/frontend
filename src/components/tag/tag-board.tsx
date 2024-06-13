@@ -3,7 +3,8 @@
 import { useEffect, useState } from "react";
 import { UseFormSetValue } from "react-hook-form";
 
-import { generateTags, UnionTag } from "@/lib/data/tag";
+import { getTagList } from "@/lib/api/template";
+
 import { StepOneData } from "@/lib/schema/template-schema";
 
 import TagItem from "./tag-item";
@@ -11,14 +12,15 @@ import { Input } from "../ui/input";
 
 interface TagBoardProps {
   onTagSelected: UseFormSetValue<StepOneData>;
-  storeTags: UnionTag[];
+  storeTags: string[];
 }
 
 const TagBoard = ({ onTagSelected, storeTags }: TagBoardProps) => {
-  const [tags, setTags] = useState<UnionTag[]>([]);
-  const [selectedTags, setSelectedTags] = useState<UnionTag[]>(storeTags);
+  const [tags, setTags] = useState<string[]>([]);
+  const [selectedTags, setSelectedTags] = useState<string[]>(storeTags);
   const [isTagListVisible, setIsTagListVisible] = useState(false);
   const [text, setText] = useState("");
+  const [isLoading, setLoading] = useState(true);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value.trim();
@@ -26,23 +28,33 @@ const TagBoard = ({ onTagSelected, storeTags }: TagBoardProps) => {
   };
 
   useEffect(() => {
-    const initialTags = generateTags();
-    setTags(initialTags);
+    const fetchTags = async () => {
+      try {
+        const initialTags = await getTagList();
+        setTags(initialTags);
+      } catch (error) {
+        console.error("Failed to fetch questions:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTags();
   }, []);
 
   useEffect(() => {
     onTagSelected("tags", selectedTags);
   }, [selectedTags, onTagSelected]);
 
-  const addTag = (name: string) => {
-    const trimmedName = name.trim();
+  const addTag = (tag: string) => {
+    const trimmedName = tag.trim();
     if (!trimmedName) return;
 
-    const existingTag = tags.find((tag) => tag.name === trimmedName);
-    const isSelected = selectedTags.find((tag) => tag.name === trimmedName);
+    const existingTag = tags.find((tag) => tag === trimmedName);
+    const isSelected = selectedTags.find((tag) => tag === trimmedName);
 
     if (!isSelected) {
-      const newTag = existingTag || { name: trimmedName };
+      const newTag = existingTag || trimmedName;
       setSelectedTags((prev) => [...prev, newTag]);
     }
   };
@@ -55,13 +67,13 @@ const TagBoard = ({ onTagSelected, storeTags }: TagBoardProps) => {
     }
   };
 
-  const handleTagListClick = (tag: UnionTag) => {
-    addTag(tag.name);
+  const handleTagListClick = (tag: string) => {
+    addTag(tag);
     setText("");
   };
 
-  const highlightText = (tagName: string, searchText: string) => {
-    const parts = tagName.split(new RegExp(`(${searchText})`, "gi"));
+  const highlightText = (tag: string, searchText: string) => {
+    const parts = tag.split(new RegExp(`(${searchText})`, "gi"));
     return (
       <span>
         {parts.map((part, idx) =>
@@ -77,15 +89,15 @@ const TagBoard = ({ onTagSelected, storeTags }: TagBoardProps) => {
     );
   };
 
-  const removeTag = (tag: UnionTag) => {
-    setSelectedTags((prevTags) => prevTags.filter((t) => t.name !== tag.name));
+  const removeTag = (tag: string) => {
+    setSelectedTags((prevTags) => prevTags.filter((t) => t !== tag));
   };
 
   const filteredTags = tags
-    .filter((tag) => tag.name.includes(text))
+    .filter((tag) => tag.includes(text))
     .sort((a, b) => {
-      if (a.name.startsWith(text)) return -1;
-      if (b.name.startsWith(text)) return 1;
+      if (a.startsWith(text)) return -1;
+      if (b.startsWith(text)) return 1;
       return 0;
     });
 
@@ -113,7 +125,7 @@ const TagBoard = ({ onTagSelected, storeTags }: TagBoardProps) => {
                 className="cursor-pointer rounded-[11px] p-2 hover:bg-[#6377DD]/10"
                 onClick={() => handleTagListClick(tag)}
               >
-                {highlightText(tag.name, text)}
+                {highlightText(tag, text)}
               </div>
             ))}
           </div>

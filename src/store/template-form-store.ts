@@ -20,7 +20,7 @@ export const initialStepOneData = {
 };
 
 export const initialStepTwoData = {
-  questions: [],
+  questionIds: [],
 };
 
 const useTemplateFormStore = create<TemplateFormData>((set) => ({
