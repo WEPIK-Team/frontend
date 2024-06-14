@@ -3,7 +3,12 @@ import { ITemplateDetail, TemplateList } from "@/types/template";
 export const getTemplateList = async (): Promise<TemplateList> => {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}${process.env.NEXT_PUBLIC_TEMPLATE}`,
-    { cache: "no-store" }
+    {
+      cache: "no-store",
+      next: {
+        tags: ["template-list"],
+      },
+    }
   );
   return response.json();
 };

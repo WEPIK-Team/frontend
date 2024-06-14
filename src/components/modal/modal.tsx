@@ -8,9 +8,12 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 
+import { PropagationStopper } from "../common/propagation-stopper ";
+
 interface ModalProps {
   title: string;
   desc: string;
+  propagation?: boolean;
   isOpen: boolean;
   onClose: () => void;
   children?: React.ReactNode;
@@ -19,6 +22,7 @@ interface ModalProps {
 export const Modal: React.FC<ModalProps> = ({
   title,
   desc,
+  propagation,
   isOpen,
   onClose,
   children,
@@ -30,14 +34,16 @@ export const Modal: React.FC<ModalProps> = ({
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={onChange}>
-      <DialogContent className="max-h-[650px]">
-        <DialogHeader>
-          <DialogTitle className="text-wpt-xl">{title}</DialogTitle>
-          <DialogDescription>{desc}</DialogDescription>
-        </DialogHeader>
-        {children}
-      </DialogContent>
-    </Dialog>
+    <PropagationStopper propagation={propagation}>
+      <Dialog open={isOpen} onOpenChange={onChange}>
+        <DialogContent className="max-h-[650px]">
+          <DialogHeader>
+            <DialogTitle className="text-wpt-xl">{title}</DialogTitle>
+            <DialogDescription>{desc}</DialogDescription>
+          </DialogHeader>
+          {children}
+        </DialogContent>
+      </Dialog>
+    </PropagationStopper>
   );
 };

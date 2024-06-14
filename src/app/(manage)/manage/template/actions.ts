@@ -1,8 +1,10 @@
 "use server";
 
+import { revalidateTag } from "next/cache";
+
 import { IFileResponse } from "@/types/question";
 
-export const TemplatenUploadImageFile = async (
+export const templatenUploadImageFile = async (
   formData: FormData
 ): Promise<IFileResponse> => {
   const response = await fetch(
@@ -14,4 +16,15 @@ export const TemplatenUploadImageFile = async (
   );
 
   return await response.json();
+};
+
+export const deleteTemplate = async (id: number) => {
+  await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}${process.env.NEXT_PUBLIC_TEMPLATE}/${id}`,
+    {
+      method: "DELETE",
+    }
+  );
+
+  revalidateTag("template-list");
 };

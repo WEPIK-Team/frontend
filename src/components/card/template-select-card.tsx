@@ -73,7 +73,7 @@ export function TemplateSelectCard({
               ))}
             </div>
           </div>
-          {isAdmin ? <TemplateAction /> : null}
+          {isAdmin ? <TemplateAction id={id} /> : null}
         </CardFooter>
       </Card>
     </>

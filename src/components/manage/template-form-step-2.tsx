@@ -18,7 +18,7 @@ import {
 
 import useTemplateFormStore from "@/store/template-form-store";
 
-import { TemplatenUploadImageFile } from "@/app/(manage)/manage/template/actions";
+import { templatenUploadImageFile } from "@/app/(manage)/manage/template/actions";
 import { StepTwoData, stepTwoSchema } from "@/lib/schema/template-schema";
 
 const TemplateFormStepTwo = () => {
@@ -49,7 +49,7 @@ const TemplateFormStepTwo = () => {
     const formData = new FormData();
     formData.append("image", stepOneData?.thumbnail);
 
-    const uploadFilePath = await TemplatenUploadImageFile(formData);
+    const uploadFilePath = await templatenUploadImageFile(formData);
 
     const combinedData = {
       ...stepOneData,

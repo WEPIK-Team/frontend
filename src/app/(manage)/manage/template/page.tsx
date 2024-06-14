@@ -19,6 +19,7 @@ export default async function TemplatePage() {
           {templateList?.map((template) => (
             <div key={template.id} className="col-span-3">
               <TemplateSelectCard
+                isAdmin
                 id={template.id}
                 imageURL={template.imageURL}
                 title={template.title}

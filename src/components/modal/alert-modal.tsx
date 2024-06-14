@@ -9,6 +9,7 @@ interface IAlertModalProps {
   onClose: () => void;
   onConfirm: () => void;
   loading: boolean;
+  propagation?: boolean;
 }
 
 export const AlertModal: React.FC<IAlertModalProps> = ({
@@ -16,6 +17,7 @@ export const AlertModal: React.FC<IAlertModalProps> = ({
   onConfirm,
   onClose,
   loading,
+  propagation,
 }) => {
   const [isMounted, setIsMounted] = useState(false);
 
@@ -32,6 +34,7 @@ export const AlertModal: React.FC<IAlertModalProps> = ({
       title="정말로 삭제 하시겠습니까?"
       desc="삭제하시면 데이터를 되돌리실 수 없습니다."
       isOpen={isOpen}
+      propagation={propagation}
       onClose={onClose}
     >
       <div className="flex w-full items-center justify-end space-x-2 pt-6">
