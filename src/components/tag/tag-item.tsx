@@ -2,11 +2,9 @@ import { cva } from "class-variance-authority";
 
 import { cn } from "@/lib/utils";
 
-import { UnionTag } from "@/lib/data/tag";
-
 interface TagItemProps {
-  tag: UnionTag;
-  onRemoveTag: (tag: UnionTag) => void;
+  tag: string;
+  onRemoveTag: (tag: string) => void;
 }
 
 const tagStyles = cva(
@@ -19,7 +17,7 @@ const tagStyles = cva(
 const TagItem = ({ tag, onRemoveTag }: TagItemProps) => {
   return (
     <div className={cn(tagStyles())}>
-      <span>{tag.name}</span>
+      <span>{tag}</span>
       <div onClick={() => onRemoveTag(tag)}>&times;</div>
     </div>
   );

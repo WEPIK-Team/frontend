@@ -11,6 +11,7 @@ export type CounterActions = {
   nextQuestion: () => void;
   prevQuestion: () => void;
   moveIndexQuestion: (index: number) => void;
+  changeQuestionValue: ({ id, value }: { id: number; value: string }) => void;
   updateQuestion: (newQuestions: IQuestionRequest[]) => void;
   clearStore: () => void;
 };
@@ -41,6 +42,19 @@ const createQuestionStore = (initState: QuestionState = defaultInitState) =>
       set((state) => {
         return {
           currentQuestionIndex: Math.max(state.currentQuestionIndex - 1, 0),
+        };
+      }),
+    changeQuestionValue: ({ id, value }) =>
+      set((state) => {
+        const newValueQuestions = state.questions.map((question) => {
+          if (question.id === id) {
+            return { ...question, content: value };
+          }
+          return question;
+        });
+
+        return {
+          questions: newValueQuestions,
         };
       }),
     moveIndexQuestion: (index: number) =>

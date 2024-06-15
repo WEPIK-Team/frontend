@@ -40,13 +40,15 @@ import {
 
 import QuestionAddSelect from "./question-add-select";
 
-import { IQuestion } from "@/types/question";
+import { IQuestion, QuestionType } from "@/types/question";
 
 interface IQuestionFormProps {
   buttonConfirmName: string;
   onClose: () => void;
   onConfirm?: () => void;
-  questionData: IQuestion;
+  questionData: Omit<IQuestion, "type"> & {
+    type: "" | QuestionType;
+  };
   mode: "create" | "edit";
 }
 

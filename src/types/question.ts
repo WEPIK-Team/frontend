@@ -12,10 +12,11 @@ export type QuestionType =
   | "DATE";
 
 export interface IQuestion {
-  id: string;
+  id: number;
   title: string;
-  type: QuestionType | "";
+  type: QuestionType;
   imageURL: string | null;
+  content?: string;
   selectQuestions: ISelectQuestion[];
 }
 
@@ -52,4 +53,9 @@ export interface IAnswerQuestionRequest {
 export interface IAnswerQuestionResponse {
   senderId: string;
   receiverId: string;
+}
+
+export enum ColumnType {
+  Use = "use",
+  Unused = "unused",
 }

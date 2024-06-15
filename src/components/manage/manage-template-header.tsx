@@ -2,28 +2,18 @@
 
 import { PlusIcon } from "@radix-ui/react-icons";
 import Image from "next/image";
+import Link from "next/link";
 import * as React from "react";
 
 import { ManageHeader } from "./manage-header";
-import { ManageTemplateModal } from "./manage-template-modal";
 
 interface IManegeQuestionHeaderProps {}
 
 const ManegeTemplateHeader: React.FunctionComponent<
   IManegeQuestionHeaderProps
 > = () => {
-  const [open, setOpen] = React.useState(false);
-  const [loading, setLoading] = React.useState(false);
-
   return (
     <>
-      <ManageTemplateModal
-        mode="create"
-        isOpen={open}
-        loading={loading}
-        onClose={() => setOpen(false)}
-        onConfirm={() => {}}
-      />
       <div className="flex w-full items-center justify-between">
         <ManageHeader
           title="템플릿 관리"
@@ -37,13 +27,13 @@ const ManegeTemplateHeader: React.FunctionComponent<
             />
           }
         />
-        <button
-          onClick={() => setOpen(true)}
+        <Link
+          href="/manage/template/create"
           className="flex items-center gap-x-[10px] rounded-full bg-wpc-primary px-[18px] py-[14px] text-wpt-md font-semibold text-white"
         >
           <PlusIcon className="h-4 w-4" />
           템플릿 생성
-        </button>
+        </Link>
       </div>
     </>
   );

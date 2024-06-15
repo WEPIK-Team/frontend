@@ -57,7 +57,7 @@ export function TemplateSelectCard({
             <Heading as="h3" className="m-0 p-0 text-wpt-md">
               {title}
             </Heading>
-            <div className="mt-[3px] flex gap-[5px]">
+            <div className="mt-[3px] flex flex-wrap gap-[5px]">
               {templateTags.map((tag) => (
                 <p
                   className={cn(
@@ -73,7 +73,7 @@ export function TemplateSelectCard({
               ))}
             </div>
           </div>
-          {isAdmin ? <TemplateAction /> : null}
+          {isAdmin ? <TemplateAction id={id} /> : null}
         </CardFooter>
       </Card>
     </>

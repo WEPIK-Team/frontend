@@ -19,10 +19,10 @@ const QuestionHeader: React.FunctionComponent<IQuestionHeaderProps> = () => {
         <Button className="bg-transparent" onClick={() => router.back()}>
           <Image
             src="/svgs/chevron-left.svg"
-            width={11}
-            height={11}
+            width={15}
+            height={15}
             alt="back"
-            style={{ width: 11, height: 11 }}
+            style={{ width: 15, height: 15 }}
           />
         </Button>
 

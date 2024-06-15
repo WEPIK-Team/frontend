@@ -1,7 +1,7 @@
 import { cva } from "class-variance-authority";
+import { motion } from "framer-motion";
 import Image from "next/image";
 
-import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 interface IndexItemProps {
@@ -40,7 +40,7 @@ const IndexItem = ({
   isSelected,
   onSelect,
 }: IndexItemProps) => {
-  const isAnswer = !!content && content.trim().length > 0;
+  const isAnswer = typeof content === "string" && content.trim().length > 0;
 
   const motionVariants = {
     selected: { scale: 1.02, transition: { duration: 0.2 } },

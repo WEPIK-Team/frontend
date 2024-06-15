@@ -52,7 +52,7 @@ export const createQuestion = async (
   return response.json();
 };
 
-export const deleteQuestion = async (id: string) => {
+export const deleteQuestion = async (id: number) => {
   await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}${process.env.NEXT_PUBLIC_QUESTION}/${id}`,
     {
@@ -67,7 +67,7 @@ export const updateQuestion = async ({
   id,
   questionFormData,
 }: {
-  id: string;
+  id: number;
   questionFormData: QuestionFormSchemaType;
 }): Promise<string> => {
   const response = await fetch(
@@ -88,7 +88,7 @@ export const updateQuestion = async ({
   return response.text();
 };
 
-export const getQuestionbyId = async (id: string): Promise<IQuestion> => {
+export const getQuestionbyId = async (id: number): Promise<IQuestion> => {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}${process.env.NEXT_PUBLIC_QUESTION}/${id}`,
     {

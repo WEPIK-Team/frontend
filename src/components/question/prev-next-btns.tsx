@@ -1,7 +1,5 @@
 "use client";
 
-import { format } from "date-fns";
-import { ko } from "date-fns/locale";
 import {
   useParams,
   usePathname,
@@ -20,8 +18,15 @@ import { Button } from "@/components/ui/button";
 import useGlobalLoadingModalStore from "@/store/global-loading-modal-store";
 
 import useQuestion from "@/hooks/use-question";
+import {
+  allQuestionCheck,
+  formatDateforServer,
+  generateQuestionRequestData,
+} from "@/lib/question";
 
-import { IAnswerQuestionParam, QuestionType } from "@/types/question";
+import { toast } from "../ui/use-toast";
+
+import { QuestionType } from "@/types/question";
 
 interface IPrevNextBtnsProps<T extends FieldValues> {
   form: UseFormReturn<T, any, undefined>;
@@ -54,12 +59,21 @@ const PrevNextBtns = <T extends FieldValues>({
 
   const { id: questionId, imageURL } = currentQuestion;
 
-  const { onOpen: onLoadingOpen, onClose: onLoadingClose } =
-    useGlobalLoadingModalStore();
+  const {
+    isOpen: isLoadingOpen,
+    onOpen: onLoadingOpen,
+    onClose: onLoadingClose,
+  } = useGlobalLoadingModalStore();
 
   // function
 
-  const handleSubmit = async (data: T, direction: "prev" | "next") => {
+  const handleSubmit = async ({
+    data,
+    submitType,
+  }: {
+    data: T;
+    submitType: "prev" | "next" | "send";
+  }) => {
     const newValue =
       type !== "DATE"
         ? data[type]
@@ -74,60 +88,87 @@ const PrevNextBtns = <T extends FieldValues>({
     );
     updateQuestion(newQuestions);
 
-    if (direction === "next") {
-      if (index === maxLength) {
-        onLoadingOpen();
-        const requestData = generateQuestionRequestData({
-          questions: newQuestions,
-          templateId,
-          senderId: senderIdParams,
-        });
-
-        // Success
-        const { receiverId, senderId } =
-          await completeQuestionAnswer(requestData);
-
-        onLoadingClose();
-        clearQuestion();
-
-        if (senderIdParams && receiverId && senderId) {
-          router.replace(
-            `${pathname}/success/receiver?senderId=${senderId}&receiverId=${receiverId}`
-          );
-        } else {
-          router.replace(`${pathname}/success/sender?senderId=${receiverId}`);
-        }
-      } else {
+    switch (submitType) {
+      case "prev":
+        prevQuestion();
+        break;
+      case "next":
         nextQuestion();
-      }
-    } else {
-      prevQuestion();
+        break;
+      case "send":
+        if (!allQuestionCheck(newQuestions)) {
+          toast({
+            variant: "destructive",
+            className: cn(
+              "top-20 -translate-x-1/2 left-1/2 flex fixed md:max-w-[350px]"
+            ),
+            title: `아직 다 작성하시지 않은 문제가 있어요!`,
+          });
+          break;
+        } else {
+          onLoadingOpen();
+          const requestData = generateQuestionRequestData({
+            questions: newQuestions,
+            templateId,
+            senderId: senderIdParams,
+          });
+
+          const { receiverId, senderId } =
+            await completeQuestionAnswer(requestData);
+
+          onLoadingClose();
+          clearQuestion();
+
+          if (senderIdParams && receiverId && senderId) {
+            router.replace(
+              `${pathname}/success/sender/receiver?senderId=${senderId}&receiver=${receiverId}`
+            );
+          } else {
+            router.replace(`${pathname}/success/sender?senderId=${receiverId}`);
+          }
+        }
+        break;
+      default:
+        break;
     }
   };
 
-  const handlePrev = form.handleSubmit((data: T) => handleSubmit(data, "prev"));
-  const handleNext = form.handleSubmit((data: T) => handleSubmit(data, "next"));
+  const handlePrev = () => {
+    prevQuestion();
+  };
+
+  const handleNext = form.handleSubmit((data: T) => {
+    handleSubmit({ data, submitType: "next" });
+  });
+
+  const handleSend = form.handleSubmit(
+    async (data: T) => await handleSubmit({ data, submitType: "send" })
+  );
 
   return (
     <div
       className={cn(
-        "absolute bottom-0 mx-auto flex w-full gap-x-4",
+        "absolute bottom-0 mx-auto flex w-full  gap-x-4",
         imageURL ? "" : "mt-[40px]"
       )}
     >
       <Button
         type="button"
         onClick={handlePrev}
-        className="w-full bg-wpc-light-gray text-wpc-gray"
+        className="w-full border-b-4 bg-wpc-light-gray text-wpc-gray active:border-b-2
+        
+        "
         variant="gray"
+        disabled={isLoadingOpen}
       >
         이전
       </Button>
       <Button
-        onClick={handleNext}
+        onClick={maxLength === index ? handleSend : handleNext}
         variant="default"
         type="button"
-        className="w-full"
+        className="w-full border-b-[6px] border-wpc-primary bg-wpc-primary/90 active:border-b-2 "
+        disabled={isLoadingOpen}
       >
         {maxLength === index ? "완료" : "다음"}
       </Button>
@@ -136,45 +177,3 @@ const PrevNextBtns = <T extends FieldValues>({
 };
 
 export default PrevNextBtns;
-
-export function formatDateforKor(date: Date): null | string {
-  if (!date) return null;
-  return format(date, "yyyy/MM/dd", {
-    locale: ko,
-  });
-}
-
-export function formatDateforServer({ from, to }: { from: Date; to?: Date }) {
-  const newValue = to
-    ? `${formatDateforKor(from)} - ${formatDateforKor(to)}`
-    : `${formatDateforKor(from)}`;
-
-  return newValue;
-}
-
-function generateQuestionRequestData({
-  questions,
-  templateId,
-  senderId,
-}: IAnswerQuestionParam) {
-  const uuid = senderId ? senderId : null;
-
-  const answerDtos = questions.map((question, i) => ({
-    content: question.content.toString(),
-    type: question.type,
-    questionId: parseInt(question.id),
-    sequence: i + 1,
-  }));
-
-  if (!uuid)
-    return {
-      templateId: parseInt(templateId),
-      answerDtos,
-    };
-
-  return {
-    uuid,
-    templateId: parseInt(templateId),
-    answerDtos,
-  };
-}

@@ -3,62 +3,81 @@
 import { useEffect, useState } from "react";
 import { UseFormSetValue } from "react-hook-form";
 
-import {
-  BaseQuestion,
-  ColumnType,
-  generateQuestions,
-} from "@/lib/data/question";
+import { getManageQuestionList } from "@/lib/api/manage-question";
+
 import { CreateTemplateValues } from "@/lib/schema/template-schema";
 
 import Column from "./question-board-column";
+
+import { ColumnType, IQuestion } from "@/types/question";
+
+interface QuestionState {
+  used: IQuestion[];
+  unused: IQuestion[];
+}
 
 interface QuestionBoardProps {
   onQuestionSelected: UseFormSetValue<CreateTemplateValues>;
 }
 
+export type SetQuestionsType = React.Dispatch<
+  React.SetStateAction<QuestionState>
+>;
+
 export default function QuestionBoard({
   onQuestionSelected,
 }: QuestionBoardProps) {
-  const [questions, setQuestions] = useState<BaseQuestion[]>([]);
-  //{used: [...questions], unused: [...questions]}
+  const [questions, setQuestions] = useState<QuestionState>({
+    used: [],
+    unused: [],
+  });
+
+  const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
-    const initialQuestions = generateQuestions();
-    setQuestions(initialQuestions);
+    const fetchQuestions = async () => {
+      setLoading(true);
+      try {
+        const initialQuestions = await getManageQuestionList();
+        setQuestions({ used: [], unused: initialQuestions });
+      } catch (error) {
+        console.error("Failed to fetch questions:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchQuestions();
   }, []);
 
   useEffect(() => {
-    const selectedQuestionIds: string[] = questions.reduce(
-      (acc: string[], question) => {
-        if (question.column === ColumnType.Use) {
-          acc.push(question.title);
+    const usedQuestionIds: number[] = questions.used.reduce(
+      (acc: number[], question) => {
+        if (question) {
+          acc.push(question.id);
         }
         return acc;
       },
       []
     );
 
-    onQuestionSelected("questions", selectedQuestionIds);
+    onQuestionSelected("questionIds", usedQuestionIds);
   }, [questions, onQuestionSelected]);
 
   return (
-    <div className="relative flex h-full w-full gap-[8px] py-2">
-      {questions !== null && (
-        <>
-          <Column
-            title="사용"
-            column={ColumnType.Use}
-            questions={questions}
-            setQuestions={setQuestions}
-          />
-          <Column
-            title="미사용"
-            column={ColumnType.Unused}
-            questions={questions}
-            setQuestions={setQuestions}
-          />
-        </>
-      )}
+    <div className="relative flex h-full w-full gap-[8px]">
+      <Column
+        title="사용"
+        column={ColumnType.Use}
+        questions={questions.used}
+        setQuestions={setQuestions}
+      />
+      <Column
+        title="미사용"
+        column={ColumnType.Unused}
+        questions={questions.unused}
+        setQuestions={setQuestions}
+      />
     </div>
   );
 }

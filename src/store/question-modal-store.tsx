@@ -3,7 +3,7 @@ import { create } from "zustand";
 export type QuestionModalType = "DELETE" | "EDIT";
 
 type QuestionModal = {
-  targetId: string | null;
+  targetId: number | null;
   isDeleteOpen: boolean;
   isEditOpen: boolean;
 };
@@ -11,14 +11,14 @@ type QuestionModal = {
 type QuestionModalActions = {
   onOpen: (type: QuestionModalType) => void;
   onClose: (type: QuestionModalType) => void;
-  setTargetId: (id: string) => void;
+  setTargetId: (id: number) => void;
   clearTargetId: () => void;
 };
 
 export type QuestionModalStore = QuestionModal & QuestionModalActions;
 
 const useQuestionModalStore = create<QuestionModalStore>((set) => ({
-  targetId: "",
+  targetId: null,
   isDeleteOpen: false,
   isEditOpen: false,
   onClose(type) {

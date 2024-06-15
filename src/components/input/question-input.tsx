@@ -1,6 +1,8 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -33,7 +35,7 @@ type FormSchemeType = z.infer<typeof FormSchema>;
 const QuestionInput: React.FunctionComponent<IQuestionInputProps> = () => {
   // zustand
   const { currentQuestion } = useQuestion();
-  const { content } = currentQuestion;
+  const { content, id } = currentQuestion;
 
   // react hook form
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -45,10 +47,21 @@ const QuestionInput: React.FunctionComponent<IQuestionInputProps> = () => {
   });
 
   const inputLength = form.watch("INPUT").length || 0;
+  const [inputValue, setInputValue] = useState(content || "");
+
+  useEffect(() => {
+    setInputValue(content || "");
+    form.reset({ INPUT: content || "" });
+  }, [content, form, id]);
 
   return (
     <Form {...form}>
-      <form className="w-full space-y-2">
+      <motion.form
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.1 }}
+        className="w-full space-y-2"
+      >
         <FormField
           control={form.control}
           name="INPUT"
@@ -60,6 +73,11 @@ const QuestionInput: React.FunctionComponent<IQuestionInputProps> = () => {
                     isError={!!formState.errors.INPUT?.message || false}
                     variant="grad"
                     {...field}
+                    value={inputValue}
+                    onChange={(e) => {
+                      setInputValue(e.target.value);
+                      field.onChange(e);
+                    }}
                     placeholder="답변을 입력하세요"
                   />
                 </FormControl>
@@ -69,7 +87,7 @@ const QuestionInput: React.FunctionComponent<IQuestionInputProps> = () => {
           }}
         />
         <QuestionTextCounter max={50} current={inputLength} />
-      </form>
+      </motion.form>
       <PrevNextBtns<FormSchemeType> type="INPUT" form={form} />
     </Form>
   );

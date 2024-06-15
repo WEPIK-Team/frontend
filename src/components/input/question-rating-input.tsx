@@ -1,7 +1,8 @@
-"use cllient";
+"use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as React from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -19,14 +20,14 @@ const FormSchema = z.object({
   STAR_RANK: z.string().min(1, { message: "별점을 선택해 주세요" }),
 });
 
-type FormSchemeType = z.infer<typeof FormSchema>;
+type FormSchemaType = z.infer<typeof FormSchema>;
 
 const QuestionRatingInput: React.FunctionComponent<
   IQuestionRatingInputProps
 > = () => {
   // zustand
   const { currentQuestion } = useQuestion();
-  const { content } = currentQuestion;
+  const { content, id } = currentQuestion;
 
   // react hook form
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -36,9 +37,13 @@ const QuestionRatingInput: React.FunctionComponent<
     },
   });
 
-  // const onNext = (data: z.infer<typeof FormSchema>) => {
+  const [ratingValue, setRatingValue] = useState(parseFloat(content) || 2.5);
 
-  // };
+  useEffect(() => {
+    const newValue = parseFloat(content) || 0;
+    setRatingValue(newValue);
+    form.reset({ STAR_RANK: newValue.toString() });
+  }, [content, form, id]);
 
   return (
     <Form {...form}>
@@ -55,8 +60,9 @@ const QuestionRatingInput: React.FunctionComponent<
                     size={56}
                     emptyColor="#DBDADE"
                     theme="sender"
-                    value={parseFloat(field.value)}
+                    value={ratingValue}
                     onRateChange={(value) => {
+                      setRatingValue(value);
                       field.onChange(value.toString());
                     }}
                   />
@@ -66,7 +72,7 @@ const QuestionRatingInput: React.FunctionComponent<
             );
           }}
         />
-        <PrevNextBtns<FormSchemeType> type="STAR_RANK" form={form} />
+        <PrevNextBtns<FormSchemaType> type="STAR_RANK" form={form} />
       </form>
     </Form>
   );

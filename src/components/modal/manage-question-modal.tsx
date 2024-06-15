@@ -8,12 +8,12 @@ import { getQuestionbyId } from "@/lib/api/manage-question";
 import QuestionForm from "@/components/manage/question-form";
 import { Modal } from "@/components/modal/modal";
 
-import { IQuestion } from "@/types/question";
+import { IQuestion, QuestionType } from "@/types/question";
 
 interface IManageQuestionModal {
   mode: "create" | "edit";
   isOpen: boolean;
-  questionId?: string;
+  questionId?: number;
   onClose: () => void;
   onConfirm: () => void;
 }
@@ -30,8 +30,12 @@ export const ManageQuestionModal: React.FC<IManageQuestionModal> = ({
     setIsMounted(true);
   }, []);
 
-  const [data, setData] = useState<IQuestion>({
-    id: "",
+  const [data, setData] = useState<
+    Omit<IQuestion, "type"> & {
+      type: "" | QuestionType;
+    }
+  >({
+    id: 0,
     imageURL: "",
     title: "",
     type: "",
