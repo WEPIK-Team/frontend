@@ -23,7 +23,7 @@ const SocialShare = ({ kakaoId, type }: SocialShareProps) => {
   if (type === "sender") {
     url = `${url}?senderId=${searchParams.get("senderId")}`;
   } else if (type === "receiver") {
-    url = `${url}/result?senderId=${searchParams.get("senderId")}&receiverId=${searchParams.get("receiverId")}`;
+    url = `${url}/result/${searchParams.get("senderId")}/${searchParams.get("receiverId")}`;
   }
 
   const Icons = [
