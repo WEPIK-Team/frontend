@@ -5,13 +5,13 @@ import { UseFormSetValue } from "react-hook-form";
 
 import { getTagList } from "@/lib/api/template";
 
-import { StepOneData } from "@/lib/schema/template-schema";
+import { CreateTemplateValues } from "@/lib/schema/template-schema";
 
 import TagItem from "./tag-item";
 import { Input } from "../ui/input";
 
 interface TagBoardProps {
-  onTagSelected: UseFormSetValue<StepOneData>;
+  onTagSelected: UseFormSetValue<CreateTemplateValues>;
   storeTags: string[];
 }
 

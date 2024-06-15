@@ -1,6 +1,9 @@
 "use server";
 
 import { revalidateTag } from "next/cache";
+import { redirect } from "next/navigation";
+
+import { CreateTemplateValues } from "@/lib/schema/template-schema";
 
 import { IFileResponse } from "@/types/question";
 
@@ -16,6 +19,22 @@ export const templatenUploadImageFile = async (
   );
 
   return await response.json();
+};
+
+export const createTemplate = async (data: CreateTemplateValues) => {
+  await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}${process.env.NEXT_PUBLIC_TEMPLATE}`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    }
+  );
+
+  revalidateTag("template-list");
+  redirect("/manage/template");
 };
 
 export const deleteTemplate = async (id: number) => {

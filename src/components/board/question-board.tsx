@@ -5,7 +5,7 @@ import { UseFormSetValue } from "react-hook-form";
 
 import { getManageQuestionList } from "@/lib/api/manage-question";
 
-import { StepTwoData } from "@/lib/schema/template-schema";
+import { CreateTemplateValues } from "@/lib/schema/template-schema";
 
 import Column from "./question-board-column";
 
@@ -17,7 +17,7 @@ interface QuestionState {
 }
 
 interface QuestionBoardProps {
-  onQuestionSelected: UseFormSetValue<StepTwoData>;
+  onQuestionSelected: UseFormSetValue<CreateTemplateValues>;
 }
 
 export type SetQuestionsType = React.Dispatch<

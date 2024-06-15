@@ -5,6 +5,7 @@ import {
   Pencil2Icon,
   TrashIcon,
 } from "@radix-ui/react-icons";
+import Link from "next/link";
 import { useState } from "react";
 
 import { cn } from "@/lib/utils";
@@ -55,6 +56,11 @@ export const TemplateAction = ({ id }: TemplateActionProps) => {
     }
   };
 
+  const onDeleteOpen = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+    setOpen(true);
+  };
+
   return (
     <>
       <AlertModal
@@ -75,20 +81,13 @@ export const TemplateAction = ({ id }: TemplateActionProps) => {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuItem
-            onClick={(e) => {
-              e.stopPropagation();
-            }}
-          >
-            <Pencil2Icon className="mr-2 h-4 w-4" />
-            수정하기
+          <DropdownMenuItem asChild>
+            <Link href={`/manage/template/edit/${id}`}>
+              <Pencil2Icon className="mr-2 h-4 w-4" />
+              수정하기
+            </Link>
           </DropdownMenuItem>
-          <DropdownMenuItem
-            onClick={(e) => {
-              e.stopPropagation();
-              setOpen(true);
-            }}
-          >
+          <DropdownMenuItem onClick={onDeleteOpen}>
             <TrashIcon className="mr-2 h-4 w-4" />
             삭제하기
           </DropdownMenuItem>
