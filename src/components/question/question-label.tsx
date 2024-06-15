@@ -14,7 +14,11 @@ const QuestionLabel: React.FunctionComponent<IQuestionLabelProps> = ({
   color,
   children,
 }) => {
-  return <p className={`text-wpt-base-1  ${labelObj[color]}`}>{children}</p>;
+  return (
+    <p className={`text-wpt-base-1 font-medium ${labelObj[color]}`}>
+      {children}
+    </p>
+  );
 };
 
 export default QuestionLabel;
