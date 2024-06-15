@@ -55,6 +55,26 @@ export interface IAnswerQuestionResponse {
   receiverId: string;
 }
 
+export type SelectQuestionDto = {
+  sequence: number;
+  title: string;
+};
+
+export type QuestionAnswer = {
+  sequence: number;
+  title: string;
+  type: string;
+  answer: string;
+  imgPath: string;
+  selectQuestionDtos: SelectQuestionDto[];
+};
+
+export interface IResultQuestion {
+  templateTitle: string;
+  senderAnswers: QuestionAnswer[];
+  receiverAnswers: QuestionAnswer[];
+}
+
 export enum ColumnType {
   Use = "use",
   Unused = "unused",

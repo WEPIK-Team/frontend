@@ -121,7 +121,7 @@ const PrevNextBtns = <T extends FieldValues>({
 
           if (senderIdParams && receiverId && senderId) {
             router.replace(
-              `${pathname}/success/sender/receiver?senderId=${senderId}&receiver=${receiverId}`
+              `${pathname}/success/receiver?senderId=${senderId}&receiverId=${receiverId}`
             );
           } else {
             router.replace(`${pathname}/success/sender?senderId=${receiverId}`);

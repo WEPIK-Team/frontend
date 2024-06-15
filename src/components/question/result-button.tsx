@@ -21,7 +21,7 @@ const QuestionResultButton = () => {
   const handleResultClick = () => {
     const url = `${window.location.origin}${extractQuestionPath(window.location.pathname)}`;
     router.push(
-      `${url}/result?senderId=${searchParams.get("senderId")}&receiverId=${searchParams.get("receiverId")}`
+      `${url}/result/${searchParams.get("senderId")}/${searchParams.get("receiverId")}`
     );
   };
   return (
