@@ -14,9 +14,10 @@ interface ISelectItemProps extends React.HTMLAttributes<HTMLLIElement> {
 
 const ItemTheme = {
   theme: {
-    sender: "div-sender-gradient",
+    sender: "div-sender-gradient ",
     receiver: "div-receiver-gradient",
-    default: "div-border-gradient",
+    default:
+      "div-border-gradient shadow-[0px_0px_8px_0px_rgba(99,119,221,0.2)]",
     both: "div-border-gradient",
   },
   iconPath: {
@@ -36,8 +37,10 @@ const SelectItem: React.FunctionComponent<ISelectItemProps> = ({
   return (
     <li
       className={cn(
-        "relative w-full cursor-pointer rounded-full bg-white text-wpt-base-2 font-semibold transition-all ",
-        isSelect ? ItemTheme.theme[theme] : "border border-wpc-gray2"
+        "relative w-full cursor-pointer rounded-full bg-white text-wpt-base-2 font-semibold  transition-all ",
+        isSelect
+          ? ItemTheme.theme[theme]
+          : "border border-wpc-gray2 shadow-[0px_0px_8px_0px_rgba(0,0,0,0.05)]"
       )}
       onClick={onClick}
     >
@@ -45,7 +48,7 @@ const SelectItem: React.FunctionComponent<ISelectItemProps> = ({
         <p>{value}</p>
       </div>
       {isSelect && theme !== "both" && (
-        <AnimatieSelectIcon className="absolute right-[15px] top-1/2 -translate-y-1/2" />
+        <AnimatieSelectIcon className="absolute right-[15px] top-1/2 -translate-y-1/2 " />
       )}
 
       {isSelect && theme === "both" && (
