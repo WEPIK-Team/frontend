@@ -67,7 +67,7 @@ const QuestionInput: React.FunctionComponent<IQuestionInputProps> = () => {
           name="INPUT"
           render={({ field, formState }) => {
             return (
-              <FormItem>
+              <FormItem className="relative">
                 <FormControl>
                   <Input
                     isError={!!formState.errors.INPUT?.message || false}
@@ -81,12 +81,12 @@ const QuestionInput: React.FunctionComponent<IQuestionInputProps> = () => {
                     placeholder="답변을 입력하세요"
                   />
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="absolute" />
+                <QuestionTextCounter max={50} current={inputLength} />
               </FormItem>
             );
           }}
         />
-        <QuestionTextCounter max={50} current={inputLength} />
       </motion.form>
       <PrevNextBtns<FormSchemeType> type="INPUT" form={form} />
     </Form>
