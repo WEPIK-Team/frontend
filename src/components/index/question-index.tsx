@@ -19,7 +19,7 @@ const QuestionIndex = () => {
   return (
     <Drawer>
       <DrawerTrigger asChild>
-        <Button className="bg-transparent">
+        <Button className="w-[32px] bg-transparent p-0">
           <Image
             src="/svgs/menu.svg"
             width={22}

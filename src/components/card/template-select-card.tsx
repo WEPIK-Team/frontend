@@ -24,23 +24,23 @@ export function TemplateSelectCard({
   const router = useRouter();
   return (
     <>
-      <Card
-        className="cursor-pointer"
-        onClick={() => router.push(`/question/${id}`)}
-      >
+      <Card>
         <CardContent className="relative w-full">
           <div>
-            <div className="relative h-[174px] w-full">
+            <div
+              className="relative mx-auto h-[174px] w-full cursor-pointer overflow-hidden rounded-xl"
+              onClick={() => router.push(`/question/${id}`)}
+            >
               <Image
                 src={imageURL}
-                className="h-auto w-auto rounded-xl"
+                className="h-auto w-auto rounded-xl transition-all duration-300 hover:scale-110"
                 alt={title}
                 fill
                 sizes="50vw"
               />
             </div>
             <div className="absolute bottom-0 left-0 right-0 z-20 flex h-9 rounded-b-lg bg-gradient-to-t from-[rgba(0,0,0,0.3)]">
-              <div className="ml-3 flex items-center gap-[6px] text-sm text-white">
+              <div className="ml-3 flex items-center gap-[6px] text-sm text-white ">
                 <Image
                   width={12}
                   height={12}
