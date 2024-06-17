@@ -27,18 +27,20 @@ const templateThumbnailSchema = z.union([
     ),
 ]);
 
-export const stepOneSchema = z.object({
+export const templateInfoSchema = z.object({
   title: requiredString.max(15),
   storedName: templateThumbnailSchema,
   tags: tagsSchema,
 });
 
-export const stepTwoSchema = z.object({
+export const templateQuestionIdsSchema = z.object({
   questionIds: requiredQuestionIdsSchema,
 });
 
-export const createTemplateSchema = stepOneSchema.merge(stepTwoSchema);
+export const createTemplateSchema = templateInfoSchema.merge(
+  templateQuestionIdsSchema
+);
 
-export type StepOneData = z.infer<typeof stepOneSchema>;
-export type StepTwoData = z.infer<typeof stepTwoSchema>;
+export type TemplateInfo = z.infer<typeof templateInfoSchema>;
+export type TemplateQuestionIds = z.infer<typeof templateQuestionIdsSchema>;
 export type CreateTemplateValues = z.infer<typeof createTemplateSchema>;
