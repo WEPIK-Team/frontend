@@ -36,7 +36,7 @@ export const Modal: React.FC<ModalProps> = ({
   return (
     <PropagationStopper propagation={propagation}>
       <Dialog open={isOpen} onOpenChange={onChange}>
-        <DialogContent className="max-h-[650px]">
+        <DialogContent className="max-h-[650px] overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="text-wpt-xl">{title}</DialogTitle>
             <DialogDescription>{desc}</DialogDescription>

@@ -2,8 +2,9 @@
 
 import { DragEvent, useState } from "react";
 
+import useTemplate from "@/hooks/use-template";
+
 import DropIndicator from "./drop-indicator";
-import { SetQuestionsType } from "./question-board";
 import QuestionBoardCard from "./question-board-card";
 import Heading from "../common/heading";
 
@@ -13,11 +14,11 @@ interface ColumnProps {
   title: string;
   column: ColumnType;
   questions: IQuestion[];
-  setQuestions: SetQuestionsType;
 }
 
-const Column = ({ title, questions, column, setQuestions }: ColumnProps) => {
+const QuestionBoardColumn = ({ title, questions, column }: ColumnProps) => {
   const [active, setActive] = useState(false);
+  const { moveQuestion, dragEndQuestions } = useTemplate();
 
   const handleDragStart = (e: DragEvent, question: IQuestion) => {
     e.dataTransfer?.setData("questionId", String(question.id));
@@ -36,36 +37,7 @@ const Column = ({ title, questions, column, setQuestions }: ColumnProps) => {
   };
 
   const handleClick = (questionId: number) => {
-    setQuestions((prevQuestions) => {
-      const used = [...prevQuestions.used];
-      const unused = [...prevQuestions.unused];
-
-      let cardToMove;
-      let sourceArray, destinationArray;
-
-      if (used.some((q) => q.id === questionId)) {
-        sourceArray = used;
-        destinationArray = unused;
-      } else if (unused.some((q) => q.id === questionId)) {
-        sourceArray = unused;
-        destinationArray = used;
-      } else {
-        return prevQuestions;
-      }
-
-      const questionIndex = sourceArray.findIndex((q) => q.id === questionId);
-      if (questionIndex === -1) return prevQuestions;
-
-      // eslint-disable-next-line prefer-const
-      [cardToMove] = sourceArray.splice(questionIndex, 1);
-
-      destinationArray.push(cardToMove);
-
-      return {
-        used,
-        unused,
-      };
-    });
+    moveQuestion(questionId);
   };
 
   const handleDragEnd = (e: DragEvent<HTMLDivElement>) => {
@@ -79,32 +51,7 @@ const Column = ({ title, questions, column, setQuestions }: ColumnProps) => {
 
     const before = element.dataset.before || "-1";
 
-    setQuestions((prevQuestions) => {
-      const used = [...prevQuestions.used];
-      const unused = [...prevQuestions.unused];
-
-      let question = null;
-
-      const findAndRemoveQuestion = (list: IQuestion[], id: string) => {
-        const index = list.findIndex((q) => String(q.id) === id);
-        return index !== -1 ? list.splice(index, 1)[0] : null;
-      };
-
-      question =
-        findAndRemoveQuestion(used, questionId) ||
-        findAndRemoveQuestion(unused, questionId);
-
-      if (question && before !== questionId) {
-        const insertIndex = used.findIndex((q) => String(q.id) === before);
-        if (insertIndex === -1) {
-          used.push(question);
-        } else {
-          used.splice(insertIndex, 0, question);
-        }
-      }
-
-      return { used, unused };
-    });
+    dragEndQuestions(questionId, before);
   };
 
   const clearHighlights = (els?: HTMLElement[]) => {
@@ -129,7 +76,7 @@ const Column = ({ title, questions, column, setQuestions }: ColumnProps) => {
     e: DragEvent<HTMLDivElement>,
     indicators: HTMLElement[]
   ) => {
-    const DISTANCE_OFFSET = 50;
+    const DISTANCE_OFFSET = 30;
 
     const el = indicators.reduce(
       (closest, child) => {
@@ -201,4 +148,4 @@ const Column = ({ title, questions, column, setQuestions }: ColumnProps) => {
   );
 };
 
-export default Column;
+export default QuestionBoardColumn;

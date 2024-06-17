@@ -1,82 +1,44 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { UseFormSetValue } from "react-hook-form";
 
-import { getManageQuestionList } from "@/lib/api/manage-question";
+import QuestionBoardColumn from "@/components/board/question-board-column";
 
+import useTemplate from "@/hooks/use-template";
 import { CreateTemplateValues } from "@/lib/schema/template-schema";
 
-import Column from "./question-board-column";
-
-import { ColumnType, IQuestion } from "@/types/question";
-
-interface QuestionState {
-  used: IQuestion[];
-  unused: IQuestion[];
-}
+import { ColumnType } from "@/types/question";
 
 interface QuestionBoardProps {
   onQuestionSelected: UseFormSetValue<CreateTemplateValues>;
 }
 
-export type SetQuestionsType = React.Dispatch<
-  React.SetStateAction<QuestionState>
->;
-
 export default function QuestionBoard({
   onQuestionSelected,
 }: QuestionBoardProps) {
-  const [questions, setQuestions] = useState<QuestionState>({
-    used: [],
-    unused: [],
-  });
-
-  const [isLoading, setLoading] = useState(true);
+  const { templateQuestions, fetchUnusedQuestions, questionIds } =
+    useTemplate();
 
   useEffect(() => {
-    const fetchQuestions = async () => {
-      setLoading(true);
-      try {
-        const initialQuestions = await getManageQuestionList();
-        setQuestions({ used: [], unused: initialQuestions });
-      } catch (error) {
-        console.error("Failed to fetch questions:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchQuestions();
-  }, []);
+    fetchUnusedQuestions();
+  }, [fetchUnusedQuestions]);
 
   useEffect(() => {
-    const usedQuestionIds: number[] = questions.used.reduce(
-      (acc: number[], question) => {
-        if (question) {
-          acc.push(question.id);
-        }
-        return acc;
-      },
-      []
-    );
-
-    onQuestionSelected("questionIds", usedQuestionIds);
-  }, [questions, onQuestionSelected]);
+    onQuestionSelected("questionIds", questionIds);
+  }, [templateQuestions, onQuestionSelected]);
 
   return (
     <div className="relative flex h-full w-full gap-[8px]">
-      <Column
+      <QuestionBoardColumn
         title="사용"
         column={ColumnType.Use}
-        questions={questions.used}
-        setQuestions={setQuestions}
+        questions={templateQuestions.usedQuestions}
       />
-      <Column
+      <QuestionBoardColumn
         title="미사용"
         column={ColumnType.Unused}
-        questions={questions.unused}
-        setQuestions={setQuestions}
+        questions={templateQuestions.unUsedQuestions}
       />
     </div>
   );
