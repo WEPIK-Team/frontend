@@ -34,6 +34,7 @@ const buttonVariants = cva(
         disabled: true,
         className: "bg-wpc-gray2 cursor-not-allowed shadow-none",
       },
+
       {
         variant: "gray",
         disabled: true,

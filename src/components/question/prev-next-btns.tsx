@@ -24,9 +24,11 @@ import {
   generateQuestionRequestData,
 } from "@/lib/question";
 
-import { toast } from "../ui/use-toast";
+import { toast } from "@/components/ui/use-toast";
 
 import { QuestionType } from "@/types/question";
+
+import "@/components/question/button-animation.css";
 
 interface IPrevNextBtnsProps<T extends FieldValues> {
   form: UseFormReturn<T, any, undefined>;
@@ -145,6 +147,18 @@ const PrevNextBtns = <T extends FieldValues>({
     async (data: T) => await handleSubmit({ data, submitType: "send" })
   );
 
+  const animateButton = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ): void => {
+    e.preventDefault();
+    const target = e.target as HTMLButtonElement;
+    target.classList.remove("animate");
+    target.classList.add("animate");
+    setTimeout(() => {
+      target.classList.remove("animate");
+    }, 450);
+  };
+
   return (
     <div
       className={cn(
@@ -155,20 +169,27 @@ const PrevNextBtns = <T extends FieldValues>({
       <Button
         type="button"
         onClick={handlePrev}
-        className="w-full border-b-4 bg-wpc-light-gray text-wpc-gray active:border-b-2
-        
-        "
+        className="w-full"
         variant="gray"
         disabled={isLoadingOpen}
       >
         이전
       </Button>
       <Button
-        onClick={maxLength === index ? handleSend : handleNext}
+        onClick={(e) => {
+          if (maxLength === index) {
+            animateButton(e);
+            handleSend();
+          } else {
+            handleNext();
+          }
+        }}
         variant="default"
         type="button"
-        className="w-full border-b-[6px] border-wpc-primary bg-wpc-primary/90 active:border-b-2 "
-        disabled={isLoadingOpen}
+        className={cn(
+          "relative w-full shadow-[0px_0px_10px_0px_rgba(0,0,0,0.2)] transition active:shadow-none",
+          maxLength === index ? "bubbly-button" : ""
+        )}
       >
         {maxLength === index ? "완료" : "다음"}
       </Button>
