@@ -48,7 +48,7 @@ const Question: React.FunctionComponent<IQuestionProps> = () => {
     <div className="mx-auto flex h-full w-full max-w-xl flex-col items-center justify-center px-[16px]">
       <div
         className={cn(
-          "relative mt-[40px] w-full  pb-[70px]",
+          "relative mt-[40px] w-full pb-[70px]",
           imageURL
             ? " h-full space-y-[24px]"
             : "flex min-h-[400px] flex-col gap-y-[20px]"

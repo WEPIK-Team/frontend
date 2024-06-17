@@ -4,14 +4,17 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 import useHelpModalStore from "@/store/help-modal-store";
 
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
-
 const HelpModal = () => {
-  const { isVisited, openModal } = useHelpModalStore();
-  const [isOpen, setIsOpen] = useState(false);
+  const { isVisited, openModal, isOpen, setIsOpen } = useHelpModalStore();
   const [step, setStep] = useState(0);
 
   const handleNext = () => {
@@ -33,7 +36,7 @@ const HelpModal = () => {
       setIsOpen(true);
       openModal();
     }
-  }, []);
+  }, [isOpen]);
 
   return (
     <Dialog open={isOpen} onOpenChange={() => setIsOpen(false)}>
