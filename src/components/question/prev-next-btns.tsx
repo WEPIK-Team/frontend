@@ -162,7 +162,7 @@ const PrevNextBtns = <T extends FieldValues>({
   return (
     <div
       className={cn(
-        "absolute bottom-0 mx-auto flex w-full  gap-x-4",
+        "absolute bottom-0 mx-auto flex w-full gap-x-4",
         imageURL ? "" : "mt-[40px]"
       )}
     >
@@ -193,6 +193,43 @@ const PrevNextBtns = <T extends FieldValues>({
       >
         {maxLength === index ? "완료" : "다음"}
       </Button>
+      {/* <div ref={scope} className="w-full">
+        <Button
+          type="button"
+          onClick={testAnimation}
+          className="relative w-full"
+        >
+          <span className="sr-only">Animation Button!</span>
+          <span aria-hidden className="block h-8 overflow-hidden">
+            {["다", "음"].map((letter, index) => (
+              <span
+                data-letter={letter}
+                className="letter relative inline-block h-8 leading-8 after:absolute after:left-0 after:top-full after:h-8 after:content-[attr(data-letter)]"
+                key={`${letter}-${index}`}
+              >
+                {letter}
+              </span>
+            ))}
+          </span>
+          <span
+            aria-hidden
+            className="pointer-events-none absolute inset-0 -z-10 block bg-transparent"
+          >
+            {Array.from({ length: 50 }).map((_, index) => (
+              <svg
+                key={index}
+                xmlns="http://www.w3.org/2000/svg"
+                width="10"
+                height="10"
+                viewBox="0 0 24 24"
+                className={`absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 fill-wpc-second sparkle-${index}`}
+              >
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+              </svg>
+            ))}
+          </span>
+        </Button>
+      </div> */}
     </div>
   );
 };
