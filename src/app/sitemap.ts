@@ -1,5 +1,6 @@
-import { getTemplateList } from "@/lib/api/template";
 import { MetadataRoute } from "next";
+
+import { getTemplateList } from "@/lib/api/template";
 
 const BASE_URL =
   process.env.NODE_ENV === "development"

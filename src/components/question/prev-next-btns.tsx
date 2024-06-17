@@ -9,11 +9,14 @@ import {
 import * as React from "react";
 import { FieldValues, UseFormReturn } from "react-hook-form";
 
+import "@/components/question/button-animation.css";
+
 import { completeQuestionAnswer } from "@/lib/api/question";
 
 import { cn } from "@/lib/utils";
 
 import { Button } from "@/components/ui/button";
+import { toast } from "@/components/ui/use-toast";
 
 import useGlobalLoadingModalStore from "@/store/global-loading-modal-store";
 
@@ -24,11 +27,7 @@ import {
   generateQuestionRequestData,
 } from "@/lib/question";
 
-import { toast } from "@/components/ui/use-toast";
-
 import { QuestionType } from "@/types/question";
-
-import "@/components/question/button-animation.css";
 
 interface IPrevNextBtnsProps<T extends FieldValues> {
   form: UseFormReturn<T, any, undefined>;
