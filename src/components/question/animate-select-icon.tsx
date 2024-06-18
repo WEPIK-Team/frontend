@@ -16,6 +16,7 @@ const AnimatieSelectIcon: React.FunctionComponent<IAnimatieSelectIconProps> = ({
         width="24"
         height="24"
         viewBox="0 0 24 24"
+        className="rounded-full"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
@@ -48,8 +49,8 @@ const AnimatieSelectIcon: React.FunctionComponent<IAnimatieSelectIconProps> = ({
             pathLength: 1,
           }}
           transition={{
-            delay: 0.2,
-            duration: 0.5,
+            delay: 0.1,
+            duration: 0.3,
           }}
         />
       </svg>

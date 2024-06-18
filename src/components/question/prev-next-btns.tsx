@@ -9,11 +9,14 @@ import {
 import * as React from "react";
 import { FieldValues, UseFormReturn } from "react-hook-form";
 
+import "@/components/question/button-animation.css";
+
 import { completeQuestionAnswer } from "@/lib/api/question";
 
 import { cn } from "@/lib/utils";
 
 import { Button } from "@/components/ui/button";
+import { toast } from "@/components/ui/use-toast";
 
 import useGlobalLoadingModalStore from "@/store/global-loading-modal-store";
 
@@ -23,8 +26,6 @@ import {
   formatDateforServer,
   generateQuestionRequestData,
 } from "@/lib/question";
-
-import { toast } from "../ui/use-toast";
 
 import { QuestionType } from "@/types/question";
 
@@ -145,33 +146,89 @@ const PrevNextBtns = <T extends FieldValues>({
     async (data: T) => await handleSubmit({ data, submitType: "send" })
   );
 
+  const animateButton = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ): void => {
+    e.preventDefault();
+    const target = e.target as HTMLButtonElement;
+    target.classList.remove("animate");
+    target.classList.add("animate");
+    setTimeout(() => {
+      target.classList.remove("animate");
+    }, 450);
+  };
+
   return (
     <div
       className={cn(
-        "absolute bottom-0 mx-auto flex w-full  gap-x-4",
+        "absolute bottom-0 mx-auto flex w-full gap-x-4",
         imageURL ? "" : "mt-[40px]"
       )}
     >
       <Button
         type="button"
         onClick={handlePrev}
-        className="w-full border-b-4 bg-wpc-light-gray text-wpc-gray active:border-b-2
-        
-        "
+        className="w-full"
         variant="gray"
         disabled={isLoadingOpen}
       >
         이전
       </Button>
       <Button
-        onClick={maxLength === index ? handleSend : handleNext}
+        onClick={(e) => {
+          if (maxLength === index) {
+            animateButton(e);
+            handleSend();
+          } else {
+            handleNext();
+          }
+        }}
         variant="default"
         type="button"
-        className="w-full border-b-[6px] border-wpc-primary bg-wpc-primary/90 active:border-b-2 "
-        disabled={isLoadingOpen}
+        className={cn(
+          "relative w-full shadow-[0px_0px_10px_0px_rgba(0,0,0,0.2)] transition active:shadow-none",
+          maxLength === index ? "bubbly-button" : ""
+        )}
       >
         {maxLength === index ? "완료" : "다음"}
       </Button>
+      {/* <div ref={scope} className="w-full">
+        <Button
+          type="button"
+          onClick={testAnimation}
+          className="relative w-full"
+        >
+          <span className="sr-only">Animation Button!</span>
+          <span aria-hidden className="block h-8 overflow-hidden">
+            {["다", "음"].map((letter, index) => (
+              <span
+                data-letter={letter}
+                className="letter relative inline-block h-8 leading-8 after:absolute after:left-0 after:top-full after:h-8 after:content-[attr(data-letter)]"
+                key={`${letter}-${index}`}
+              >
+                {letter}
+              </span>
+            ))}
+          </span>
+          <span
+            aria-hidden
+            className="pointer-events-none absolute inset-0 -z-10 block bg-transparent"
+          >
+            {Array.from({ length: 50 }).map((_, index) => (
+              <svg
+                key={index}
+                xmlns="http://www.w3.org/2000/svg"
+                width="10"
+                height="10"
+                viewBox="0 0 24 24"
+                className={`absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 fill-wpc-second sparkle-${index}`}
+              >
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+              </svg>
+            ))}
+          </span>
+        </Button>
+      </div> */}
     </div>
   );
 };

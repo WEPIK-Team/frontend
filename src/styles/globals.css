@@ -116,7 +116,7 @@
 
 /* Grad box css*/
 .div-border-gradient {
-  border: 1px solid transparent;
+  border: 1.251px solid transparent;
   background-image: linear-gradient(white, white),
     linear-gradient(to right, #d19beb, #6377dd);
   background-origin: border-box;
@@ -124,7 +124,7 @@
 }
 
 .div-sender-gradient {
-  border: 1px solid transparent;
+  border: 1.251px solid transparent;
   background-image: linear-gradient(white, white),
     linear-gradient(to right, #7b78ec, #6377dd);
   background-origin: border-box;
@@ -132,7 +132,7 @@
 }
 
 .div-receiver-gradient {
-  border: 1px solid transparent;
+  border: 1.251px solid transparent;
   background-image: linear-gradient(white, white),
     linear-gradient(to right, #d19beb, #a188ec);
   background-origin: border-box;
