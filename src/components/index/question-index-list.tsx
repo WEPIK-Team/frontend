@@ -14,7 +14,7 @@ const QuestionIndexList = () => {
   const NOT_SELECT = selectedIdx === null || selectedIdx === undefined;
 
   const handleSelect = (idx: number) => {
-    setSelectedIdx(idx);
+    setSelectedIdx((prevIdx) => (prevIdx === idx ? null : idx));
   };
 
   const handleMoveToQuestion = (e: React.MouseEvent) => {
