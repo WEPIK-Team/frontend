@@ -91,10 +91,10 @@
     @apply border-border;
   }
   body {
-    @apply h-full overflow-y-auto bg-background text-foreground;
+    @apply h-full bg-background text-foreground;
   }
   html {
-    @apply h-full;
+    @apply h-full overflow-y-auto;
   }
   li {
     padding: 0;

@@ -70,7 +70,7 @@ export const TemplateAction = ({ id }: TemplateActionProps) => {
         propagation
         onConfirm={onDelete}
       />
-      <DropdownMenu>
+      <DropdownMenu modal={false}>
         <DropdownMenuTrigger asChild>
           <Button
             variant="gray"
