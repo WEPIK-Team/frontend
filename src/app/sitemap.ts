@@ -33,12 +33,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
 async function getTemplateList(): Promise<TemplateList> {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}${process.env.NEXT_PUBLIC_TEMPLATE}`,
-    {
-      next: {
-        tags: ["template-list"],
-      },
-    }
+    `${process.env.NEXT_PUBLIC_API_URL}${process.env.NEXT_PUBLIC_TEMPLATE}`
   );
   return response.json();
 }
