@@ -9,6 +9,7 @@ import {
   ToastViewport,
 } from "@/components/ui/toast";
 import { useToast } from "@/components/ui/use-toast";
+import Image from "next/image";
 
 export function Toaster() {
   const { toasts } = useToast();
@@ -19,7 +20,17 @@ export function Toaster() {
         return (
           <Toast key={id} {...props}>
             <div className="grid gap-1">
-              {title && <ToastTitle>{title}</ToastTitle>}
+              <div className="flex items-center gap-x-[8px]">
+                {props.variant && (
+                  <Image
+                    src="/svgs/input-error.svg"
+                    width={20}
+                    height={20}
+                    alt="back"
+                  />
+                )}
+                {title && <ToastTitle>{title}</ToastTitle>}
+              </div>
               {description && (
                 <ToastDescription>{description}</ToastDescription>
               )}

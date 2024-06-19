@@ -34,6 +34,8 @@ const toastVariants = cva(
           "destructive group border-green-600 bg-green-600 text-destructive-foreground",
         destructive:
           "destructive group border-destructive bg-destructive text-destructive-foreground",
+        error:
+          "error group top-20 py-[10px] pl-[13px] pr-[11px] text-wpc-error border-wpc-error border -translate-x-1/2 left-1/2 flex fixed rounded-full max-w-[250px] md:max-w-[350px]",
       },
     },
     defaultVariants: {
@@ -79,13 +81,13 @@ const ToastClose = React.forwardRef<
   <ToastPrimitives.Close
     ref={ref}
     className={cn(
-      "absolute right-1 top-1 rounded-md p-1 text-foreground/50 opacity-0 transition-opacity hover:text-foreground focus:opacity-100 focus:outline-none focus:ring-1 group-hover:opacity-100 group-[.destructive]:text-red-300 group-[.destructive]:hover:text-red-50 group-[.destructive]:focus:ring-red-400 group-[.destructive]:focus:ring-offset-red-600",
+      "absolute right-1 top-1 rounded-md p-1 text-foreground/50 opacity-0 transition-opacity hover:text-foreground focus:opacity-100 focus:outline-none focus:ring-1 group-hover:opacity-100 group-[.destructive]:text-red-300 group-[.error]:text-wpc-error group-[.error]:opacity-100 group-[.destructive]:hover:text-red-50 group-[.error]:hover:text-wpc-error  group-[.destructive]:focus:ring-red-400 group-[.destructive]:focus:ring-offset-red-600",
       className
     )}
     toast-close=""
     {...props}
   >
-    <Cross2Icon className="h-4 w-4" />
+    <Cross2Icon className="h-4 w-4 group-[.error]:mr-[3px] group-[.error]:mt-[3px]  group-[.error]:h-[18px] group-[.error]:w-[18px]" />
   </ToastPrimitives.Close>
 ));
 ToastClose.displayName = ToastPrimitives.Close.displayName;

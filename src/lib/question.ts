@@ -59,3 +59,28 @@ export function allQuestionCheck(questions: IQuestionRequest[]): boolean {
   }
   return true;
 }
+
+export function calRatingComment(rating: number): string {
+  switch (true) {
+    case rating >= 0 && rating <= 1:
+      return "최악이에요";
+    case rating === 1.5:
+      return "정말 싫어요";
+    case rating === 2:
+      return "별로에요";
+    case rating === 2.5:
+      return "조금 아쉬워요";
+    case rating === 3:
+      return "그럭저럭이에요";
+    case rating === 3.5:
+      return "나름 괜찮아요";
+    case rating === 4:
+      return "만족스러워요";
+    case rating === 4.5:
+      return "훌륭해요";
+    case rating === 5:
+      return "최고예요";
+    default:
+      return "유효하지 않은 별점입니다";
+  }
+}

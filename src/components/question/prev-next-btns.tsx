@@ -99,11 +99,8 @@ const PrevNextBtns = <T extends FieldValues>({
       case "send":
         if (!allQuestionCheck(newQuestions)) {
           toast({
-            variant: "destructive",
-            className: cn(
-              "top-20 -translate-x-1/2 left-1/2 flex fixed md:max-w-[350px]"
-            ),
-            title: `아직 다 작성하시지 않은 문제가 있어요!`,
+            variant: "error",
+            title: `작성하지 않은 답변이 있어요.`,
           });
           break;
         } else {
