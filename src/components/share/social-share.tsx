@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { toast } from "@/components/ui/use-toast";
 
@@ -18,13 +18,21 @@ const extractQuestionPath = (path: string) => {
 
 const SocialShare = ({ kakaoId, type }: SocialShareProps) => {
   const searchParams = useSearchParams();
-  let url = `${window.location.origin}${extractQuestionPath(window.location.pathname)}`;
+  const [url, setUrl] = useState<string>("");
 
-  if (type === "sender") {
-    url = `${url}?senderId=${searchParams.get("senderId")}`;
-  } else if (type === "receiver") {
-    url = `${url}/result/${searchParams.get("senderId")}/${searchParams.get("receiverId")}`;
-  }
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const baseUrl = `${window.location.origin}${extractQuestionPath(window.location.pathname)}`;
+
+      if (type === "sender") {
+        setUrl(`${baseUrl}?senderId=${searchParams.get("senderId")}`);
+      } else if (type === "receiver") {
+        setUrl(
+          `${baseUrl}/result/${searchParams.get("senderId")}/${searchParams.get("receiverId")}`
+        );
+      }
+    }
+  }, [type, searchParams]);
 
   const Icons = [
     {
@@ -46,53 +54,45 @@ const SocialShare = ({ kakaoId, type }: SocialShareProps) => {
   ];
 
   const handleShare = (alt: string) => {
-    if (navigator.share) {
-      navigator.share({
-        title: document.title,
-        url: url as string,
-      });
-    } else {
-      switch (alt) {
-        case "facebookIcon":
-          window.open(
-            `http://www.facebook.com/sharer/sharer.php?u=${url}`,
-            "페이스북 공유하기",
-            "width=600,height=800,location=no,status=no,scrollbars=yes"
-          );
-          break;
-        case "xIcon":
-          window.open(
-            `https://twitter.com/intent/tweet?url=${url}&text='서로에게 질문을 공유하고, 답변을 기다리며 더 친해져봐요.'`,
-            "X 공유하기",
-            "width=600,height=800,location=no,status=no,scrollbars=yes"
-          );
-          break;
-        case "kakaoIcon":
-          if (window.Kakao) {
-            if (!window.Kakao.isInitialized()) {
-              window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_API_KEY);
-            }
-
-            window.Kakao.Share.sendCustom({
-              templateId: kakaoId,
-              templateArgs: {
-                url,
-              },
-            });
+    switch (alt) {
+      case "facebookIcon":
+        window.open(
+          `http://www.facebook.com/sharer/sharer.php?u=${url}`,
+          "페이스북 공유하기",
+          "width=600,height=800,location=no,status=no,scrollbars=yes"
+        );
+        break;
+      case "xIcon":
+        window.open(
+          `https://twitter.com/intent/tweet?url=${url}&text='서로에게 질문을 공유하고, 답변을 기다리며 더 친해져봐요.'`,
+          "X 공유하기",
+          "width=600,height=800,location=no,status=no,scrollbars=yes"
+        );
+        break;
+      case "kakaoIcon":
+        if (window.Kakao) {
+          if (!window.Kakao.isInitialized()) {
+            window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_API_KEY);
           }
 
-          break;
-        case "urlIcon":
-          navigator.clipboard.writeText(url).then(() => {
-            toast({
-              variant: "success",
-              title: "링크가 복사되었습니다.",
-            });
+          window.Kakao.Share.sendCustom({
+            templateId: kakaoId,
+            templateArgs: {
+              url,
+            },
           });
-          break;
-        default:
-          break;
-      }
+        }
+        break;
+      case "urlIcon":
+        navigator.clipboard.writeText(url).then(() => {
+          toast({
+            variant: "success",
+            title: "링크가 복사되었습니다.",
+          });
+        });
+        break;
+      default:
+        break;
     }
   };
 

@@ -1,5 +1,8 @@
+import { Metadata } from "next";
+
 import { getTemplateList, getTempleteDetail } from "@/lib/api/template";
 
+import { getMetadata } from "@/components/common/seo";
 import HelpModal from "@/components/modal/help-modal";
 
 import { initQuestions } from "@/lib/question";
@@ -31,6 +34,19 @@ export default async function MainLayout({ children, params }: IPageProps) {
     </QuestionStoreProvider>
   );
 }
+
+export const generateMetadata = async ({
+  params: { id },
+}: {
+  params: IPageParams;
+}): Promise<Metadata> => {
+  return getMetadata({
+    title: `서로 알아가고 싶은 상대가 있는 사람들을 위한 문답 서비스`,
+    description: `서로에게 질문을 공유하고, 답변을 기다리며 더 친해져봐요`,
+    ogImage: `/images/sender_thumbnail.png`,
+    asPath: `/question/${id}`,
+  });
+};
 
 export async function generateStaticParams(): Promise<IPageParams[]> {
   const templetes = await getTemplateList().catch((error) => {
