@@ -31,7 +31,7 @@ export default function QuestionSuccessSender() {
           <p className="m-auto p-0 text-wpt-base-1 font-medium">
             결과 같이 보기
           </p>
-          <SocialShare kakaoId={108687} type="receiver" />
+          <SocialShare kakaoId={109006} type="receiver" />
         </div>
       </div>
     </>

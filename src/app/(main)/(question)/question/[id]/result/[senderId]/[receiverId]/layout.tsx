@@ -6,6 +6,13 @@ import { useRouter } from "next/navigation";
 import Footer from "@/components/common/footer";
 import { Button } from "@/components/ui/button";
 
+type QuestionResultProps = {
+  params: {
+    senderId: string;
+    receiverId: string;
+  };
+};
+
 export default function QuestionResultLayout({
   children,
 }: {
