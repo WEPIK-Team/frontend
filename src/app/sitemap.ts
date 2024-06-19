@@ -1,6 +1,6 @@
 import { MetadataRoute } from "next";
 
-import { getTemplateList } from "@/lib/api/template";
+import { TemplateList } from "@/types/template";
 
 const BASE_URL =
   process.env.NODE_ENV === "development"
@@ -29,4 +29,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   });
 
   return [...defaultSitemap, ...templateSitemaps];
+}
+
+async function getTemplateList(): Promise<TemplateList> {
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}${process.env.NEXT_PUBLIC_TEMPLATE}`,
+    {
+      next: {
+        tags: ["template-list"],
+      },
+    }
+  );
+  return response.json();
 }
