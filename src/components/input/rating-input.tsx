@@ -76,9 +76,6 @@ function RatingInput({
           disabled={readOnly}
         />
       </div>
-      <p className="text-center text-wpt-md font-semibold text-wpc-primary">
-        {value}
-      </p>
     </div>
   );
 }

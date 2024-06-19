@@ -12,6 +12,7 @@ import useQuestion from "@/hooks/use-question";
 
 import RatingInput from "./rating-input";
 import PrevNextBtns from "../question/prev-next-btns";
+import { calRatingComment } from "@/lib/question";
 
 interface IQuestionRatingInputProps {}
 
@@ -68,6 +69,12 @@ const QuestionRatingInput: React.FunctionComponent<
                   />
                 </div>
                 <FormMessage />
+                <div className="flex items-center justify-center gap-x-2 text-wpt-md  ">
+                  <p className="font-semibold text-wpc-primary">
+                    {ratingValue}
+                  </p>
+                  <p className="text-wpc-gray">{`(${calRatingComment(ratingValue)})`}</p>
+                </div>
               </FormItem>
             );
           }}

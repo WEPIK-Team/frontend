@@ -91,10 +91,10 @@
     @apply border-border;
   }
   body {
-    @apply h-full overflow-y-scroll bg-background text-foreground;
+    @apply h-full bg-background text-foreground;
   }
   html {
-    @apply h-full;
+    @apply h-full overflow-y-auto;
   }
   li {
     padding: 0;
@@ -114,13 +114,9 @@
     linear-gradient(to right, #d19beb, #6377dd);
 }
 
-/* .input-border-gradient:disabled {
-
-} */
-
 /* Grad box css*/
 .div-border-gradient {
-  border: 1px solid transparent;
+  border: 1.251px solid transparent;
   background-image: linear-gradient(white, white),
     linear-gradient(to right, #d19beb, #6377dd);
   background-origin: border-box;
@@ -128,7 +124,7 @@
 }
 
 .div-sender-gradient {
-  border: 1px solid transparent;
+  border: 1.251px solid transparent;
   background-image: linear-gradient(white, white),
     linear-gradient(to right, #7b78ec, #6377dd);
   background-origin: border-box;
@@ -136,7 +132,7 @@
 }
 
 .div-receiver-gradient {
-  border: 1px solid transparent;
+  border: 1.251px solid transparent;
   background-image: linear-gradient(white, white),
     linear-gradient(to right, #d19beb, #a188ec);
   background-origin: border-box;

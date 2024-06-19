@@ -3,13 +3,13 @@ import type { Metadata } from "next";
 import "@/styles/globals.css";
 import { allRoundGothic, pretendard } from "@/styles/font";
 
+import { getMetadata } from "@/components/common/seo";
 import KakaoScript from "@/components/share/kakao-script";
 import { Toaster } from "@/components/ui/toaster";
 
-import { MetaData } from "@/constants/config";
 import ReactQueryProvider from "@/provider/query-provider";
 
-export const metadata: Metadata = MetaData;
+export const metadata: Metadata = getMetadata();
 
 export default function RootLayout({
   children,

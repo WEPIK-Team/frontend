@@ -37,6 +37,22 @@ export const createTemplate = async (data: CreateTemplateValues) => {
   redirect("/manage/template");
 };
 
+export const editTemplate = async (id: string, data: CreateTemplateValues) => {
+  await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}${process.env.NEXT_PUBLIC_TEMPLATE}/${id}`,
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    }
+  );
+
+  revalidateTag("template-list");
+  redirect("/manage/template");
+};
+
 export const deleteTemplate = async (id: number) => {
   await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}${process.env.NEXT_PUBLIC_TEMPLATE}/${id}`,

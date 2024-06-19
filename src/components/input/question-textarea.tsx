@@ -83,11 +83,11 @@ const QuestionTextArea: React.FunctionComponent<
                   placeholder="답변을 입력하세요"
                 />
               </FormControl>
-              <FormMessage />
+              <FormMessage className="absolute" />
+              <QuestionTextCounter max={50} current={textAreaLength} />
             </FormItem>
           )}
         />
-        <QuestionTextCounter max={300} current={textAreaLength} />
       </motion.form>
       <PrevNextBtns<FormSchemaType> type="TEXTAREA" form={form} />
     </Form>

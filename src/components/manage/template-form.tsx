@@ -2,8 +2,11 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+
+import { cn } from "@/lib/utils";
 
 import QuestionBoard from "@/components/board/question-board";
 import TagBoard from "@/components/tag/tag-board";
@@ -20,22 +23,23 @@ import { Input } from "@/components/ui/input";
 
 import {
   createTemplate,
+  editTemplate,
   templatenUploadImageFile,
 } from "@/app/(manage)/manage/template/actions";
 import useTemplate from "@/hooks/use-template";
 import {
   createTemplateSchema,
   CreateTemplateValues,
-  stepOneSchema,
+  templateInfoSchema,
 } from "@/lib/schema/template-schema";
 
-import { ITemplateDetail } from "@/types/template";
+import { toast } from "../ui/use-toast";
 
 const steps = [
   {
     id: "Step 1",
     name: "템플릿 정보",
-    schema: stepOneSchema,
+    schema: templateInfoSchema,
     fields: ["title", "storedName", "tags"],
   },
   {
@@ -47,33 +51,31 @@ const steps = [
 ];
 
 interface TemplateFormProps {
-  template?: ITemplateDetail;
+  mode: "edit" | "create";
 }
 
-const TemplateForm = ({ template }: TemplateFormProps) => {
+const TemplateForm = ({ mode }: TemplateFormProps) => {
   const {
     currentStep,
     decrement,
     increment,
-    stepOneData,
-    stepTwoData,
-    setStepOneData,
+    templateInfo,
+    setTemplateInfo,
     resetAllStates,
+    questionIds,
   } = useTemplate();
 
-  const [preview, setPreview] = useState<string | undefined>(
-    typeof stepOneData.storedName === "string"
-      ? stepOneData.storedName
-      : undefined
-  );
+  const [preview, setPreview] = useState<string | undefined>(undefined);
+  const pathname = usePathname();
+  const router = useRouter();
 
   const form = useForm<CreateTemplateValues>({
     resolver: zodResolver(steps[currentStep].schema),
     defaultValues: {
-      title: stepOneData.title || "",
-      storedName: stepOneData.storedName || "",
-      tags: stepOneData.tags || [],
-      questionIds: stepTwoData.questionIds || [],
+      title: templateInfo.title || "",
+      storedName: templateInfo.storedName || "",
+      tags: templateInfo.tags || [],
+      questionIds: questionIds || [],
     },
   });
 
@@ -95,7 +97,7 @@ const TemplateForm = ({ template }: TemplateFormProps) => {
     if (!output) return;
 
     if (currentStep === 0) {
-      setStepOneData({
+      setTemplateInfo({
         title: data.title,
         storedName: data.storedName,
         tags: data.tags,
@@ -123,15 +125,37 @@ const TemplateForm = ({ template }: TemplateFormProps) => {
           throw new Error(
             "이미지를 업로드 하는 도중 오류가 발생하였습니다! 다시 한번 시도해 주세요"
           );
-
-        await createTemplate(newFormData);
-        reset();
-        resetAllStates();
       }
+
+      // TODO: 성공 실패 메세지 출력
+      if (mode === "create") {
+        await createTemplate(newFormData);
+      }
+
+      if (mode === "edit") {
+        const segments = pathname.split("/").filter((s) => s !== "");
+        const templateId = segments[segments.length - 1].trim();
+        if (!templateId) {
+          return toast({
+            variant: "destructive",
+            className: cn(
+              "top-0 right-0 flex fixed md:max-w-[420px] md:top-4 md:right-4"
+            ),
+            title: "템플릿 id가 존재하지 않습니다.",
+          });
+        }
+
+        await editTemplate(templateId, newFormData);
+      }
+      reset();
+      resetAllStates();
     }
   };
 
   const onPrev = () => {
+    if (currentStep === 0) {
+      router.push("/manage/template");
+    }
     if (currentStep > 0) {
       decrement();
     }
@@ -207,12 +231,17 @@ const TemplateForm = ({ template }: TemplateFormProps) => {
                     <FormMessage />
                   </FormItem>
                   <div className="h-[200px] w-[264px] rounded-[18px] bg-wpc-gray2">
-                    {preview && (
+                    {(preview || templateInfo.storedName) && (
                       <Image
-                        src={preview}
+                        src={
+                          preview ||
+                          (typeof templateInfo.storedName === "string"
+                            ? templateInfo.storedName
+                            : "")
+                        }
                         width={200}
                         height={265}
-                        alt="Thumbnail Preview"
+                        alt="Template Thumbnail Preview"
                       />
                     )}
                   </div>
@@ -228,7 +257,7 @@ const TemplateForm = ({ template }: TemplateFormProps) => {
                   <FormControl>
                     <TagBoard
                       onTagSelected={setValue}
-                      storeTags={stepOneData.tags}
+                      storeTags={templateInfo.tags}
                     />
                   </FormControl>
                   <FormMessage isAbsolute />
