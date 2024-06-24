@@ -4,8 +4,8 @@ import { TemplateList } from "@/types/template";
 
 const BASE_URL =
   process.env.NODE_ENV === "development"
-    ? "http://localhost:3000/"
-    : "https://www.wepik.kr/";
+    ? process.env.NEXT_PUBLIC_LOCAL_HOST
+    : process.env.NEXT_PUBLIC_HOST;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const defaultSitemap = [
