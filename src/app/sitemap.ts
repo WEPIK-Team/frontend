@@ -1,11 +1,11 @@
 import { MetadataRoute } from "next";
 
-import { getTemplateList } from "@/lib/api/template";
+import { TemplateList } from "@/types/template";
 
 const BASE_URL =
   process.env.NODE_ENV === "development"
-    ? "http://localhost:3000/"
-    : "https://www.wepik.kr/";
+    ? process.env.NEXT_PUBLIC_LOCAL_HOST
+    : process.env.NEXT_PUBLIC_HOST;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const defaultSitemap = [
@@ -29,4 +29,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   });
 
   return [...defaultSitemap, ...templateSitemaps];
+}
+
+async function getTemplateList(): Promise<TemplateList> {
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}${process.env.NEXT_PUBLIC_TEMPLATE}`
+  );
+  return response.json();
 }

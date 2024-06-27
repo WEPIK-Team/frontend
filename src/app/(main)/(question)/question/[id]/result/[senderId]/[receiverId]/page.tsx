@@ -38,7 +38,7 @@ export default async function QuestionResult({ params }: QuestionResultProps) {
       </div>
       <div className="mb-[120px] flex flex-col items-center justify-center">
         <div className="flex flex-col justify-center pt-12">
-          <SocialShare kakaoId={108687} type="receiver" />
+          <SocialShare kakaoId={109006} type="receiver" />
           <div className="m-auto mt-5 cursor-pointer text-center text-wpt-base-2 text-wpc-gray underline underline-offset-[6px]">
             다른 템플릿 보러가기
           </div>

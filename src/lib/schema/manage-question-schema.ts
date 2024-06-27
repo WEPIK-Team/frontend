@@ -24,7 +24,7 @@ const selectListSchema = z
 
 export const QuestionSchema = z
   .object({
-    title: requiredString.max(20, "제목은 20자 이하로 작성해야 합니다."),
+    title: requiredString.max(80, "제목은 80자 이하로 작성해야 합니다."),
     type: typeSchema,
     storedName: questionImageSchema,
     selectQuestions: selectListSchema,
@@ -42,6 +42,21 @@ export const QuestionSchema = z
     {
       message:
         "질문 타입이 SELECT인 경우, 적어도 하나의 선택 질문을 입력해야 합니다.",
+      path: ["selectQuestions"],
+    }
+  )
+  .refine(
+    (data) => {
+      if (
+        data.type === "SELECT" &&
+        (!data.selectQuestions || data.selectQuestions.length > 5)
+      ) {
+        return false;
+      }
+      return true;
+    },
+    {
+      message: "5개 이상의 질문은 등록이 불가능 합니다.",
       path: ["selectQuestions"],
     }
   );

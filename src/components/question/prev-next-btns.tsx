@@ -122,7 +122,7 @@ const PrevNextBtns = <T extends FieldValues>({
               `${pathname}/success/receiver?senderId=${senderId}&receiverId=${receiverId}`
             );
           } else {
-            router.replace(`${pathname}/success/sender?senderId=${receiverId}`);
+            router.replace(`${pathname}/success/sender?senderId=${senderId}`);
           }
         }
         break;

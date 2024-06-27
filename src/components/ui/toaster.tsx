@@ -21,7 +21,7 @@ export function Toaster() {
           <Toast key={id} {...props}>
             <div className="grid gap-1">
               <div className="flex items-center gap-x-[8px]">
-                {props.variant && (
+                {props.variant === "error" && (
                   <Image
                     src="/svgs/input-error.svg"
                     width={20}

@@ -9,10 +9,10 @@ import { z } from "zod";
 import { Form, FormField, FormItem, FormMessage } from "@/components/ui/form";
 
 import useQuestion from "@/hooks/use-question";
+import { calRatingComment } from "@/lib/question";
 
 import RatingInput from "./rating-input";
 import PrevNextBtns from "../question/prev-next-btns";
-import { calRatingComment } from "@/lib/question";
 
 interface IQuestionRatingInputProps {}
 
