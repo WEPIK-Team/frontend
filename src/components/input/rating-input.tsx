@@ -55,7 +55,7 @@ function RatingInput({
   };
 
   return (
-    <div className="relative mx-auto w-fit ">
+    <div className="relative w-fit">
       <Rate
         size={size}
         color={themeObj.color[theme]}
