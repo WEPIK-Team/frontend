@@ -35,7 +35,7 @@ const toastVariants = cva(
         destructive:
           "destructive group border-destructive bg-destructive text-destructive-foreground",
         error:
-          "error group top-20 py-[10px] pl-[13px] pr-[11px] text-wpc-error border-wpc-error border -translate-x-1/2 left-1/2 flex fixed rounded-full max-w-[250px] md:max-w-[350px]",
+          "error group top-20 py-[10px] pl-[13px] pr-[11px] bg-white text-wpc-error border-wpc-error border -translate-x-1/2 left-1/2 flex fixed rounded-full max-w-[250px] md:max-w-[350px]",
       },
     },
     defaultVariants: {

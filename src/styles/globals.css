@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 @layer base {
+  img {
+    width: auto;
+    height: auto;
+  }
   :root {
     --wpc-primary: 230 64% 63%;
     --wpc-second: 281 67% 76%;

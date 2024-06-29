@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+
 import {
   Toast,
   ToastClose,
@@ -9,7 +11,6 @@ import {
   ToastViewport,
 } from "@/components/ui/toast";
 import { useToast } from "@/components/ui/use-toast";
-import Image from "next/image";
 
 export function Toaster() {
   const { toasts } = useToast();

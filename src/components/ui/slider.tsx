@@ -14,8 +14,8 @@ interface SliderProps
 
 const ThemeObj = {
   sender: "bg-wpc-second-grad",
-  receiver: "bg-wpc-primary-grad",
-  default: "bg-wpc-gray",
+  receiver: "bg-wpc-main2-grad",
+  default: "bg-wpc-primary-grad",
 };
 
 const Slider = React.forwardRef<

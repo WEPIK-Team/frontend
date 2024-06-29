@@ -16,7 +16,7 @@ export default function QuestionPage() {
   if (!isClient) return null;
 
   return (
-    <main className="h-dvh overflow-x-hidden pb-[10px] pt-[40px]">
+    <main className="h-dvh overflow-y-auto overflow-x-hidden ">
       <QuestionHeader />
       <Question />
       <GlobalLoadingModal

@@ -4,6 +4,7 @@ import { IQuestionRequest } from "@/types/question";
 
 export type QuestionState = {
   currentQuestionIndex: number;
+  previousQuestionIndex: number;
   questions: IQuestionRequest[];
 };
 
@@ -20,11 +21,13 @@ export type QuestionStore = QuestionState & CounterActions;
 
 const initQuestionStore = (questions: IQuestionRequest[]): QuestionState => ({
   currentQuestionIndex: 0,
+  previousQuestionIndex: 0,
   questions,
 });
 
 const defaultInitState: QuestionState = {
   currentQuestionIndex: 0,
+  previousQuestionIndex: 0,
   questions: [],
 };
 
@@ -33,17 +36,17 @@ const createQuestionStore = (initState: QuestionState = defaultInitState) =>
     ...initState,
     nextQuestion: () =>
       set((state) => ({
+        previousQuestionIndex: state.currentQuestionIndex,
         currentQuestionIndex: Math.min(
           state.currentQuestionIndex + 1,
           state.questions.length - 1
         ),
       })),
     prevQuestion: () =>
-      set((state) => {
-        return {
-          currentQuestionIndex: Math.max(state.currentQuestionIndex - 1, 0),
-        };
-      }),
+      set((state) => ({
+        previousQuestionIndex: state.currentQuestionIndex,
+        currentQuestionIndex: Math.max(state.currentQuestionIndex - 1, 0),
+      })),
     changeQuestionValue: ({ id, value }) =>
       set((state) => {
         const newValueQuestions = state.questions.map((question) => {
@@ -58,7 +61,8 @@ const createQuestionStore = (initState: QuestionState = defaultInitState) =>
         };
       }),
     moveIndexQuestion: (index: number) =>
-      set(() => ({
+      set((state) => ({
+        previousQuestionIndex: state.currentQuestionIndex,
         currentQuestionIndex: index,
       })),
     updateQuestion: (newQuestions) =>
