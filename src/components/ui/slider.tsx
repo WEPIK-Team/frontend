@@ -10,7 +10,7 @@ import SpeechBubble from "@/components/question/speech-bubble";
 interface SliderProps
   extends React.ComponentPropsWithoutRef<typeof SliderPrimitive.Root> {
   theme: "sender" | "receiver" | "default";
-  readonly?: boolean;
+  readOnly?: boolean;
 }
 
 const ThemeObj = {
@@ -29,7 +29,7 @@ const ThemeObj = {
 const Slider = React.forwardRef<
   React.ElementRef<typeof SliderPrimitive.Root>,
   SliderProps
->(({ className, theme = "default", readonly, ...props }, ref) => (
+>(({ className, theme = "default", readOnly, ...props }, ref) => (
   <SliderPrimitive.Root
     ref={ref}
     className={cn(
@@ -43,7 +43,7 @@ const Slider = React.forwardRef<
         className={cn("absolute h-full", ThemeObj.bg[theme] || "bg-wpc-gray")}
       />
     </SliderPrimitive.Track>
-    {readonly ? (
+    {readOnly ? (
       <>
         <span
           className={cn(
