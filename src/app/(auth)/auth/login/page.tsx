@@ -9,9 +9,9 @@ import LoginForm from "./loginForm";
 const LoginPage = () => {
   return (
     <div className="flex h-full w-full flex-col items-center pt-[80px]">
-      <Image src="/svgs/logo.svg" width={111} height={22} priority alt="logo" />
-      <Heading className="w-[200px] pb-[60px] pt-[15px] text-center text-wpt-lg font-semibold">
-        어쩌구저쩌구 해서 뭐시기저시기 하는 서비스
+      <Image src="/logo.png" width={111} height={22} priority alt="logo" />
+      <Heading className="w-[360px] pb-[60px] pt-[15px] text-center text-wpt-lg font-semibold">
+        나와 상대를 알아갈 수 있는 문답 서비스
       </Heading>
       <LoginForm />
 
