@@ -16,7 +16,7 @@ export function TemplateSelectCardList({
   templateList: TemplateList;
 }) {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
-  const [sortByPopularity, setSortByPopularity] = useState(false);
+  const [sortByPopularity, setSortByPopularity] = useState(true);
 
   const handleTagSelect = (tag: string) => {
     setSelectedTags((prevSelectedTags) =>
@@ -60,12 +60,22 @@ export function TemplateSelectCardList({
         className="flex cursor-pointer items-center justify-end gap-[5px]"
         onClick={() => setSortByPopularity((prev) => !prev)}
       >
-        <Image
-          src="/images/icons/sort.png"
-          alt="sortIcon"
-          width={12}
-          height={12}
-        />
+        {sortByPopularity ? (
+          <Image
+            src="/images/icons/descend.png"
+            alt="sortIcon"
+            width={17}
+            height={13}
+          />
+        ) : (
+          <Image
+            src="/images/icons/ascend.png"
+            alt="sortIcon"
+            width={17}
+            height={13}
+          />
+        )}
+
         <p className="text-wpt-base-1">인기순</p>
       </div>
       <div className="grid grid-cols-12 gap-[14px] pt-3 font-pretendard">
