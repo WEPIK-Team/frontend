@@ -1,6 +1,8 @@
 "use server";
 
+import { getCookie } from "cookies-next";
 import { revalidateTag } from "next/cache";
+import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 import { CreateTemplateValues } from "@/lib/schema/template-schema";
@@ -22,12 +24,15 @@ export const templatenUploadImageFile = async (
 };
 
 export const createTemplate = async (data: CreateTemplateValues) => {
+  const JSESSIONID = getCookie("JSESSIONID", { cookies });
+
   await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}${process.env.NEXT_PUBLIC_TEMPLATE}`,
     {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Cookie: `JSESSIONID=${JSESSIONID}`,
       },
       body: JSON.stringify(data),
     }
@@ -45,6 +50,7 @@ export const editTemplate = async (id: string, data: CreateTemplateValues) => {
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: "include",
       body: JSON.stringify(data),
     }
   );

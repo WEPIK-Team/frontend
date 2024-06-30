@@ -1,6 +1,8 @@
 "use server";
 
+import { getCookie } from "cookies-next";
 import { revalidateTag } from "next/cache";
+import { cookies } from "next/headers";
 
 import { QuestionFormSchemaType } from "@/lib/schema/manage-question-schema";
 
@@ -37,12 +39,15 @@ export const questionUploadImageFile = async (
 export const createQuestion = async (
   questionFormData: QuestionFormSchemaType
 ): Promise<IQuestion> => {
+  const JSESSIONID = getCookie("JSESSIONID", { cookies });
+
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}${process.env.NEXT_PUBLIC_QUESTION}`,
     {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Cookie: `JSESSIONID=${JSESSIONID}`,
       },
       body: JSON.stringify(questionFormData),
     }

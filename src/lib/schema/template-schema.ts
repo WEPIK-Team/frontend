@@ -28,7 +28,7 @@ const templateThumbnailSchema = z.union([
 ]);
 
 export const templateInfoSchema = z.object({
-  title: requiredString.max(15),
+  title: requiredString.max(20),
   storedName: templateThumbnailSchema,
   tags: tagsSchema,
 });
