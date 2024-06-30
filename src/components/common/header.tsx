@@ -31,7 +31,7 @@ export default function Header({
         <div className="relative mx-auto flex w-full max-w-3xl items-center justify-between px-4">
           <div className="flex w-1/3 items-center justify-start">
             {showBackButton ? (
-              <div className="h-[20px] w-[20px]">
+              <div className="flex h-[20px] w-[20px] items-center">
                 <Image
                   src="/images/icons/chevron-left.png"
                   onClick={() => router.back()}

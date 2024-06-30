@@ -158,7 +158,7 @@ const PrevNextBtns = <T extends FieldValues>({
   };
 
   return (
-    <div className={cn("mb-[20px] flex w-full gap-x-4")}>
+    <div className={cn("mb-[20px] mt-[64px] flex w-full gap-x-4")}>
       <Button
         type="button"
         onClick={handlePrev}

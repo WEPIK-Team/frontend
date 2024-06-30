@@ -94,7 +94,7 @@ const QuestionContent: React.FunctionComponent<{
                 value={Number(sender.answer)}
                 size={50}
                 readOnly
-                id={123}
+                id={Number(sender.answer) * 12}
                 theme="sender"
               />
               <div className="flex items-center justify-center gap-x-2 text-wpt-md  ">
@@ -114,7 +114,7 @@ const QuestionContent: React.FunctionComponent<{
                 value={Number(receiver.answer)}
                 size={50}
                 readOnly
-                id={123}
+                id={Number(receiver.answer) * 13}
                 theme="receiver"
               />
               <div className="flex items-center justify-center gap-x-2 text-wpt-md  ">

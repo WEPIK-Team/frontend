@@ -16,9 +16,8 @@ export default function QuestionPage() {
   if (!isClient) return null;
 
   return (
-    <main className="h-dvh overflow-y-auto overflow-x-hidden ">
+    <main className="h-dvh overflow-y-auto overflow-x-hidden">
       <Header showQuestionIndex showBackButton />
-      {/* <QuestionHeader  /> */}
       <Question />
       <GlobalLoadingModal
         title="잠시만 기다려 주세요"
