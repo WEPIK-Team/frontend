@@ -52,8 +52,9 @@ const LoginForm = () => {
 
   async function onSubmit(values: loginValues) {
     const res = await login(values);
-    if (res.status === "UNAUTHORIZED") {
-      setError("password", res.message);
+
+    if (res.httpStatus === "UNAUTHORIZED") {
+      setError("password", { message: res.message });
     } else {
       router.push("/");
     }
