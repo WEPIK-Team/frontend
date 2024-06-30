@@ -3,14 +3,7 @@
  * 인증이 필요하지 않음.
  * @type {string[]}
  */
-export const publicRoutes = [
-  "/",
-  "/quiz-options",
-  "/quiz",
-  "/result",
-  "/ranking",
-  "/auth/new-verification",
-];
+export const publicRoutes = ["/"];
 
 /**
  * 관리자만 접근 가능한 route
