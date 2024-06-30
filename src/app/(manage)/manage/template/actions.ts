@@ -64,6 +64,7 @@ export const deleteTemplate = async (id: number) => {
     `${process.env.NEXT_PUBLIC_API_URL}${process.env.NEXT_PUBLIC_TEMPLATE}/${id}`,
     {
       method: "DELETE",
+      credentials: "include",
     }
   );
 
