@@ -5,7 +5,7 @@ export default function Layout(props: { children: React.ReactNode }) {
   return (
     <>
       <div className="m-0 flex h-full flex-col">
-        <Header />
+        <Header showHelpButton />
         <main className="m-auto my-11 w-full max-w-3xl flex-grow px-4 pl-[calc(100vw-100%)]">
           {props.children}
         </main>
