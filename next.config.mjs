@@ -36,6 +36,8 @@ const nextConfig = {
         pathname: "/**",
       },
     ],
+    minimumCacheTTL: 604800,
+    formats: ["image/webp"],
   },
 };
 
