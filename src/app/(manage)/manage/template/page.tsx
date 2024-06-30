@@ -10,7 +10,7 @@ export default async function TemplatePage() {
   const templateList = await getTemplateList();
 
   return (
-    <main className="py-10">
+    <main className="py-4">
       <ManegeTemplateHeader />
       <Separator className="mb-5 mt-10" />
 

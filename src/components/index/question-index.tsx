@@ -46,7 +46,7 @@ const QuestionIndex = () => {
           <DrawerDescription>
             클릭 시 해당 질문으로 이동합니다.
           </DrawerDescription>
-          <div className="w-full border-b border-b-wpc-gray pt-2" />
+          <div className="w-full border-b border-b-wpc-gray/20 pt-2" />
         </DrawerHeader>
         <QuestionIndexList />
       </DrawerContent>
