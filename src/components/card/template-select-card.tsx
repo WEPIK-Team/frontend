@@ -36,7 +36,6 @@ export function TemplateSelectCard({
                 className="h-auto w-auto rounded-xl transition-all duration-300 hover:scale-110"
                 alt={title}
                 fill
-                sizes="50vw"
               />
             </div>
             <div className="absolute bottom-0 left-0 right-0 z-20 flex h-9 rounded-b-lg bg-gradient-to-t from-[rgba(0,0,0,0.3)]">

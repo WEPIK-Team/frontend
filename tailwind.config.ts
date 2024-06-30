@@ -79,6 +79,7 @@ const config = {
       backgroundImage: {
         "wpc-primary-grad": "linear-gradient(-90deg, #6377DD 0%, #D19BEB 100%)",
         "wpc-second-grad": "linear-gradient(45deg, #7B78EC 0%, #6377DD 100%)",
+        "wpc-main2-grad": "linear-gradient(45deg, #D19BEB 0%, #A188EC 100%)",
       },
       fontFamily: {
         pretendard: ["var(--font-pretendard)"],

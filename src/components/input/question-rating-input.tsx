@@ -1,18 +1,21 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { motion } from "framer-motion";
 import * as React from "react";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
+import { cn } from "@/lib/utils";
+
+import RatingInput from "@/components/input/rating-input";
+import PrevNextBtns from "@/components/question/prev-next-btns";
+import QuestionFormWrapper from "@/components/question/question-form-wrapper";
 import { Form, FormField, FormItem, FormMessage } from "@/components/ui/form";
 
 import useQuestion from "@/hooks/use-question";
 import { calRatingComment } from "@/lib/question";
-
-import RatingInput from "./rating-input";
-import PrevNextBtns from "../question/prev-next-btns";
 
 interface IQuestionRatingInputProps {}
 
@@ -48,39 +51,48 @@ const QuestionRatingInput: React.FunctionComponent<
 
   return (
     <Form {...form}>
-      <form className="w-full">
-        <FormField
-          control={form.control}
-          name="STAR_RANK"
-          render={({ field }) => {
-            return (
-              <FormItem>
-                <div className="mx-auto w-full">
-                  <RatingInput
-                    id={10}
-                    size={56}
-                    emptyColor="#DBDADE"
-                    theme="sender"
-                    value={ratingValue}
-                    onRateChange={(value) => {
-                      setRatingValue(value);
-                      field.onChange(value.toString());
-                    }}
-                  />
-                </div>
-                <FormMessage />
-                <div className="flex items-center justify-center gap-x-2 text-wpt-md  ">
-                  <p className="font-semibold text-wpc-primary">
-                    {ratingValue}
-                  </p>
-                  <p className="text-wpc-gray">{`(${calRatingComment(ratingValue)})`}</p>
-                </div>
-              </FormItem>
-            );
-          }}
-        />
+      <QuestionFormWrapper>
+        <motion.form
+          className={cn(
+            "mt-4 flex w-full flex-col space-y-2",
+            currentQuestion.imageURL
+              ? "flex-grow py-8 "
+              : "items-center justify-center"
+          )}
+        >
+          <FormField
+            control={form.control}
+            name="STAR_RANK"
+            render={({ field }) => {
+              return (
+                <FormItem>
+                  <div className="mx-auto w-fit">
+                    <RatingInput
+                      id={10}
+                      size={56}
+                      emptyColor="#DBDADE"
+                      theme="sender"
+                      value={ratingValue}
+                      onRateChange={(value) => {
+                        setRatingValue(value);
+                        field.onChange(value.toString());
+                      }}
+                    />
+                  </div>
+                  <FormMessage />
+                  <div className="flex items-center justify-center gap-x-2 text-wpt-md  ">
+                    <p className="font-semibold text-wpc-primary">
+                      {ratingValue}
+                    </p>
+                    <p className="text-wpc-gray">{`(${calRatingComment(ratingValue)})`}</p>
+                  </div>
+                </FormItem>
+              );
+            }}
+          />
+        </motion.form>
         <PrevNextBtns<FormSchemaType> type="STAR_RANK" form={form} />
-      </form>
+      </QuestionFormWrapper>
     </Form>
   );
 };

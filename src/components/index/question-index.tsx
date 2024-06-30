@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 
-import { Button } from "@/components/ui/button";
 import {
   Drawer,
   DrawerClose,
@@ -19,15 +18,14 @@ const QuestionIndex = () => {
   return (
     <Drawer>
       <DrawerTrigger asChild>
-        <Button className="w-[32px] bg-transparent p-0">
+        <div className="w-[32px]">
           <Image
-            src="/svgs/menu.svg"
+            src="/images/icons/index-close.png"
             width={22}
             height={14}
-            alt="qustion-list"
-            style={{ width: 22, height: 14 }}
+            alt="qustionList"
           />
-        </Button>
+        </div>
       </DrawerTrigger>
       <DrawerContent>
         <DrawerHeader>
@@ -35,18 +33,20 @@ const QuestionIndex = () => {
             asChild
             className="absolute right-4 top-4 cursor-pointer"
           >
-            <Image
-              src="/svgs/index-close.svg"
-              width={22}
-              height={14}
-              alt="qustion-list"
-            />
+            <div className="h-[28px] w-[28px] rounded-full bg-wpc-light-gray p-[10px]">
+              <Image
+                src="/svgs/close.svg"
+                alt="closeIcon"
+                width={12}
+                height={12}
+              />
+            </div>
           </DrawerClose>
           <DrawerTitle>답변할 질문을 선택하세요.</DrawerTitle>
           <DrawerDescription>
             클릭 시 해당 질문으로 이동합니다.
           </DrawerDescription>
-          <div className="w-full border-b border-b-wpc-gray pt-2" />
+          <div className="w-full border-b border-b-wpc-gray/20 pt-2" />
         </DrawerHeader>
         <QuestionIndexList />
       </DrawerContent>

@@ -32,11 +32,13 @@ import { QuestionType } from "@/types/question";
 interface IPrevNextBtnsProps<T extends FieldValues> {
   form: UseFormReturn<T, any, undefined>;
   type: QuestionType;
+  disabled?: boolean;
 }
 
 const PrevNextBtns = <T extends FieldValues>({
   form,
   type,
+  disabled,
 }: IPrevNextBtnsProps<T>) => {
   // params
   const { id: templateId } = useParams<{ id: string }>();
@@ -156,18 +158,12 @@ const PrevNextBtns = <T extends FieldValues>({
   };
 
   return (
-    <div
-      className={cn(
-        "absolute bottom-0 mx-auto flex w-full gap-x-4",
-        imageURL ? "" : "mt-[40px]"
-      )}
-    >
+    <div className={cn("mb-[20px] mt-[64px] flex w-full gap-x-4")}>
       <Button
         type="button"
         onClick={handlePrev}
         className="w-full"
         variant="gray"
-        disabled={isLoadingOpen}
       >
         이전
       </Button>
@@ -180,10 +176,11 @@ const PrevNextBtns = <T extends FieldValues>({
             handleNext();
           }
         }}
+        disabled={disabled}
         variant="default"
         type="button"
         className={cn(
-          "relative w-full shadow-[0px_0px_10px_0px_rgba(0,0,0,0.2)] transition active:shadow-none",
+          " relative w-full shadow-[0px_0px_10px_0px_rgba(99,119,221,0.5)] transition active:shadow-none disabled:shadow-[0px_0px_10px_0px_rgba(238,237,241,1)]",
           maxLength === index ? "bubbly-button" : ""
         )}
       >

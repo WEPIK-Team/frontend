@@ -1,10 +1,25 @@
 "use client";
 
 import Image from "next/image";
+import { redirect, useRouter } from "next/navigation";
+
+import { logout } from "@/lib/api/auth";
 
 import Sidebar from "@/components/ui/sidebar/sidebar";
 
+import { useSession } from "@/provider/session-provider";
+
 const ManageSidebar = () => {
+  const { data: session } = useSession({ required: true });
+  const router = useRouter();
+
+  if (!session) return redirect("/");
+
+  const handleLogout = async () => {
+    await logout();
+    router.push("/");
+  };
+
   return (
     <Sidebar fixed className="left-[15px] top-[120px]">
       <Sidebar.Head className="h-full">
@@ -54,20 +69,28 @@ const ManageSidebar = () => {
             href="/manage/template"
           />
         </Sidebar.Nav.Section>
-        <Sidebar.Nav.Section className="mt-auto">
-          <Sidebar.Separator />
-          <Sidebar.Nav.Section.Item
-            icon={
-              <Image
-                src="/svgs/user-profile.svg"
-                width={22}
-                height={22}
-                alt="user-profile"
-              />
-            }
-            label="닉네임"
-          />
-        </Sidebar.Nav.Section>
+        {session.user?.nickname && (
+          <Sidebar.Nav.Section className="mt-auto">
+            <Sidebar.Separator />
+            <Sidebar.Nav.Section.Item
+              icon={
+                <Image
+                  src="/svgs/user-profile.svg"
+                  width={22}
+                  height={22}
+                  alt="user-profile"
+                />
+              }
+              label={session.user?.nickname}
+            />
+            <Sidebar.Nav.Section.Item
+              type="button"
+              as="button"
+              onClick={handleLogout}
+              label="로그아웃"
+            />
+          </Sidebar.Nav.Section>
+        )}
       </Sidebar.Nav>
     </Sidebar>
   );

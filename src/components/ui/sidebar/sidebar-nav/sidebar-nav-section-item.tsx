@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, {
+  ButtonHTMLAttributes,
   ComponentPropsWithRef,
   ElementType,
   forwardRef,
@@ -45,6 +46,7 @@ const navSectionItem = cva(
     "focus-visible:rounded",
     "py-2.5",
     "gap-x-[10px]",
+    "hover:bg-wpc-primary/5",
   ],
   {
     variants: {
@@ -130,6 +132,7 @@ export type SidebarNavSectionItemType = {
   label: string;
   active?: boolean;
   collapsed?: boolean;
+  type?: ButtonHTMLAttributes<HTMLButtonElement>["type"];
 };
 
 export interface SidebarNavSectionItemProps
@@ -152,6 +155,7 @@ const SidebarNavSectionItem = forwardRef<
     activeIcon,
     collapsed = true,
     onClick,
+    type = "button",
     ...additionalProps
   } = props;
   const { expanded, hovered } = useSidebarContext();
@@ -159,10 +163,8 @@ const SidebarNavSectionItem = forwardRef<
   const [isCollapsed, setIsCollapsed] = useState<boolean>(
     opened === false ? true : collapsed
   );
-  const compProps =
-    Comp === "button"
-      ? ({ type: "button" } as { type: "button" | "submit" | "reset" })
-      : { href };
+
+  const compProps = Comp === "button" ? { type } : { href };
 
   const contextValue: SidebarNavSectionItemContext = {
     childrenCollapsed: isCollapsed,

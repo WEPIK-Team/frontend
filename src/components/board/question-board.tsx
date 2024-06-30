@@ -17,15 +17,17 @@ interface QuestionBoardProps {
 export default function QuestionBoard({
   onQuestionSelected,
 }: QuestionBoardProps) {
-  const { templateQuestions, fetchUnusedQuestions, questionIds } =
-    useTemplate();
+  const { templateQuestions, fetchUnusedQuestions } = useTemplate();
 
   useEffect(() => {
     fetchUnusedQuestions();
   }, [fetchUnusedQuestions]);
 
   useEffect(() => {
-    onQuestionSelected("questionIds", questionIds);
+    onQuestionSelected(
+      "questionIds",
+      templateQuestions.usedQuestions.map((q) => q.id)
+    );
   }, [templateQuestions, onQuestionSelected]);
 
   return (

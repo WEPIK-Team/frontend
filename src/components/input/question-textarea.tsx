@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
+import { cn } from "@/lib/utils";
+
 import PrevNextBtns from "@/components/question/prev-next-btns";
 import QuestionTextCounter from "@/components/question/question-text-counter";
 import {
@@ -18,6 +20,8 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 
 import useQuestion from "@/hooks/use-question";
+
+import QuestionFormWrapper from "../question/question-form-wrapper";
 
 interface IQuestionTextAreaProps {}
 
@@ -58,38 +62,45 @@ const QuestionTextArea: React.FunctionComponent<
 
   return (
     <Form {...form}>
-      <motion.form
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.1 }}
-        className="w-full space-y-2"
-      >
-        <FormField
-          control={form.control}
-          name="TEXTAREA"
-          render={({ field }) => (
-            <FormItem>
-              <FormControl>
-                <Textarea
-                  {...field}
-                  value={textareaValue}
-                  onChange={(e) => {
-                    setTextareaValue(e.target.value);
-                    field.onChange(e);
-                  }}
-                  variant="grad"
-                  maxLength={300}
-                  isError={!!error || false}
-                  placeholder="답변을 입력하세요"
-                />
-              </FormControl>
-              <FormMessage className="absolute" />
-              <QuestionTextCounter max={50} current={textAreaLength} />
-            </FormItem>
+      <QuestionFormWrapper>
+        <motion.form
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.25 }}
+          className={cn(
+            "flex w-full flex-col space-y-2",
+            currentQuestion.imageURL
+              ? "flex-grow pb-3 "
+              : " items-center justify-center"
           )}
-        />
-      </motion.form>
-      <PrevNextBtns<FormSchemaType> type="TEXTAREA" form={form} />
+        >
+          <FormField
+            control={form.control}
+            name="TEXTAREA"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormControl>
+                  <Textarea
+                    {...field}
+                    value={textareaValue}
+                    onChange={(e) => {
+                      setTextareaValue(e.target.value);
+                      field.onChange(e);
+                    }}
+                    variant="grad"
+                    maxLength={300}
+                    isError={!!error || false}
+                    placeholder="답변을 입력하세요"
+                  />
+                </FormControl>
+                <FormMessage className="absolute" />
+                <QuestionTextCounter max={50} current={textAreaLength} />
+              </FormItem>
+            )}
+          />
+        </motion.form>
+        <PrevNextBtns<FormSchemaType> type="TEXTAREA" form={form} />
+      </QuestionFormWrapper>
     </Form>
   );
 };

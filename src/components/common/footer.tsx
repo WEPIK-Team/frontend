@@ -8,7 +8,7 @@ export default function Footer() {
         <section className="mb-[15px] flex justify-center">
           <Link href="/">
             <Image
-              src="/svgs/logo.svg"
+              src="/images/logo.png"
               width={86}
               height={26}
               priority
