@@ -55,7 +55,7 @@ function RatingInput({
   };
 
   return (
-    <div className="relative mx-auto w-fit ">
+    <div className="relative w-fit">
       <Rate
         size={size}
         color={themeObj.color[theme]}
@@ -63,7 +63,7 @@ function RatingInput({
         rating={value}
         id={id}
       />
-      <div className="absolute  bottom-0 left-0 top-0 w-full opacity-0">
+      <div className="absolute bottom-0 left-0 top-0 w-full opacity-0">
         <input
           type="range"
           onChange={onChange}

@@ -37,7 +37,7 @@ const SelectItem: React.FunctionComponent<ISelectItemProps> = ({
   return (
     <li
       className={cn(
-        "relative w-full cursor-pointer rounded-full bg-white text-wpt-base-2 font-semibold  transition-all ",
+        "relative w-full cursor-pointer rounded-full bg-white text-wpt-base-2 font-semibold transition-all ",
         isSelect
           ? ItemTheme.theme[theme]
           : "border border-wpc-gray2 shadow-[0px_0px_8px_0px_rgba(0,0,0,0.05)]"
@@ -47,8 +47,18 @@ const SelectItem: React.FunctionComponent<ISelectItemProps> = ({
       <div className="flex items-center justify-between break-keep py-[17px] pl-[24px] pr-[15px]">
         <p>{value}</p>
       </div>
-      {isSelect && theme !== "both" && (
+      {isSelect && theme !== "both" && theme !== "receiver" && (
         <AnimatieSelectIcon className="absolute right-[15px] top-1/2 -translate-y-1/2 " />
+      )}
+
+      {isSelect && theme !== "both" && theme === "receiver" && (
+        <Image
+          src={ItemTheme.iconPath["receiver"]}
+          width={24}
+          height={24}
+          alt="selectIcon"
+          className="absolute right-[15px] top-1/2 -translate-y-1/2"
+        />
       )}
 
       {isSelect && theme === "both" && (

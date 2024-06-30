@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
+import { cn } from "@/lib/utils";
+
 import {
   Form,
   FormControl,
@@ -18,6 +20,7 @@ import { Input } from "@/components/ui/input";
 import useQuestion from "@/hooks/use-question";
 
 import PrevNextBtns from "../question/prev-next-btns";
+import QuestionFormWrapper from "../question/question-form-wrapper";
 import QuestionTextCounter from "../question/question-text-counter";
 
 interface IQuestionInputProps {}
@@ -56,39 +59,46 @@ const QuestionInput: React.FunctionComponent<IQuestionInputProps> = () => {
 
   return (
     <Form {...form}>
-      <motion.form
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.1 }}
-        className="w-full space-y-2"
-      >
-        <FormField
-          control={form.control}
-          name="INPUT"
-          render={({ field, formState }) => {
-            return (
-              <FormItem className="relative">
-                <FormControl>
-                  <Input
-                    isError={!!formState.errors.INPUT?.message || false}
-                    variant="grad"
-                    {...field}
-                    value={inputValue}
-                    onChange={(e) => {
-                      setInputValue(e.target.value);
-                      field.onChange(e);
-                    }}
-                    placeholder="답변을 입력하세요"
-                  />
-                </FormControl>
-                <FormMessage className="absolute" />
-                <QuestionTextCounter max={50} current={inputLength} />
-              </FormItem>
-            );
-          }}
-        />
-      </motion.form>
-      <PrevNextBtns<FormSchemeType> type="INPUT" form={form} />
+      <QuestionFormWrapper>
+        <motion.form
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.25 }}
+          className={cn(
+            "flex w-full flex-col space-y-2",
+            currentQuestion.imageURL
+              ? "flex-grow pt-8"
+              : "items-center justify-center "
+          )}
+        >
+          <FormField
+            control={form.control}
+            name="INPUT"
+            render={({ field, formState }) => {
+              return (
+                <FormItem className="relative w-full">
+                  <FormControl>
+                    <Input
+                      isError={!!formState.errors.INPUT?.message || false}
+                      variant="grad"
+                      {...field}
+                      value={inputValue}
+                      onChange={(e) => {
+                        setInputValue(e.target.value);
+                        field.onChange(e);
+                      }}
+                      placeholder="답변을 입력하세요"
+                    />
+                  </FormControl>
+                  <FormMessage className="absolute" />
+                  <QuestionTextCounter max={50} current={inputLength} />
+                </FormItem>
+              );
+            }}
+          />
+        </motion.form>
+        <PrevNextBtns<FormSchemeType> type="INPUT" form={form} />
+      </QuestionFormWrapper>
     </Form>
   );
 };

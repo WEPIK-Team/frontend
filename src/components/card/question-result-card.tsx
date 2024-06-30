@@ -7,6 +7,8 @@ import { Input } from "@/components/ui/input";
 import { Slider } from "@/components/ui/slider";
 import { Textarea } from "@/components/ui/textarea";
 
+import { calRatingComment } from "@/lib/question";
+
 import {
   QuestionAnswer,
   QuestionType,
@@ -87,25 +89,41 @@ const QuestionContent: React.FunctionComponent<{
             <div className="mb-[7px] ml-[6px]">
               <QuestionLabel color="sender">보낸사람</QuestionLabel>
             </div>
-            <RatingInput
-              value={Number(sender.answer)}
-              size={33}
-              readOnly
-              id={123}
-              theme="sender"
-            />
+            <div className="flex gap-[15px]">
+              <RatingInput
+                value={Number(sender.answer)}
+                size={50}
+                readOnly
+                id={Number(sender.answer) * 12}
+                theme="sender"
+              />
+              <div className="flex items-center justify-center gap-x-2 text-wpt-md  ">
+                <p className="font-semibold text-wpc-primary">
+                  {Number(sender.answer)}
+                </p>
+                <p className="text-wpc-gray">{`(${calRatingComment(Number(sender.answer))})`}</p>
+              </div>
+            </div>
           </div>
           <div>
             <div className="mb-[7px] ml-[6px]">
               <QuestionLabel color="receiver">받는사람</QuestionLabel>
             </div>
-            <RatingInput
-              value={Number(receiver.answer)}
-              size={33}
-              readOnly
-              id={123}
-              theme="receiver"
-            />
+            <div className="flex gap-[15px]">
+              <RatingInput
+                value={Number(receiver.answer)}
+                size={50}
+                readOnly
+                id={Number(receiver.answer) * 13}
+                theme="receiver"
+              />
+              <div className="flex items-center justify-center gap-x-2 text-wpt-md  ">
+                <p className="font-semibold text-wpc-second">
+                  {Number(receiver.answer)}
+                </p>
+                <p className="text-wpc-gray">{`(${calRatingComment(Number(receiver.answer))})`}</p>
+              </div>
+            </div>
           </div>
         </>
       );

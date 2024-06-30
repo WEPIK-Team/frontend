@@ -21,8 +21,13 @@ export default function useQuestion() {
   );
   const clearQuestion = useQuestionStore((state) => state.clearStore);
 
+  const previousQuestionIndex = useQuestionStore(
+    (state) => state.previousQuestionIndex
+  );
+
   return {
     currentQuestionIndex,
+    previousQuestionIndex,
     questions,
     currentQuestion,
     maxLength,

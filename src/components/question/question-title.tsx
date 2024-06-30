@@ -17,7 +17,7 @@ const QuestionTitle: React.FunctionComponent<IQuestionTitleProps> = ({
   const { currentQuestionIndex, questions } = useQuestion();
 
   return (
-    <div className="mx-auto max-w-[240px] space-y-[8px] text-center leading-[22px] sm:max-w-none">
+    <div className="mx-auto max-w-[240px] space-y-[10px] text-center leading-[22px] sm:max-w-none">
       <h1>
         <span className="text-wpt-xl font-semibold text-wpc-primary">{`Q${currentQuestionIndex + 1}`}</span>
         <span className="text-wpt-md font-light">

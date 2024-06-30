@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from "react";
 
+import Header from "@/components/common/header";
 import GlobalLoadingModal from "@/components/modal/global-loading-modal";
 import Question from "@/components/question/question";
-import QuestionHeader from "@/components/question/question-header";
 
 export default function QuestionPage() {
   const [isClient, setIsClient] = useState(false);
@@ -16,8 +16,8 @@ export default function QuestionPage() {
   if (!isClient) return null;
 
   return (
-    <main className="h-dvh overflow-x-hidden pb-[10px] pt-[40px]">
-      <QuestionHeader />
+    <main className="h-dvh overflow-y-auto overflow-x-hidden">
+      <Header showQuestionIndex showBackButton />
       <Question />
       <GlobalLoadingModal
         title="잠시만 기다려 주세요"

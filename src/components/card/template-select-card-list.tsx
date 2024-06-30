@@ -60,7 +60,12 @@ export function TemplateSelectCardList({
         className="flex cursor-pointer items-center justify-end gap-[5px]"
         onClick={() => setSortByPopularity((prev) => !prev)}
       >
-        <Image src="svgs/sort.svg" alt="sortIcon" width={14} height={14} />
+        <Image
+          src="/images/icons/sort.png"
+          alt="sortIcon"
+          width={12}
+          height={12}
+        />
         <p className="text-wpt-base-1">인기순</p>
       </div>
       <div className="grid grid-cols-12 gap-[14px] pt-3 font-pretendard">

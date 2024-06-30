@@ -37,9 +37,9 @@ const AnimatieSelectIcon: React.FunctionComponent<IAnimatieSelectIconProps> = ({
         <motion.path
           d="M6.00001 11.426L10.6379 16.2856L18 8.57129"
           stroke="white"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
           initial={{
             opacity: 0,
             pathLength: 0,

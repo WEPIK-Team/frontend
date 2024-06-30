@@ -61,6 +61,7 @@ const HelpModal = () => {
                     alt="help-1"
                     width={326}
                     height={240}
+                    className="object-cover"
                   />
                 </div>
                 <div className="text-wpt-base-2">
@@ -89,8 +90,9 @@ const HelpModal = () => {
                   <Image
                     src="/images/help/help-2.png"
                     alt="help-2"
-                    width={250}
+                    width={255}
                     height={242}
+                    className="object-cover"
                   />
                 </div>
               </div>
@@ -112,8 +114,8 @@ const HelpModal = () => {
                   <Image
                     src="/images/help/help-3.png"
                     alt="help-3"
-                    width={220}
-                    height={220}
+                    width={200}
+                    height={200}
                   />
                 </div>
               </div>
@@ -135,8 +137,9 @@ const HelpModal = () => {
                   <Image
                     src="/images/help/help-4.png"
                     alt="help-4"
-                    width={250}
-                    height={262}
+                    width={255}
+                    height={242}
+                    className="object-cover"
                   />
                 </div>
               </div>
