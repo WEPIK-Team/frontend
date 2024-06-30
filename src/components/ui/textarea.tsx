@@ -4,7 +4,7 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 const textAreaVariants = cva(
-  "flex min-h-[200px] w-full rounded-[18px] border border-wpc-gray2 px-[18px] py-[17px] text-wpt-base-1 placeholder:text-wpc-gray focus-visible:right-0 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50",
+  "flex min-h-[100px] w-full rounded-[18px] border border-wpc-gray2 px-[18px] py-[17px] text-wpt-base-1 placeholder:text-wpc-gray focus-visible:right-0 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50",
   {
     variants: {
       variant: {

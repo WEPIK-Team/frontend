@@ -90,18 +90,17 @@ const Question: React.FunctionComponent<IQuestionProps> = () => {
           <div className="space-y-[12px] ">
             <QuestionTitle>{title}</QuestionTitle>
             {imageURL ? (
-              <div className="relative mx-auto h-[240px] w-full overflow-hidden rounded-[18px] sm:h-[255px] ">
+              <div className="relative mx-auto h-[240px] w-full overflow-hidden rounded-[18px]">
                 <Image
                   fill
                   alt="question-image"
                   src={imageURL}
                   priority
-                  style={{ objectFit: "cover" }}
+                  className="rounded-[18px]"
                 />
               </div>
             ) : null}
           </div>
-
           <QuestionContent type={type} />
         </motion.div>
       </AnimatePresence>
