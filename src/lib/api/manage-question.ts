@@ -62,6 +62,7 @@ export const deleteQuestion = async (id: number) => {
     `${process.env.NEXT_PUBLIC_API_URL}${process.env.NEXT_PUBLIC_QUESTION}/${id}`,
     {
       method: "DELETE",
+      credentials: "include",
     }
   );
 
@@ -82,6 +83,7 @@ export const updateQuestion = async ({
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: "include",
       body: JSON.stringify(questionFormData),
     }
   ).catch((error) => {
