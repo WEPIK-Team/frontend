@@ -78,7 +78,7 @@ const QuestionTextArea: React.FunctionComponent<
             control={form.control}
             name="TEXTAREA"
             render={({ field }) => (
-              <FormItem className="w-full">
+              <FormItem className="w-full ">
                 <FormControl>
                   <Textarea
                     {...field}
@@ -91,6 +91,7 @@ const QuestionTextArea: React.FunctionComponent<
                     maxLength={300}
                     isError={!!error || false}
                     placeholder="답변을 입력하세요"
+                    className="h-[200px]"
                   />
                 </FormControl>
                 <FormMessage className="absolute" />

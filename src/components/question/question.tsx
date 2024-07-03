@@ -90,13 +90,13 @@ const Question: React.FunctionComponent<IQuestionProps> = () => {
           <div className="space-y-[12px] ">
             <QuestionTitle>{title}</QuestionTitle>
             {imageURL ? (
-              <div className="relative mx-auto h-[240px] w-full overflow-hidden rounded-[18px]">
+              <div className="relative mx-auto h-[364px] w-full rounded-[18px]">
                 <Image
                   fill
                   alt="question-image"
                   src={imageURL}
                   priority
-                  className="rounded-[18px]"
+                  className="rounded-[18px] object-cover"
                 />
               </div>
             ) : null}

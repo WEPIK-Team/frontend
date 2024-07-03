@@ -28,14 +28,15 @@ export function TemplateSelectCard({
         <CardContent className="relative w-full">
           <div>
             <div
-              className="relative mx-auto h-[174px] w-full cursor-pointer overflow-hidden rounded-xl"
+              className="relative mx-auto cursor-pointer overflow-hidden rounded-xl"
               onClick={() => router.push(`/question/${id}`)}
             >
               <Image
                 src={imageURL}
-                className="h-auto w-auto rounded-xl transition-all duration-300 hover:scale-110"
+                className="h-auto w-auto rounded-xl object-cover transition-all duration-300 hover:scale-110"
                 alt={title}
-                fill
+                width={174}
+                height={174}
               />
             </div>
             <div className="absolute bottom-0 left-0 right-0 z-20 flex h-9 rounded-b-lg bg-gradient-to-t from-[rgba(0,0,0,0.3)]">

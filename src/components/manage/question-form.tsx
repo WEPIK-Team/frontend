@@ -71,8 +71,8 @@ const QuestionForm: React.FunctionComponent<IQuestionFormProps> = ({
   const form = useForm<QuestionFormSchemaType>({
     resolver: zodResolver(QuestionSchema),
     defaultValues: {
-      title: questionData.title,
-      type: questionData.type,
+      title: questionData.title || undefined,
+      type: questionData.type || undefined,
       storedName: questionData.imageURL || undefined,
       selectQuestions: questionData.selectQuestions,
     },
@@ -88,6 +88,7 @@ const QuestionForm: React.FunctionComponent<IQuestionFormProps> = ({
     selectIsOpen: false,
     uploadedImageUrl: questionData.imageURL,
   });
+
   const {
     selectedFile,
     selectIsOpen,
@@ -113,6 +114,10 @@ const QuestionForm: React.FunctionComponent<IQuestionFormProps> = ({
     }));
     return () => URL.revokeObjectURL(objectUrl);
   }, [fileState.selectedFile]);
+
+  React.useEffect(() => {
+    form.setValue("storedName", questionData.imageURL || "");
+  }, [form, questionData.imageURL]);
 
   const onFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -157,6 +162,7 @@ const QuestionForm: React.FunctionComponent<IQuestionFormProps> = ({
 
   const onSubmit = async (data: QuestionFormSchemaType) => {
     const newFormData = { ...data };
+
     handleLoading(true);
     try {
       // 이미지가 있을 경우
@@ -221,7 +227,7 @@ const QuestionForm: React.FunctionComponent<IQuestionFormProps> = ({
                 onChange={field.onChange}
                 id="title"
                 type="text"
-                value={field.value}
+                value={field.value || ""}
               />
               <FormMessage />
             </FormItem>

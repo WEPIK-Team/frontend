@@ -5,7 +5,6 @@ import QuestionLabel from "@/components/question/question-label";
 import SelectItem from "@/components/question/select-item";
 import { Input } from "@/components/ui/input";
 import { Slider } from "@/components/ui/slider";
-import { Textarea } from "@/components/ui/textarea";
 
 import { calRatingComment } from "@/lib/question";
 
@@ -34,13 +33,17 @@ const QuestionContent: React.FunctionComponent<{
             <div className="mb-[2px] ml-[6px]">
               <QuestionLabel color="sender">보낸사람</QuestionLabel>
             </div>
-            <Input variant="default" readOnly value={sender.answer} />
+            <div className="w-full break-words rounded-[18px] border border-wpc-gray2 bg-white px-[18px] py-[17px] text-wpt-base-1">
+              {sender.answer}
+            </div>
           </div>
           <div>
             <div className="mb-[2px] ml-[6px]">
               <QuestionLabel color="receiver">받는사람</QuestionLabel>
             </div>
-            <Input variant="default" readOnly value={receiver.answer} />
+            <div className="w-full break-words rounded-[18px] border border-wpc-gray2 bg-white px-[18px] py-[17px] text-wpt-base-1">
+              {receiver.answer}
+            </div>
           </div>
         </>
       );
@@ -134,17 +137,17 @@ const QuestionContent: React.FunctionComponent<{
             <div className="mb-[2px] ml-[6px]">
               <QuestionLabel color="sender">보낸사람</QuestionLabel>
             </div>
-            <Textarea defaultValue={sender.answer} variant="default" readOnly />
+            <div className="w-full break-words rounded-[18px] border border-wpc-gray2 bg-white px-[18px] py-[17px] text-wpt-base-1">
+              {sender.answer}
+            </div>
           </div>
           <div>
             <div className="mb-[2px] ml-[6px]">
               <QuestionLabel color="receiver">받는사람</QuestionLabel>
             </div>
-            <Textarea
-              defaultValue={receiver.answer}
-              variant="default"
-              readOnly
-            />
+            <div className="w-full break-words rounded-[18px] border border-wpc-gray2 bg-white px-[18px] py-[17px] text-wpt-base-1">
+              {receiver.answer}
+            </div>
           </div>
         </>
       );
