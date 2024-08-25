@@ -24,8 +24,8 @@ jobs:
           API_TOKEN_GITHUB: ${{ secrets.AUTO_ACTIONS }}
         with:
           source-directory: "output"
-          destination-github-username: Vee-ble
-          destination-repository-name: wepik
+          destination-github-username: S-jooyoung
+          destination-repository-name: wepik-frontend
           user-email: ${{ secrets.EMAIL }}
           commit-message: ${{ github.event.commits[0].message }}
           target-branch: main
